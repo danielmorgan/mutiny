@@ -21,12 +21,7 @@
                 };
 
                 this.$http.post(url, payload)
-                    .then(this.confirm)
                     .catch(this.reset);
-            },
-
-            confirm: function(response) {
-                this.$set('enabled', response.data.push_notifications_enabled);
             },
 
             reset: function(error) {
