@@ -11,6 +11,13 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Auth::routes();
+
+Route::get('/', 'HomeController@index');
+
+Route::get('manifest.json', function() {
+    return new \Illuminate\Http\JsonResponse([
+        'name' => 'mutiny',
+        'gcm_sender_id' => env('GCM_SENDER_ID'),
+    ]);
 });

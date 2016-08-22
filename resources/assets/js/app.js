@@ -1,19 +1,11 @@
+'use strict';
 
-/**
- * First we will load all of this project's JavaScript dependencies which
- * include Vue and Vue Resource. This gives a great starting point for
- * building robust, powerful web applications using Vue and Laravel.
- */
+import './App/bootstrap';
+import SW from './App/ServiceWorkerSetup.js';
 
-require('./bootstrap');
+const sw = new SW('/js/sw.js');
 
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the body of the page. From here, you may begin adding components to
- * the application, or feel free to tweak this setup for your needs.
- */
-
-Vue.component('example', require('./components/Example.vue'));
+Vue.component('push-notifications-toggle', require('./App/PushNotificationsToggle.vue'));
 
 const app = new Vue({
     el: 'body'
