@@ -21,3 +21,11 @@ Route::get('manifest.json', function() {
         'gcm_sender_id' => env('GCM_SENDER_ID'),
     ]);
 });
+
+Route::get('testmail', function() {
+    Mail::raw('This is a test...', function ($message) {
+        $message->from(config('mail.from.address'), config('mail.from.name'));
+        $message->to('me@danielmorgan.co.uk', 'Daniel Morgan');
+        $message->subject('A message from our sponsors');
+    });
+});
