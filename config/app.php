@@ -12,7 +12,7 @@ return [
     | any other location as required by the application or its packages.
     */
 
-    'name' => 'My Application',
+    'name' => 'Mutiny',
 
     /*
     |--------------------------------------------------------------------------
@@ -167,6 +167,7 @@ return [
          * Package Service Providers...
          */
         Davibennun\LaravelPushNotification\LaravelPushNotificationServiceProvider::class,
+        Laracasts\Utilities\JavaScript\JavaScriptServiceProvider::class,
 
         /*
          * Application Service Providers...
