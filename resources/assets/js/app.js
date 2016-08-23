@@ -1,12 +1,10 @@
 'use strict';
 
 import './App/bootstrap';
-import SW from './App/ServiceWorkerSetup.js';
+import PushNotificationsToggle from './App/PushNotificationsToggle.vue';
 
-const sw = new SW('/js/sw.js');
-
-Vue.component('push-notifications-toggle', require('./App/PushNotificationsToggle.vue'));
+Vue.component('push-notifications-toggle', PushNotificationsToggle);
 
 const app = new Vue({
-    el: 'body',
+    el: 'body'
 });

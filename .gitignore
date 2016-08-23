@@ -1,9 +1,10 @@
 /vendor
 /node_modules
-/public/storage
-/public/css
-/public/js
-/public/build
+/public
+!/public/.htaccess
+!/public/favicon.ico
+!/public/index.php
+!/public/robots.txt
 /.idea
 Homestead.yaml
 Homestead.json

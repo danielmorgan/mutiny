@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->boolean('push_notifications_enabled')->default(false);
+            $table->string('push_notifications_endpoint')->nullable();
             $table->timestamps();
         });
     }
