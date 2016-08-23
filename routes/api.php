@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -13,4 +11,4 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::post('/users/{user}/push-notifications', 'UserController@updatePushNotificationSetting');
+Route::post('/user/push-notifications', 'UserController@updatePushNotificationsSetting');

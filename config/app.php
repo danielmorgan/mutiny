@@ -168,6 +168,7 @@ return [
          */
         Davibennun\LaravelPushNotification\LaravelPushNotificationServiceProvider::class,
         Laracasts\Utilities\JavaScript\JavaScriptServiceProvider::class,
+        Laravel\Passport\PassportServiceProvider::class,
 
         /*
          * Application Service Providers...

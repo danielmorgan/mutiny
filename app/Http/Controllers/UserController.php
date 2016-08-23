@@ -2,30 +2,31 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
 use Illuminate\Http\Request;
-use Illuminate\Validation\UnauthorizedException;
+use Illuminate\Auth\AuthenticationException;
 
 class UserController extends Controller
 {
     /**
      * @param \Illuminate\Http\Request $request
-     * @param \App\User $user
      * @return \Illuminate\Http\JsonResponse
+     * @throws \Illuminate\Auth\AuthenticationException
      */
-    public function updatePushNotificationSetting(Request $request, User $user)
+    public function updatePushNotificationsSetting(Request $request)
     {
         if (! is_bool($request->push_notifications_enabled)) {
             throw new \InvalidArgumentException;
         }
 
-        if (! $user) {
-            throw new UnauthorizedException;
+        if (! $request->user()) {
+            throw new AuthenticationException;
         }
 
-        $user->push_notifications_enabled = $request->push_notifications_enabled;
-        $user->save();
+        $request->user()->push_notifications_enabled = $request->push_notifications_enabled;
+        $request->user()->save();
 
-        return response()->json(['push_notifications_enabled' => $user->push_notifications_enabled]);
+        return response()->json([
+            'push_notifications_enabled' => $request->user()->push_notifications_enabled
+        ]);
     }
 }

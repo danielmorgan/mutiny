@@ -15,7 +15,7 @@
 
         methods: {
             save: function() {
-                const url = '/api/v1/users/' + user.id + '/push-notifications';
+                const url = '/api/v1/user/push-notifications';
                 const payload = {
                     push_notifications_enabled: ! this.enabled
                 };
