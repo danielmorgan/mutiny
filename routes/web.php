@@ -18,7 +18,7 @@ Route::get('/', 'HomeController@index');
 Route::get('manifest.json', function() {
     return new \Illuminate\Http\JsonResponse([
         'name' => 'mutiny',
-        'gcm_sender_id' => env('GCM_SENDER_ID'),
+        'gcm_sender_id' => config('services.gcm.sender_id'),
     ]);
 });
 

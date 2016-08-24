@@ -14,6 +14,11 @@ return [
     |
     */
 
+    'gcm' => [
+        'sender_id' => env('GCM_SENDER_ID'),
+        'key' => env('GCM_KEY'),
+    ],
+
     'mailgun' => [
         'domain' => env('MAILGUN_DOMAIN'),
         'secret' => env('MAILGUN_SECRET'),

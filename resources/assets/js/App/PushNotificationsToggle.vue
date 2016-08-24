@@ -3,53 +3,39 @@
         <input type="checkbox" v-model="push_notifications_enabled" @click="toggle" />
         Enable Push Notifications
     </label>
+    <span v-if="error_message" v-model="error_message"></span>
 </template>
 
 <script>
     export default {
         data: function() {
             return {
-                swReg: null,
                 push_notifications_enabled: (user.push_notifications_enabled == 1),
-                push_notifications_endpoint: null
+                push_notifications_endpoint: null,
+                error_message: null
             }
         },
 
 
         ready: function() {
             if (! 'serviceWorker' in navigator) {
-                console.error('Service Worker not supported');
+                this.$set('error_message', 'Service Worker not supported.');
                 return;
             }
 
-            navigator.serviceWorker.register('/sw.js')
-                .then(reg => this.swReg = reg);
+            navigator.serviceWorker.register('/sw.js').then(serviceWorkerRegistration => {
+                serviceWorkerRegistration.pushManager.subscribe({ userVisibleOnly: true }).then(subscription => {
+                    console.log('subscription', subscription);
+                    this.$set('push_notifications_endpoint', subscription.endpoint);
+                }).catch(error => this.$set('error_message', error));
+            }).catch(error => this.$set('error_message', error));
         },
 
         methods: {
             toggle: function() {
                 if (! this.push_notifications_enabled) {
-                    this.subscribe();
                 } else {
-                    this.unsubscribe();
                 }
-            },
-
-            subscribe: function() {
-                const $vm = this;
-                navigator.serviceWorker.getRegistration('/').then(function(serviceWorkerRegistration) {
-                    serviceWorkerRegistration.pushManager.subscribe({ userVisibleOnly: true })
-                        .then(function(subscription) {
-                            $vm.set('push_notifications_endpoint', subscription.endpoint);
-                        })
-                        .catch(function(error) {
-                            console.error(error);
-                        });
-                });
-            },
-
-            unsubscribe: function() {
-                console.log('::unsubscribe');
             },
 
             saveToServer: function() {
