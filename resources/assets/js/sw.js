@@ -11,4 +11,11 @@ self.addEventListener('activate', event => {
 
 self.addEventListener('push', event => {
     console.log('sw.js::push', event);
+
+    event.waitUntil(
+        self.registration.showNotification('TEST', {
+            body: 'The Message',
+            tag: 'my-tag'
+        })
+    );
 });
