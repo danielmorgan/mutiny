@@ -1,9 +1,9 @@
 <template>
     <label>
-        <input type="checkbox" v-model="push_notifications_enabled" @click="toggle" />
+        <input type="checkbox" v-model="push_notifications_enabled" @click="save" />
         Enable Push Notifications
     </label>
-    <span v-if="error_message" v-model="error_message"></span>
+    <span v-model="error_message"></span>
 </template>
 
 <script>
@@ -27,54 +27,26 @@
                 serviceWorkerRegistration.pushManager.subscribe({ userVisibleOnly: true }).then(subscription => {
                     console.log('subscription', subscription);
                     this.$set('push_notifications_endpoint', subscription.endpoint);
+                    this.save();
                 }).catch(error => this.$set('error_message', error));
             }).catch(error => this.$set('error_message', error));
         },
 
         methods: {
-            toggle: function() {
-                if (! this.push_notifications_enabled) {
-                } else {
-                }
-            },
-
-            saveToServer: function() {
+            save: function() {
                 const payload = {
                     push_notifications_enabled: ! this.push_notifications_enabled,
                     push_notifications_endpoint: this.push_notifications_endpoint
                 };
 
                 this.$http.post('/api/v1/user/push-notifications', payload)
-                    .then(this.alert)
-                    .catch(this.rest);
-            },
-
-            confirm: function(response) {
-                alert('everything worked');
-                console.log(response);
+                    .catch(this.reset);
             },
 
             reset: function(error) {
                 this.$set('push_notifications_enabled', ! this.push_notifications_enabled);
                 console.error('Error', error);
             },
-
-            setSubscription: function(response) {
-                const url = '/api/v1/user/push-notifications-endpoint';
-//                this.$http.post(url, { push_endpoint: subscription.endpoint });
-
-                if (response.data.push_notifications_enabled) {
-                    this.swReg.pushManager.subscribe({ userVisibleOnly: true })
-                        .then(function(subscription) {
-                        });
-                } else {
-                    this.swReg.pushManager.getSubscription()
-                        .then(function(subscription) {
-                            subscription.unsubscribe();
-                            this.$http.post(url, { push_endpoint: null });
-                        });
-                }
-            }
         }
     }
 </script>
