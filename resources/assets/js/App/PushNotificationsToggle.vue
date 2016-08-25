@@ -3,7 +3,6 @@
         <input type="checkbox" v-model="push_notifications_enabled" @click="save" />
         Enable Push Notifications
     </label>
-    <span v-model="error_message"></span>
 </template>
 
 <script>
