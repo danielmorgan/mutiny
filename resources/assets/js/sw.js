@@ -13,9 +13,27 @@ self.addEventListener('push', event => {
     console.log('sw.js::push', event);
 
     event.waitUntil(
-        self.registration.showNotification('TEST', {
-            body: 'The Message',
-            tag: 'my-tag'
+        self.registration.showNotification('test', {
+            body: 'test'
         })
     );
+});
+
+self.addEventListener('notificationclick', event => {
+    console.log('sw.js::notificationclick', event);
+
+    event.notification.close();
+
+    const url = 'http://localhost:8000';
+    event.waitUntil(clients.matchAll({ type: 'window' }))
+        .then(windowClients => {
+            for (let client of windowClients) {
+                if (client.url === url && 'focus' in client) {
+                    return client.focus();
+                }
+            }
+            if (clients.openWindow) {
+                return clients.openWindow(url);
+            }
+        });
 });

@@ -14,7 +14,7 @@ class UserController extends Controller
      */
     public function updatePushNotificationsSetting(Request $request)
     {
-        if (! is_bool($request->push_notifications_enabled)) {
+        if (! is_bool($request->push_enabled)) {
             throw new \InvalidArgumentException;
         }
 
@@ -22,13 +22,17 @@ class UserController extends Controller
             throw new AuthenticationException;
         }
 
-        $request->user()->push_notifications_enabled = $request->push_notifications_enabled;
-        $request->user()->push_notifications_endpoint = $request->push_notifications_endpoint;
+        $request->user()->push_enabled = $request->push_enabled;
+        $request->user()->push_endpoint = $request->push_endpoint;
+        $request->user()->push_key_auth = $request->push_key_auth;
+        $request->user()->push_key_p256dh = $request->push_key_p256dh;
         $request->user()->save();
 
         return response()->json([
-            'push_notifications_enabled' => $request->user()->push_notifications_enabled,
-            'push_notifications_endpoint' => $request->user()->push_notifications_endpoint,
+            'push_enabled' => $request->user()->push_enabled,
+            'push_endpoint' => $request->user()->push_endpoint,
+            'push_key_auth' => $request->user()->push_key_auth,
+            'push_key_p256dh' => $request->user()->push_key_p256dh,
         ]);
     }
 
