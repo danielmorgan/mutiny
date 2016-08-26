@@ -166,15 +166,15 @@ return [
         /*
          * Package Service Providers...
          */
-        Davibennun\LaravelPushNotification\LaravelPushNotificationServiceProvider::class,
         Laracasts\Utilities\JavaScript\JavaScriptServiceProvider::class,
         Laravel\Passport\PassportServiceProvider::class,
+        // NotificationChannels\WebPush\WebPushServiceProvider::class,
 
         /*
          * Application Service Providers...
          */
         App\Providers\AppServiceProvider::class,
-        // App\Providers\BroadcastServiceProvider::class,
+        App\Providers\BroadcastServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,

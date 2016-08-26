@@ -21,3 +21,15 @@ Route::get('manifest.json', function() {
         'gcm_sender_id' => config('services.gcm.sender_id'),
     ]);
 });
+
+// Notifications
+Route::post('notifications', 'NotificationController@store');
+Route::get('notifications', 'NotificationController@index');
+Route::get('notifications/last', 'NotificationController@last');
+Route::patch('notifications/{id}/read', 'NotificationController@markAsRead');
+Route::post('notifications/mark-all-read', 'NotificationController@markAllRead');
+Route::post('notifications/{id}/dismiss', 'NotificationController@dismiss');
+
+// Push Subscriptions
+Route::post('subscriptions', 'PushSubscriptionController@update');
+Route::post('subscriptions/delete', 'PushSubscriptionController@destroy');
