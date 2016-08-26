@@ -5,7 +5,7 @@ use Illuminate\Database\Seeder;
 class UsersTableSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
+     * Seed the test user.
      *
      * @return void
      */

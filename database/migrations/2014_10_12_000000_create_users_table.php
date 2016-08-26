@@ -19,10 +19,6 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->rememberToken();
-            $table->boolean('push_enabled')->default(false);
-            $table->string('push_endpoint')->nullable();
-            $table->string('push_key_auth')->nullable();
-            $table->string('push_key_p256dh')->nullable();
             $table->timestamps();
         });
     }
