@@ -18,7 +18,11 @@ class InjectJavaScriptVariables
     public function handle($request, Closure $next)
     {
         JavaScript::put([
-            'user' => Auth::user(),
+            'USER' => Auth::user(),
+            'PUSHER_OPTIONS' => [
+                'key' => config('broadcasting.connections.pusher.key'),
+                'cluster' => config('broadcasting.connections.pusher.options.cluster'),
+            ],
         ]);
         
         return $next($request);

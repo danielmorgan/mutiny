@@ -1,10 +1,11 @@
 'use strict';
 
-import './App/bootstrap';
-import PushNotificationsToggle from './App/PushNotificationsToggle.vue';
+import './bootstrap'
+import Vue from 'vue'
+import Notifications from './components/Notifications'
+import NotificationsDropdown from './components/NotificationsDropdown.vue'
 
-Vue.component('push-notifications-toggle', PushNotificationsToggle);
-
-const app = new Vue({
-    el: 'body'
+new Vue({
+    el: 'body',
+    components: {Notifications, NotificationsDropdown}
 });

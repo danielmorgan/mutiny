@@ -43,9 +43,13 @@
             </div>
 
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                <!-- Left Side Of Navbar -->
+                <!-- Left Side Of Navbar --><!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
-                    &nbsp;
+                    <ul class="nav navbar-nav">
+                        @if (Auth::check())
+                            <notifications-dropdown></notifications-dropdown>
+                        @endif
+                    </ul>
                 </ul>
 
                 <!-- Right Side Of Navbar -->
