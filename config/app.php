@@ -168,7 +168,7 @@ return [
          */
         Laracasts\Utilities\JavaScript\JavaScriptServiceProvider::class,
         Laravel\Passport\PassportServiceProvider::class,
-        // NotificationChannels\WebPush\WebPushServiceProvider::class,
+        NotificationChannels\WebPush\WebPushServiceProvider::class,
 
         /*
          * Application Service Providers...
