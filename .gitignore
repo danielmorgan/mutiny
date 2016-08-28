@@ -1,10 +1,7 @@
 /vendor
 /node_modules
-/public
-!/public/.htaccess
-!/public/favicon.ico
-!/public/index.php
-!/public/robots.txt
+/public/css/app.css*
+/public/js/app.js*
 /.idea
 Homestead.yaml
 Homestead.json
