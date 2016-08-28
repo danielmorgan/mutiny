@@ -9,3 +9,11 @@ new Vue({
     el: 'body',
     components: {Notifications, NotificationsDropdown}
 });
+
+
+$('#notifyEveryone').on('click', function(event) {
+    $.ajax({
+        method: 'POST',
+        url: '/spamtest'
+    });
+});

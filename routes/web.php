@@ -33,3 +33,6 @@ Route::post('notifications/{id}/dismiss', 'NotificationController@dismiss');
 // Push Subscriptions
 Route::post('subscriptions', 'PushSubscriptionController@update');
 Route::post('subscriptions/delete', 'PushSubscriptionController@destroy');
+
+Route::get('admin', 'HomeController@admin');
+Route::post('spamtest', 'NotificationController@spamTest');

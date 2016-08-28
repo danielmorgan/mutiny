@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
+
 use Illuminate\Http\Request;
 use NotificationChannels\WebPush\PushSubscription;
 
@@ -53,11 +55,21 @@ class NotificationController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(spacesRequest $request)
     {
         $request->user()->notify(new HelloNotification);
 
         return response()->json('Notification sent.', 201);
+    }
+
+    public function spamTest(Request $request)
+    {
+        $users = User::all();
+        foreach ($users as $user) {
+            $user->notify(new HelloNotification);
+        }
+
+        return response()->json('Notifications spammed.', 201);
     }
 
     /**
