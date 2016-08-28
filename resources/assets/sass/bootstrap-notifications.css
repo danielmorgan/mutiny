@@ -253,8 +253,8 @@ a.notification:hover {
   padding: 0 4px;
   min-width: 13.755px;
   height: 13.755px;
-  line-height: 13.755px;
-  background: red;
+  line-height: 15px;
+  background: #f9c415;
   border-radius: 10px;
   color: #fff;
   text-align: center;

@@ -88,6 +88,7 @@ export default {
     fetch(limit = 5) {
       this.$http.get('/notifications', {params: {limit: limit}})
           .then(({data}) => {
+            console.log(data);
             this.total = data.total
             this.notifications = data.notifications.map(({id, data, created}) => {
               return {
