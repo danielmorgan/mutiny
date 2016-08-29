@@ -4,11 +4,22 @@ import './bootstrap'
 import Vue from 'vue'
 import Notifications from './components/Notifications'
 import NotificationsDropdown from './components/NotificationsDropdown.vue'
-import MoneyTransfer from './components/MoneyTransfer.vue';
+import WalletBalance from './components/WalletBalance.vue';
+import WalletTransfer from './components/WalletTransfer.vue';
 
-new Vue({
+const app = new Vue({
     el: 'body',
-    components: {Notifications, NotificationsDropdown, MoneyTransfer}
+
+    data: {
+        user: window.USER
+    },
+
+    components: {
+        Notifications,
+        NotificationsDropdown,
+        WalletBalance,
+        WalletTransfer
+    }
 });
 
 

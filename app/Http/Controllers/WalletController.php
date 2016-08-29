@@ -17,9 +17,7 @@ class WalletController extends Controller
     {
         $amount = (int) $request->amount;
         $from = $request->user();
-        $to = User::where('name', $request->targetUser)
-            ->orWhere('email', $request->targetUser)
-            ->first();
+        $to = User::where('name', $request->targetUser)->first();
 
         $from->withdraw($amount);
         $to->deposit($amount);

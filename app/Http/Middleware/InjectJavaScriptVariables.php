@@ -24,7 +24,7 @@ class InjectJavaScriptVariables
                 'cluster' => config('broadcasting.connections.pusher.options.cluster'),
             ],
         ]);
-        
+
         return $next($request);
     }
 }

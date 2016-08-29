@@ -6,7 +6,7 @@
                 <div class="input-group-addon">
                     <i class="fa fa-credit-card"></i>
                 </div>
-                <input type="number" class="form-control" id="amount" name="amount" v-model="amount" placeholder="Amount">
+                <input type="number" v-bin:max="{ max }" class="form-control" id="amount" name="amount" v-model="amount" placeholder="Amount">
                 <div class="input-group-addon">
                     <i class="fa fa-user"></i>
                 </div>
@@ -23,6 +23,7 @@
     export default {
         data() {
             return {
+                max: this.$root.user.balance,
                 amount: null,
                 targetUser: null
             }
@@ -36,8 +37,10 @@
                 };
 
                 this.$http.post('/transfer', payload)
-                    .then(res => console.log('transfer complete', res))
-                    .catch(err => console.error('transfer error', err));
+                    .then(response => {
+                        this.$root.user.balance = response.data.balance;
+                    })
+                    .catch(error => console.error('transfer error', error));
             }
         }
     }
