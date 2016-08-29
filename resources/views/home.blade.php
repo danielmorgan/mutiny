@@ -3,11 +3,26 @@
 @section('content')
 <div class="container">
 
+    {{--Wallet--}}
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-heading">Wallet</div>
+
+                <div class="panel-body">
+                    <i class="fa fa-credit-card"></i> <strong>Balance:</strong> <span class="balance">{{ Auth::user()->money }}</span>
+
+                    <money-transfer></money-transfer>
+                </div>
+            </div>
+        </div>
+    </div>
+
     {{--Push Notifications--}}
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Dashboard</div>
+                <div class="panel-heading">Notifications</div>
 
                 <div class="panel-body text-center">
                     <notifications inline-template>
@@ -22,18 +37,6 @@
                             @{{ isPushEnabled ? 'Disable' : 'Enable' }} Push Notifications
                         </button>
                     </notifications>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    {{--Test--}}
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Test</div>
-                <div class="panel-body">
-                    {{ dump(Auth::user()->getAttributes()) }}
                 </div>
             </div>
         </div>
