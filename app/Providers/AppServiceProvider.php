@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use App\User;
+use Auth;
+use Validator;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -13,7 +16,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Validator::extend('notSelf', function($attribute, $value, $parameters, $validator) {
+            $left = Auth::user();
+            $right = User::where($parameters[0], $value)
+                ->first();
+
+            return $left->id !== $right->id;
+        });
     }
 
     /**
