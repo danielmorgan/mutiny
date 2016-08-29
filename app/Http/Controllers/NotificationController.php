@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
-
 use Illuminate\Http\Request;
 use NotificationChannels\WebPush\PushSubscription;
-
+use App\User;
 use App\Events\NotificationRead;
 use App\Events\NotificationReadAll;
 use App\Notifications\HelloNotification;

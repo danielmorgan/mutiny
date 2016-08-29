@@ -10,7 +10,7 @@
                 <div class="panel-heading">Wallet</div>
 
                 <div class="panel-body">
-                    <i class="fa fa-credit-card"></i> <strong>Balance:</strong> <span class="balance">{{ Auth::user()->money }}</span>
+                    <i class="fa fa-credit-card"></i> <strong>Balance:</strong> <span class="balance">{{ Auth::user()->balance }}</span>
 
                     <money-transfer></money-transfer>
                 </div>

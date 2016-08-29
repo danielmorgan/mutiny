@@ -34,5 +34,9 @@ Route::post('notifications/{id}/dismiss', 'NotificationController@dismiss');
 Route::post('subscriptions', 'PushSubscriptionController@update');
 Route::post('subscriptions/delete', 'PushSubscriptionController@destroy');
 
+// Admin
 Route::get('admin', 'HomeController@admin');
 Route::post('spamtest', 'NotificationController@spamTest');
+
+// Wallet
+Route::post('transfer', 'WalletController@transfer');

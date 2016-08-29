@@ -1,21 +1,21 @@
 <template>
     <div class="money-transfer">
-        <h2>Transfer Money</h2>
-        <div class="input-group">
-            <div class="input-group-addon">
-                <i class="fa fa-credit-card"></i>
+        <h3>Transfer Money</h3>
+        <form action="javascript:;">
+            <div class="input-group">
+                <div class="input-group-addon">
+                    <i class="fa fa-credit-card"></i>
+                </div>
+                <input type="number" class="form-control" id="amount" name="amount" v-model="amount" placeholder="Amount">
+                <div class="input-group-addon">
+                    <i class="fa fa-user"></i>
+                </div>
+                <input type="text" class="form-control" id="targetUser" name="targetUser" v-model="targetUser" placeholder="User">
+                <div class="input-group-btn">
+                    <button type="submit" class="btn btn-primary" @click="transfer">Transfer</button>
+                </div>
             </div>
-            <input type="text" class="form-control" id="amount" name="amount" value="{{ amount }}" placeholder="Amount">
-        </div>
-        <div class="input-group">
-            <div class="input-group-addon">
-                <i class="fa fa-user"></i>
-            </div>
-            <input type="text" class="form-control" id="user" name="user" value="{{ targetUser }}" placeholder="User">
-            <div class="input-group-btn">
-                <button class="btn btn-primary">Transfer</button>
-            </div>
-        </div>
+        </form>
     </div>
 </template>
 
@@ -25,6 +25,19 @@
             return {
                 amount: null,
                 targetUser: null
+            }
+        },
+
+        methods: {
+            transfer() {
+                const payload = {
+                    amount: this.amount,
+                    targetUser: this.targetUser
+                };
+
+                this.$http.post('/transfer', payload)
+                    .then(res => console.log('transfer complete', res))
+                    .catch(err => console.error('transfer error', err));
             }
         }
     }
