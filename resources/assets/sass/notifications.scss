@@ -1,0 +1,43 @@
+
+[v-cloak] {
+  display: none;
+}
+
+.dropdown-notifications {
+  .dropdown-container {
+    margin-top: 0px;
+  }
+
+  .notification-icon.hide-count:after {
+    display: none;
+  }
+
+  .dropdown-toolbar .dropdown-toolbar-actions {
+    margin-top: -2px;
+    font-size: 13px;
+  }
+
+  .notification-mark-read {
+    float: right;
+    float: right;
+    color: #333;
+    opacity: 0.4;
+
+    &:hover {
+      opacity: .8;
+    }
+  }
+
+  .notification-action {
+    margin-top: 5px;
+    margin-bottom: 2px;
+  }
+
+  .notification .media-body {
+    padding-top: 0px;
+  }
+
+  .media-object img {
+    width: 64px;
+  }
+}

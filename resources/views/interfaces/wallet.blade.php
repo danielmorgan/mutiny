@@ -3,7 +3,7 @@
 
     <div class="panel-body">
         <div class="balance">
-            <i class="fa fa-credit-card"></i> <strong>Balance:</strong> <span class="balance">{{ Auth::user()->balance }}</span>
+            <i class="fa fa-credit-card"></i> <strong>Balance:</strong> <span class="balance">@currency(Auth::user()->balance)</span>
         </div>
 
         <div class="money-transfer">
