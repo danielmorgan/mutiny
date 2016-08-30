@@ -43,9 +43,9 @@ class HelloNotification extends Notification
     public function toArray($notifiable)
     {
         return [
-            'title' => 'Hello from Laravel!',
-            'body' => 'Thank you for using our application.',
-            'action_url' => 'https://laravel.com',
+            'title' => 'Fire in Engineering!',
+            'body' => 'The jump drive overloaded and tripped a breaker. The engineering bay is on fire and losing oxygen fast.',
+            'action_url' => url('/'),
             'created' => Carbon::now()->toIso8601String()
         ];
     }
