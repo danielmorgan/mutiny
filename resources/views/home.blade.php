@@ -6,12 +6,33 @@
     {{--Wallet--}}
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
+            <div class="panel panel-default panel-wallet">
                 <div class="panel-heading">Wallet</div>
 
                 <div class="panel-body">
-                    <wallet-balance></wallet-balance>
-                    <wallet-transfer></wallet-transfer>
+                    <div class="balance">
+                        <i class="fa fa-credit-card"></i> <strong>Balance:</strong> <span class="balance">{{ Auth::user()->balance }}</span>
+                    </div>
+
+                    <div class="money-transfer">
+                        <h4>Transfer Money</h4>
+                        <form action="/wallet/transfer" method="POST">
+                            {{ csrf_field() }}
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-credit-card"></i>
+                                </div>
+                                <input type="number" min="1" max="{{ Auth::user()->balance }}" class="form-control" id="amount" name="amount" placeholder="Amount">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-user"></i>
+                                </div>
+                                <input type="text" class="form-control" id="targetUser" name="targetUser" placeholder="User">
+                                <div class="input-group-btn">
+                                    <button type="submit" class="btn btn-primary">Transfer</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

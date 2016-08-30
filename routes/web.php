@@ -39,4 +39,4 @@ Route::get('admin', 'HomeController@admin');
 Route::post('spamtest', 'NotificationController@spamTest');
 
 // Wallet
-Route::post('transfer', 'WalletController@transfer');
+Route::post('wallet/transfer', 'WalletController@transfer');

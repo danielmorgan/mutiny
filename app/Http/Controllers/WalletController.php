@@ -22,8 +22,6 @@ class WalletController extends Controller
         $from->withdraw($amount);
         $to->deposit($amount);
 
-        return response()->json([
-            'balance' => $from->balance
-        ], 200);
+        return redirect()->back();
     }
 }
