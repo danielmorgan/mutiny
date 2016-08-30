@@ -16,7 +16,7 @@
                         <div class="form-group{{ $errors->has('amount') ? ' has-error' : '' }}">
                             <div class="input-group">
                                 <div class="input-group-addon"><i class="fa fa-credit-card"></i></div>
-                                <input id="amount" type="text" max="{{ Auth::user()->balance }}" class="form-control" name="amount" placeholder="Amount" value="{{ old('amount') }}" required>
+                                <input id="amount" type="number" max="{{ Auth::user()->balance }}" class="form-control" name="amount" placeholder="Amount" value="{{ old('amount') }}" required>
                             </div>
 
                             @if ($errors->has('amount'))
