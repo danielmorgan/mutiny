@@ -22,7 +22,7 @@ class WalletController extends Controller
         $from->withdraw($amount);
         $to->deposit($amount);
 
-        $request->session()->flash('status', "Transferred $amount from $from->name to $to->name.");
+        $request->session()->flash('info', "Transferred $amount from $from->name to $to->name.");
 
         return redirect()->back();
     }

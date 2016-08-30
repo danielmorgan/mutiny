@@ -5,6 +5,7 @@ namespace App\Exceptions;
 use Exception;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Support\MessageBag;
 
 class Handler extends ExceptionHandler
 {
@@ -43,6 +44,11 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        if ($exception instanceof WalletBalanceIsNegativeException) {
+            $messageBag = new MessageBag(['wallet' => 'Not enough money.']);
+            return redirect()->back()->withErrors($messageBag, 'flash');
+        }
+
         return parent::render($request, $exception);
     }
 

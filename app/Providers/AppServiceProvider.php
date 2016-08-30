@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\User;
+use App\UserObserver;
 use Auth;
 use Validator;
 use Illuminate\Support\ServiceProvider;
