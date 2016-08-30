@@ -84,6 +84,8 @@
         </div>
     </nav>
 
+    @include('layouts.partials.status')
+
     @yield('content')
 
     <!-- Scripts -->

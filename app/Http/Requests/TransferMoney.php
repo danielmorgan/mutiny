@@ -26,7 +26,7 @@ class TransferMoney extends FormRequest
     {
         return [
             'amount' => 'required|integer|min:1',
-            'targetUser' => 'required|exists:users,name|notSelf:name',
+            'targetUser' => 'bail|required|exists:users,name|notSelf:name',
         ];
     }
 }
