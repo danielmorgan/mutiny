@@ -53,7 +53,7 @@ class NotificationController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(spacesRequest $request)
+    public function store(Request $request)
     {
         $request->user()->notify(new HelloNotification);
 

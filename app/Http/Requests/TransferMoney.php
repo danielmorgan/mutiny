@@ -5,6 +5,9 @@ namespace App\Http\Requests;
 use App\User;
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * @todo: Prevent "from" user going below 0 balance.
+ */
 class TransferMoney extends FormRequest
 {
     /**
