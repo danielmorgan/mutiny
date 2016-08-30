@@ -87,9 +87,17 @@ export default {
 
     fetch(limit = 5) {
       this.$http.get('/notifications', {params: {limit: limit}})
-          .then(({data}) => {
+          .then(response => {
+            // Fix for weird production issue
+            if (typeof response.data === 'string') {
+              let data = JSON.parse(response.data);
+            } else {
+              let data = response.data;
+            }
+
             this.total = data.total
             this.notifications = data.notifications.map(({id, data, created}) => {
+              console.log('map', id, data, created);
               return {
                 id: id,
                 title: data.title,
