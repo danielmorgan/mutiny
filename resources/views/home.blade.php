@@ -10,17 +10,34 @@
                 <div class="panel-heading">Map</div>
 
                 <div class="panel-body">
-                    <ul>
-                        @foreach ($locations as $location)
-                            <li>
-                                Location:
-                                {{ dump($location->toArray()) }}
-                                Locatable (Ship, User etc.):
-                                {{ dump($location->locatable->toArray()) }}
-                                <hr>
-                            </li>
-                        @endforeach
-                    </ul>
+                    @foreach ($locations as $location)
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <h4>Location</h4>
+                                <div class="well" style="padding: 5px">
+                                    <dl class="dl-horizontal" style="padding: 0; margin: 0;">
+                                        <dt>id</dt>
+                                        <dd>{{ $location->id }}</dd>
+                                        <dt>locatable_id</dt>
+                                        <dd>{{ $location->locatable_id }}</dd>
+                                        <dt>locatable_type</dt>
+                                        <dd>{{ $location->locatable_type }}</dd>
+                                    </dl>
+                                </div>
+                            </div>
+                            <div class="col-xs-6">
+                                <h4>Locatable (Ship, User etc.)</h4>
+                                <div class="well" style="padding: 5px">
+                                    <dl class="dl-horizontal" style="padding: 0; margin: 0;">
+                                        <dt>id</dt>
+                                        <dd>{{ $location->locatable->id }}</dd>
+                                        <dt>name</dt>
+                                        <dd>{{ $location->locatable->name }}</dd>
+                                    </dl>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
                 </div>
             </div>
         </div>
