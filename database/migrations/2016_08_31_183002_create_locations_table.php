@@ -15,11 +15,13 @@ class CreateLocationsTable extends Migration
     {
         Schema::create('locations', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('locatable_id')->unsigned()->nullable()->default(1);
-            $table->string('locatable_type');
+            $table->string('name')->nullable();
+            $table->integer('locatable_id')->nullable()->unsigned();
+            $table->string('locatable_type')->nullable();
+            $table->integer('parent_id')->nullable()->unsigned()->default(1);
             $table->timestamps();
 
-            $table->unique(['locatable_id', 'locatable_type']);
+            $table->unique(['name', 'locatable_id', 'locatable_type']);
         });
     }
 

@@ -18,6 +18,7 @@ class ShipsTableSeeder extends Seeder
         (new App\Location([
             'locatable_id' => $ship->id,
             'locatable_type' => App\Ship::class,
+            'parent_id' => 1,
         ]))->save();
     }
 }
