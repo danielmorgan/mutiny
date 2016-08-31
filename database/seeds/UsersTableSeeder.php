@@ -11,18 +11,28 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\User::class)->create([
+        $user1 = factory(App\User::class)->create([
             'name' => 'Alice',
             'email' => 'alice@example.com',
             'password' => bcrypt('test'),
-            'balance' => 25000
+            'balance' => 25000,
         ]);
 
-        factory(App\User::class)->create([
+        (new App\Location([
+            'locatable_id' => $user1->id,
+            'locatable_type' => App\User::class,
+        ]))->save();
+
+        $user2 = factory(App\User::class)->create([
             'name' => 'Bob',
             'email' => 'bob@example.com',
             'password' => bcrypt('test'),
-            'balance' => 341
+            'balance' => 341,
         ]);
+
+        (new App\Location([
+            'locatable_id' => $user2->id,
+            'locatable_type' => App\User::class,
+        ]))->save();
     }
 }

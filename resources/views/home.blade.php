@@ -3,6 +3,29 @@
 @section('content')
 <div class="container">
 
+    {{--Map--}}
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-heading">Map</div>
+
+                <div class="panel-body">
+                    <ul>
+                        @foreach ($locations as $location)
+                            <li>
+                                Location:
+                                {{ dump($location->toArray()) }}
+                                Locatable (Ship, User etc.):
+                                {{ dump($location->locatable->toArray()) }}
+                                <hr>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
     {{--Wallet--}}
     <div class="row">
         <div class="col-md-8 col-md-offset-2">

@@ -11,8 +11,13 @@ class ShipsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Ship::class)->create([
-            'name' => 'Boaty McBoatface'
+        $ship = factory(App\Ship::class)->create([
+            'name' => 'Boaty McBoatface',
         ]);
+
+        (new App\Location([
+            'locatable_id' => $ship->id,
+            'locatable_type' => App\Ship::class,
+        ]))->save();
     }
 }
