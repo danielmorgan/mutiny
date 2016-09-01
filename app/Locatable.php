@@ -10,7 +10,10 @@ trait Locatable
     public static function bootLocatable()
     {
         static::created(function($locatable) {
-            $locatable->location()->create([]);
+            $locatable->location()->create([
+                'locatable_id' => $locatable->id,
+                'locatable_type' => get_class($locatable),
+            ]);
         });
     }
 
