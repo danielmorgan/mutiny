@@ -24,5 +24,11 @@ class UsersTableSeeder extends Seeder
             'password' => bcrypt('test'),
             'balance' => 341,
         ]);
+
+        $room = App\Room::first();
+        $user1->location->parent_id = $room->location->id;
+        $user1->location->save();
+        $user2->location->parent_id = $room->location->id;
+        $user2->location->save();
     }
 }
