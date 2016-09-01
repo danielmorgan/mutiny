@@ -8,6 +8,8 @@ use Auth;
 use Blade;
 use Validator;
 use Illuminate\Support\ServiceProvider;
+use DB;
+use Log;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -26,6 +28,10 @@ class AppServiceProvider extends ServiceProvider
 
         Blade::directive('currency', function($expression) {
             return "<?php echo currency($expression); ?>";
+        });
+
+        DB::listen(function($query) {
+            Log::info($query->sql, $query->bindings);
         });
     }
 

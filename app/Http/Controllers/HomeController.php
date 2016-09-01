@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Location;
+use App\Ship;
 
 class HomeController extends Controller
 {
@@ -25,13 +26,21 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $locations = Location::all();
-
-        return view('home')->with(compact('locations'));
+        return view('home');
     }
 
     public function admin()
     {
         return view('admin');
+    }
+
+    public function locations()
+    {
+        $ship = Ship::first();
+        // $locations = Location::getTree($ship->location);
+        $locations = Location::getTree();
+        dd($locations);
+
+        return view('locations')->with(compact('locations'));
     }
 }
