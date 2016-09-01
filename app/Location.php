@@ -31,7 +31,7 @@ class Location extends Model
      *
      * @return \App\Locatable
      */
-    public function occupants()
+    public function getOccupantsAttribute()
     {
         return $this->children->transform(function($child) {
             return $child->locatable;
@@ -46,5 +46,14 @@ class Location extends Model
     public function isLocatable()
     {
         return ! is_null($this->locatable);
+    }
+
+    public function getNameAttribute($value)
+    {
+        if (is_null($value) && $this->isLocatable()) {
+            return $this->locatable->name;
+        }
+
+        return $value;
     }
 }

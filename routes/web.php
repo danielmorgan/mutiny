@@ -42,3 +42,6 @@ Route::post('spamtest', 'NotificationController@spamTest');
 
 // Wallet
 Route::post('wallet/transfer', 'WalletController@transfer');
+
+// Location
+Route::post('move/{location}', 'LocationController@moveSelf');
