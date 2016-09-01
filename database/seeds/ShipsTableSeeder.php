@@ -15,10 +15,10 @@ class ShipsTableSeeder extends Seeder
             'name' => 'Boaty McBoatface',
         ]);
 
-        factory(App\Room::class)->create(['ship_id' => $ship->id, 'name' => 'Operations']);
-        factory(App\Room::class)->create(['ship_id' => $ship->id, 'name' => 'Navigation']);
-        factory(App\Room::class)->create(['ship_id' => $ship->id, 'name' => 'Communications']);
-        factory(App\Room::class)->create(['ship_id' => $ship->id, 'name' => 'Subsystems']);
-        factory(App\Room::class)->create(['ship_id' => $ship->id, 'name' => 'Engineering']);
+        factory(App\Room::class)->create(['parent_id' => $ship->id, 'name' => 'Operations']);
+        factory(App\Room::class)->create(['parent_id' => $ship->id, 'name' => 'Navigation']);
+        factory(App\Room::class)->create(['parent_id' => $ship->id, 'name' => 'Communications']);
+        factory(App\Room::class)->create(['parent_id' => $ship->id, 'name' => 'Subsystems']);
+        factory(App\Room::class)->create(['parent_id' => $ship->id, 'name' => 'Engineering']);
     }
 }

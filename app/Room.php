@@ -12,6 +12,6 @@ class Room extends Model
 
     public function ship()
     {
-        return $this->belongsTo(Ship::class);
+        return $this->belongsTo(Ship::class, 'id', 'parent_id');
     }
 }

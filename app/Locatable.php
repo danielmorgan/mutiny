@@ -13,6 +13,7 @@ trait Locatable
             $locatable->location()->create([
                 'locatable_id' => $locatable->id,
                 'locatable_type' => get_class($locatable),
+                'parent_id' => Location::where('locatable_id', $locatable->parent_id)->firstOrFail()->id,
             ]);
         });
     }

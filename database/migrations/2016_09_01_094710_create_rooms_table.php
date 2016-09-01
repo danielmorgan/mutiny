@@ -15,16 +15,16 @@ class CreateRoomsTable extends Migration
     {
         Schema::create('rooms', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('ship_id')->unsigned()->index();
+            $table->integer('parent_id')->unsigned()->index();
             $table->string('name');
             $table->timestamps();
 
-            $table->foreign('ship_id')
+            $table->foreign('parent_id')
                     ->references('id')
                     ->on('ships')
                     ->onDelete('cascade');
 
-            $table->unique(['ship_id', 'name']);
+            $table->unique(['parent_id', 'name']);
         });
     }
 
