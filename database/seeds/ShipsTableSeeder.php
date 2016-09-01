@@ -11,14 +11,33 @@ class ShipsTableSeeder extends Seeder
      */
     public function run()
     {
-        $ship = factory(App\Ship::class)->create([
+        // Createa ship with two rooms
+        $ship = factory(App\Ships\Ship::class)->create([
             'name' => 'Boaty McBoatface',
         ]);
+        (new App\Location([
+            'name' => null,
+            'locatable_id' => null,
+            'locatable_type' => App\Ships\Rooms\EngineeringRoom::class,
+            'parent_id' => $ship->location->id,
+        ]))->save();
+        (new App\Location([
+            'name' => null,
+            'locatable_id' => null,
+            'locatable_type' => App\Ships\Rooms\OperationsRoom::class,
+            'parent_id' => $ship->location->id,
+        ]))->save();
 
-        factory(App\Room::class)->create(['parent_id' => $ship->id, 'name' => 'Operations']);
-        factory(App\Room::class)->create(['parent_id' => $ship->id, 'name' => 'Navigation']);
-        factory(App\Room::class)->create(['parent_id' => $ship->id, 'name' => 'Communications']);
-        factory(App\Room::class)->create(['parent_id' => $ship->id, 'name' => 'Subsystems']);
-        factory(App\Room::class)->create(['parent_id' => $ship->id, 'name' => 'Engineering']);
+
+        // Create a ship with one room
+        $ship = factory(App\Ships\Ship::class)->create([
+            'name' => 'Tugger',
+        ]);
+        (new App\Location([
+            'name' => null,
+            'locatable_id' => null,
+            'locatable_type' => App\Ships\Rooms\OperationsRoom::class,
+            'parent_id' => $ship->location->id,
+        ]))->save();
     }
 }

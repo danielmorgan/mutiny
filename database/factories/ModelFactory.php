@@ -11,21 +11,9 @@
 |
 */
 
-$factory->define(App\Ship::class, function (Faker\Generator $faker) {
+$factory->define(App\Ships\Ship::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->city,
-    ];
-});
-
-$factory->define(App\Room::class, function (Faker\Generator $faker) {
-    return [
-        'name' => $faker->randomElement([
-            'Operations',
-            'Navigation',
-            'Communications',
-            'Subsystems',
-            'Engineering',
-        ]),
     ];
 });
 

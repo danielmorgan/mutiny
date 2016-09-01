@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Ships\Ship;
 
 class Location extends Model
 {
@@ -45,6 +46,7 @@ class Location extends Model
 
     public function isLocatable()
     {
+        if ($this->locatable_id == null) return false;
         return ! is_null($this->locatable);
     }
 

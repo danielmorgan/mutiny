@@ -13,7 +13,7 @@
                         <p><strong>Current Location:</strong> {{ $ship->locatedIn->name }}</p>
                     </div>
 
-                    @foreach ($ship->rooms as $room)
+                    @foreach ($ship->rooms() as $room)
                         @include('locations.room', compact('room'))
                     @endforeach
                 </div>
