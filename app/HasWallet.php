@@ -7,7 +7,7 @@ use App\Exceptions\WalletBalanceIsNegativeException;
 trait HasWallet
 {
     /**
-     * Lifecycle hooks.
+     * Eloquent observers.
      */
     public static function bootHasWallet()
     {

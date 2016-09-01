@@ -4,6 +4,16 @@ namespace App;
 
 trait Locatable
 {
+    /**
+     * Eloquent observers.
+     */
+    public static function bootLocatable()
+    {
+        static::created(function($locatable) {
+            $locatable->location()->create([]);
+        });
+    }
+
     public function location()
     {
         return $this->morphOne(Location::class, 'locatable');
