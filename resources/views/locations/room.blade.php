@@ -1,9 +1,15 @@
-<h4>{{ $room->name }}</h4>
-<form action="/move/{{ $room->location->id }}" method="POST">
-    <button type="submit" class="btn btn-sm btn-success">Move to</button>
-</form>
-<ul>
-    @foreach ($room->occupants as $user)
-        <li>{{ $user->name }}</li>
-    @endforeach
-</ul>
+<div class="room">
+    <h4 class="name">{{ $room->name }}</h4>
+    <form action="{{ route('move.self.toRoom', ['room' => $room]) }}" method="POST" class="move">
+        <button type="submit" class="btn btn-sm btn-success">Move to</button>
+    </form>
+    <ul>
+        @foreach ($room->occupants as $user)
+            @if ($user->id === Auth::id())
+                <li>{{ $user->name }} <strong>(You)</strong></li>
+            @else
+                <li>{{ $user->name }}</li>
+            @endif
+        @endforeach
+    </ul>
+</div>

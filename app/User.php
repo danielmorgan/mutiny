@@ -8,6 +8,7 @@ use Laravel\Passport\HasApiTokens;
 use NotificationChannels\WebPush\HasPushSubscriptions;
 use App\Wallet\HasWallet;
 use App\Locatable;
+use App\Ships\Ship;
 
 class User extends Authenticatable
 {
@@ -30,4 +31,9 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function ship()
+    {
+        return $this->belongsTo(Ship::class);
+    }
 }

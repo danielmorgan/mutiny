@@ -38,8 +38,7 @@ class LocatableCollection extends Collection
         $instantiables = [];
 
         foreach ($this as $location) {
-            if ($location->locatable_type !== null &&
-                $location->locatable_id == null) {
+            if ($location->isInstantiable()) {
                 $instantiables[] = $location->locatable_type;
             }
         }

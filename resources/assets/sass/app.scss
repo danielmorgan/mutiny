@@ -5,3 +5,13 @@
 @import 'vendor/bootstrap-notifications';
 @import 'typography';
 @import 'notifications';
+
+.room {
+    .name {
+        display: inline-block;
+    }
+
+    .move {
+        display: inline-block;
+    }
+}

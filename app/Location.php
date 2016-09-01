@@ -46,13 +46,17 @@ class Location extends Model
 
     public function isLocatable()
     {
-        if ($this->locatable_id == null) return false;
         return ! is_null($this->locatable);
+    }
+
+    public function isInstantiable()
+    {
+        return $this->locatable_type !== null && $this->locatable_id == null;
     }
 
     public function getNameAttribute($value)
     {
-        if (is_null($value) && $this->isLocatable()) {
+        if ($this->isLocatable()) {
             return $this->locatable->name;
         }
 

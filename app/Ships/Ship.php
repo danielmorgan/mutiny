@@ -3,6 +3,7 @@
 namespace App\Ships;
 
 use Illuminate\Database\Eloquent\Model;
+use App\User;
 use App\Locatable;
 use App\Location;
 use App\Ships\Rooms\Room;
@@ -13,6 +14,11 @@ class Ship extends Model
     use Locatable;
 
     protected $fillable = ['name'];
+
+    public function crew()
+    {
+        return $this->hasMany(User::class);
+    }
 
     public function rooms()
     {

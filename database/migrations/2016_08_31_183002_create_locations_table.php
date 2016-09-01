@@ -21,7 +21,7 @@ class CreateLocationsTable extends Migration
             $table->integer('parent_id')->nullable()->unsigned()->default(1);
             $table->timestamps();
 
-            $table->unique(['name', 'locatable_id', 'locatable_type']);
+            $table->unique(['locatable_id', 'locatable_type', 'parent_id']);
         });
     }
 

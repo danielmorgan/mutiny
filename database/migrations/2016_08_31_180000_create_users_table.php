@@ -20,7 +20,12 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->bigInteger('balance')->unsigned()->default(0);
+            $table->integer('ship_id')->unsigned()->index()->nullable()->default(null);
             $table->timestamps();
+
+            $table->foreign('ship_id')
+                    ->references('id')
+                    ->on('ships');
         });
     }
 

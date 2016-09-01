@@ -46,4 +46,9 @@ abstract class Room
             ['parent_id', $this->location->id],
         ])->get()->locatables();
     }
+
+    public function __toString()
+    {
+        return (string) $this->location->id;
+    }
 }

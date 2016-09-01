@@ -44,4 +44,11 @@ Route::post('spamtest', 'NotificationController@spamTest');
 Route::post('wallet/transfer', 'WalletController@transfer');
 
 // Location
-Route::post('move/{location}', 'LocationController@moveSelf');
+Route::post('move/self/{room}', 'LocationController@moveSelfToRoom')->name('move.self.toRoom');
+
+Route::bind('room', function($value) {
+    return App\Location::where([
+        ['id', $value],
+        ['parent_id', Auth::user()->ship->location->id],
+    ])->first();
+});
