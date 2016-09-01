@@ -16,10 +16,15 @@ class Ship extends Model
 
     public function rooms()
     {
-        $rooms = Location::where([
+        $roomClasses = Location::where([
             ['locatable_type', 'like', '%Room'],
             ['parent_id', $this->location->id],
-        ])->get()->locatables();
+        ])->get()->instantiables();
+
+        // New up instances of rooms
+        $rooms = $roomClasses->map(function($room) {
+            return new $room($this);
+        });
 
         return $rooms;
     }

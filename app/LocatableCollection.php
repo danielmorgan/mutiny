@@ -25,13 +25,25 @@ class LocatableCollection extends Collection
         foreach ($this as $location) {
             if ($location->isLocatable()) {
                 $locatables[] = $location->locatable;
-            } else if ($location->locatable_id == null) {
-                $locatables[] = new $location->locatable_type;
             } else {
                 $locatables[] = $location->name;
             }
         }
 
         return new LocatableCollection($locatables);
+    }
+
+    public function instantiables()
+    {
+        $instantiables = [];
+
+        foreach ($this as $location) {
+            if ($location->locatable_type !== null &&
+                $location->locatable_id == null) {
+                $instantiables[] = $location->locatable_type;
+            }
+        }
+
+        return new LocatableCollection($instantiables);
     }
 }
