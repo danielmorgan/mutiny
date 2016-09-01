@@ -11,17 +11,29 @@
 |
 */
 
+$factory->define(App\Ship::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->city,
+    ];
+});
+
+$factory->define(App\Room::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->randomElement([
+            'Operations',
+            'Navigation',
+            'Communications',
+            'Subsystems',
+            'Engineering',
+        ]),
+    ];
+});
+
 $factory->define(App\User::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->name,
         'email' => $faker->safeEmail,
         'password' => bcrypt(str_random(10)),
         'remember_token' => str_random(10),
-    ];
-});
-
-$factory->define(App\Ship::class, function (Faker\Generator $faker) {
-    return [
-        'name' => $faker->city,
     ];
 });

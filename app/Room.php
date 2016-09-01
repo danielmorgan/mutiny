@@ -4,14 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Ship extends Model
+class Room extends Model
 {
     use Locatable;
 
     protected $fillable = ['name'];
 
-    public function rooms()
+    public function ship()
     {
-        return $this->hasMany(Room::class);
+        return $this->belongsTo(Ship::class);
     }
 }
