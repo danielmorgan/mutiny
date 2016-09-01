@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Collection;
 
-class LocationCollection extends Collection
+class LocatableCollection extends Collection
 {
     public function threaded()
     {

@@ -1,18 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-
-    {{--Wallet--}}
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            @include('interfaces.wallet')
-        </div>
-    </div>
-
     {{--Push Notifications--}}
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+        <div class="col-xs-12">
             <div class="panel panel-default">
                 <div class="panel-heading">Notifications</div>
 
@@ -34,7 +25,5 @@
         </div>
     </div>
 
-</div>
-
-<style>.panel-body .btn {margin-bottom: 10px; margin-right: 10px;}</style>
+    <style>.panel-body .btn {margin-bottom: 10px; margin-right: 10px;}</style>
 @endsection

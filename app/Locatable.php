@@ -30,7 +30,7 @@ trait Locatable
      */
     public function getOccupantsAttribute()
     {
-        return $this->location->children->transform(function($child) {
+        return $this->location->children()->with('locatable')->get()->transform(function($child) {
             return $child->locatable;
         });
     }

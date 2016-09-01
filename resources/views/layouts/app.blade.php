@@ -26,9 +26,22 @@
 <body>
     @include('layouts.partials.nav')
 
-    @include('layouts.partials.messages')
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                @include('layouts.partials.messages')
+            </div>
+        </div>
 
-    @yield('content')
+        <div class="row">
+            <div class="col-md-3">
+                @include('layouts.partials.sidebar')
+            </div>
+            <div class="col-md-9">
+                @yield('content')
+            </div>
+        </div>
+    </div>
 
     @include('layouts.partials.footer')
 </body>

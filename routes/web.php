@@ -14,7 +14,8 @@
 Auth::routes();
 
 Route::get('/', 'HomeController@index');
-Route::get('locations', 'HomeController@locations');
+Route::get('wallet', 'WalletController@page');
+Route::get('ship', 'ShipController@page');
 
 Route::get('manifest.json', function() {
     return new \Illuminate\Http\JsonResponse([

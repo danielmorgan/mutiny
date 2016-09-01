@@ -9,6 +9,11 @@ use Illuminate\Http\JsonResponse;
 
 class WalletController extends Controller
 {
+    public function page()
+    {
+        return view('wallet');
+    }
+
     /**
      * @param  \App\Http\Requests\TransferMoney
      * @return \Illuminate\Http\JsonResponse

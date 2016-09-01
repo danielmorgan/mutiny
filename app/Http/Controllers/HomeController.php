@@ -33,14 +33,4 @@ class HomeController extends Controller
     {
         return view('admin');
     }
-
-    public function locations()
-    {
-        $ship = Ship::first();
-        // $locations = Location::getTree($ship->location);
-        $locations = Location::getTree();
-        dd($locations);
-
-        return view('locations')->with(compact('locations'));
-    }
 }

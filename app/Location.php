@@ -18,7 +18,7 @@ class Location extends Model
 
     public function newCollection(array $models = [])
     {
-        return new LocationCollection($models);
+        return new LocatableCollection($models);
     }
 
     /**
@@ -26,7 +26,7 @@ class Location extends Model
      *
      * @return \App\Locatable
      */
-    public function getOccupantsAttribute()
+    public function occupants()
     {
         return $this->children->transform(function($child) {
             return $child->locatable;
@@ -41,14 +41,5 @@ class Location extends Model
     public function isLocatable()
     {
         return ! is_null($this->locatable);
-    }
-
-    static public function getTree(Location $location = null)
-    {
-        if (is_null($location)) {
-            $location = Location::root();
-        }
-
-        return $location->children()->get()->threaded();
     }
 }
