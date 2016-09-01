@@ -7,7 +7,6 @@ use App\User;
 use App\Locatable;
 use App\Location;
 use App\Ships\Rooms\Room;
-use App\Ships\Rooms\EngineeringRoom;
 
 class Ship extends Model
 {
@@ -33,5 +32,32 @@ class Ship extends Model
         });
 
         return $rooms;
+    }
+
+    static public function boot()
+    {
+        static::created(function($ship) {
+            // Put new ship the Universe
+            $location = new Location([
+                'locatable_id' => $ship->id,
+                'locatable_type' => Ship::class,
+                'parent_id' => 1,
+            ]);
+            $ship->location()->save($location);
+
+            (new Location([
+                'name' => null,
+                'locatable_id' => null,
+                'locatable_type' => \App\Ships\Rooms\OperationsRoom::class,
+                'parent_id' => $ship->location->id,
+            ]))->save();
+
+            (new Location([
+                'name' => null,
+                'locatable_id' => null,
+                'locatable_type' => \App\Ships\Rooms\EngineeringRoom::class,
+                'parent_id' => $ship->location->id,
+            ]))->save();
+        });
     }
 }

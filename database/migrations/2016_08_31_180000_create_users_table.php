@@ -19,7 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->rememberToken();
-            $table->bigInteger('balance')->unsigned()->default(0);
+            $table->bigInteger('balance')->unsigned()->default(5000);
             $table->integer('ship_id')->unsigned()->index()->nullable()->default(null);
             $table->timestamps();
 

@@ -7,6 +7,10 @@ use App\Ships\Ship;
 
 class Location extends Model
 {
+    public $fillable = [
+        'name', 'locatable_id', 'locatable_type', 'parent_id',
+    ];
+
     public function locatable()
     {
         return $this->morphTo();
