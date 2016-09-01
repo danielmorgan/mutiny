@@ -34,4 +34,13 @@ trait Locatable
             return $child->locatable;
         });
     }
+
+    public function getLocatedInAttribute()
+    {
+        if (! $this->location->parent->isLocatable()) {
+            return $this->location->parent;
+        }
+
+        return $this->location->parent->locatable;
+    }
 }

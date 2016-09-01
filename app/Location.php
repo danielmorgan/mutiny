@@ -16,6 +16,11 @@ class Location extends Model
         return $this->hasMany(Location::class, 'parent_id');
     }
 
+    public function parent()
+    {
+        return $this->hasOne(Location::class, 'id', 'parent_id');
+    }
+
     public function newCollection(array $models = [])
     {
         return new LocatableCollection($models);

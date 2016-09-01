@@ -9,6 +9,10 @@
                 <div class="panel-body">
                     <h2>{{ $ship->name }}</h2>
 
+                    <div class="location">
+                        <p><strong>Current Location:</strong> {{ $ship->locatedIn->name }}</p>
+                    </div>
+
                     @foreach ($ship->rooms as $room)
                         @include('locations.room', compact('room'))
                     @endforeach
