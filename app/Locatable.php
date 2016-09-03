@@ -4,9 +4,24 @@ namespace App;
 
 trait Locatable
 {
-    /**
-     * Eloquent observers.
-     */
+    /*
+    |--------------------------------------------------------------------------
+    | Relationships
+    |--------------------------------------------------------------------------
+    */
+
+    public function location()
+    {
+        return $this->morphOne(Location::class, 'locatable');
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Observers
+    |--------------------------------------------------------------------------
+    */
+
     public static function bootLocatable()
     {
         static::created(function($locatable) {
@@ -18,16 +33,13 @@ trait Locatable
         });
     }
 
-    public function location()
-    {
-        return $this->morphOne(Location::class, 'locatable');
-    }
 
-    /**
-     * Set an accessor that returns a collection of Locatable entities.
-     *
-     * @return \App\Locatable
-     */
+    /*
+    |--------------------------------------------------------------------------
+    | Accessors
+    |--------------------------------------------------------------------------
+    */
+
     public function getOccupantsAttribute()
     {
         return $this->location->children()->with('locatable')->get()->transform(function($child) {

@@ -11,6 +11,13 @@ class Location extends Model
         'name', 'locatable_id', 'locatable_type', 'parent_id',
     ];
 
+
+    /*
+    |--------------------------------------------------------------------------
+    | Relationships
+    |--------------------------------------------------------------------------
+    */
+
     public function locatable()
     {
         return $this->morphTo();
@@ -26,22 +33,47 @@ class Location extends Model
         return $this->hasOne(Location::class, 'id', 'parent_id');
     }
 
+
+    /*
+    |--------------------------------------------------------------------------
+    | Override default Model methods
+    |--------------------------------------------------------------------------
+    */
+
     public function newCollection(array $models = [])
     {
         return new LocatableCollection($models);
     }
 
-    /**
-     * Set an accessor that returns a collection of Locatable entities.
-     *
-     * @return \App\Locatable
-     */
+
+    /*
+    |--------------------------------------------------------------------------
+    | Accessors
+    |--------------------------------------------------------------------------
+    */
+
     public function getOccupantsAttribute()
     {
         return $this->children->transform(function($child) {
             return $child->locatable;
         });
     }
+
+    public function getNameAttribute($value)
+    {
+        if ($this->isLocatable()) {
+            return $this->locatable->name;
+        }
+
+        return $value;
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Domain specific methods
+    |--------------------------------------------------------------------------
+    */
 
     static public function root()
     {
@@ -56,14 +88,5 @@ class Location extends Model
     public function isInstantiable()
     {
         return $this->locatable_type !== null && $this->locatable_id == null;
-    }
-
-    public function getNameAttribute($value)
-    {
-        if ($this->isLocatable()) {
-            return $this->locatable->name;
-        }
-
-        return $value;
     }
 }
