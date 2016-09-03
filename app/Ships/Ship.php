@@ -3,22 +3,39 @@
 namespace App\Ships;
 
 use Illuminate\Database\Eloquent\Model;
-use App\User;
 use App\Locatable;
 use App\Location;
-use App\Ships\Rooms\Room;
+use App\User;
+use App\Rooms\OperationsRoom;
+use App\Rooms\EngineeringRoom;
 
 class Ship extends Model
 {
     use Locatable;
 
+    /**
+     * @var array
+     */
     protected $fillable = ['name'];
 
+
+    /*
+    |--------------------------------------------------------------------------
+    | Relationships
+    |--------------------------------------------------------------------------
+    */
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function crew()
     {
         return $this->hasMany(User::class);
     }
 
+    /**
+     * @return mixed
+     */
     public function rooms()
     {
         $roomClasses = Location::where([
@@ -26,13 +43,20 @@ class Ship extends Model
             ['parent_id', $this->location->id],
         ])->get()->instantiables();
 
-        // New up instances of rooms
+        // New up instances of rooms each time
         $rooms = $roomClasses->map(function($room) {
             return new $room($this);
         });
 
         return $rooms;
     }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Observers
+    |--------------------------------------------------------------------------
+    */
 
     static public function boot()
     {
@@ -45,17 +69,18 @@ class Ship extends Model
             ]);
             $ship->location()->save($location);
 
+            // Put two rooms in ship
             (new Location([
                 'name' => null,
                 'locatable_id' => null,
-                'locatable_type' => \App\Ships\Rooms\OperationsRoom::class,
+                'locatable_type' => OperationsRoom::class,
                 'parent_id' => $ship->location->id,
             ]))->save();
 
             (new Location([
                 'name' => null,
                 'locatable_id' => null,
-                'locatable_type' => \App\Ships\Rooms\EngineeringRoom::class,
+                'locatable_type' => EngineeringRoom::class,
                 'parent_id' => $ship->location->id,
             ]))->save();
         });

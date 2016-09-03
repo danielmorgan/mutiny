@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Ships\Rooms;
+namespace App\Rooms;
 
 class OperationsRoom extends Room
 {

@@ -10,9 +10,41 @@ trait Locatable
     |--------------------------------------------------------------------------
     */
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphOne
+     */
     public function location()
     {
         return $this->morphOne(Location::class, 'locatable');
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Accessors
+    |--------------------------------------------------------------------------
+    */
+
+    /**
+     * @return \App\LocatableCollection
+     */
+    public function getOccupantsAttribute()
+    {
+        return $this->location->children()->with('locatable')->get()->transform(function($child) {
+            return $child->locatable;
+        });
+    }
+
+    /**
+     * @return \App\Locatable
+     */
+    public function getLocatedInAttribute()
+    {
+        if (! $this->location->parent->isLocatable()) {
+            return $this->location->parent;
+        }
+
+        return $this->location->parent->locatable;
     }
 
 
@@ -31,28 +63,5 @@ trait Locatable
                 'parent_id' => Location::where('locatable_id', $locatable->parent_id)->firstOrFail()->id,
             ]);
         });
-    }
-
-
-    /*
-    |--------------------------------------------------------------------------
-    | Accessors
-    |--------------------------------------------------------------------------
-    */
-
-    public function getOccupantsAttribute()
-    {
-        return $this->location->children()->with('locatable')->get()->transform(function($child) {
-            return $child->locatable;
-        });
-    }
-
-    public function getLocatedInAttribute()
-    {
-        if (! $this->location->parent->isLocatable()) {
-            return $this->location->parent;
-        }
-
-        return $this->location->parent->locatable;
     }
 }
