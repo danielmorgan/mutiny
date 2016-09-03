@@ -54,8 +54,8 @@ class Room extends Model
                         ['locations.parent_id', $this->location->id],
                     ]);
             },
-            function($relation, $models) {
-                $relation->getQuery()->whereIn('users.id', $relation->getKeys($models));
+            function() {
+                throw new \DomainException('Eager loading of Custom relationships not supported yet.');
             }
         );
     }
