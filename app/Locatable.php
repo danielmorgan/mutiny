@@ -26,16 +26,6 @@ trait Locatable
     */
 
     /**
-     * @return \App\LocatableCollection
-     */
-    public function getOccupantsAttribute()
-    {
-        return $this->location->children()->with('locatable')->get()->transform(function($child) {
-            return $child->locatable;
-        });
-    }
-
-    /**
      * @return \App\Locatable
      */
     public function getLocatedInAttribute()

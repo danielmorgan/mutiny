@@ -18,8 +18,9 @@ class Ship extends Model
     protected $fillable = ['name'];
 
     /**
-     * The default Location type for a new Locatable. Must match a belongsTo
-     * relationship. If null, the default Location will be the root node.
+     * The default Location type for a new Locatable.
+     * Must match a belongsTo relationship.
+     * If null, the default Location will be the root node.
      *
      * @var string|null
      */

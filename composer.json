@@ -11,9 +11,7 @@
         "pusher/pusher-php-server": "^2.4",
         "laracasts/utilities": "~2.0",
         "guzzlehttp/guzzle": "^6.2",
-        "laravel/passport": "^0.2.4",
-        "kalnoy/nestedset": "^4.1",
-        "nanigans/single-table-inheritance": "0.7.*"
+        "laravel/passport": "^0.2.4"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
