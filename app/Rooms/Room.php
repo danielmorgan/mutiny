@@ -3,7 +3,7 @@
 namespace App\Rooms;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Relations\HasCustomRelations;
+use LaravelCustomRelation\HasCustomRelations;
 use App\Locatable;
 use App\Ships\Ship;
 use App\User;
