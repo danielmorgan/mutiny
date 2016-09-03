@@ -4,7 +4,6 @@ namespace App\Ships;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Locatable;
-use App\Location;
 use App\User;
 use App\Rooms\Room;
 
