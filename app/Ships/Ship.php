@@ -17,6 +17,14 @@ class Ship extends Model
      */
     protected $fillable = ['name'];
 
+    /**
+     * The default Location type for a new Locatable. Must match a belongsTo
+     * relationship. If null, the default Location will be the root node.
+     *
+     * @var string|null
+     */
+    public $locatedInside = null;
+
 
     /*
     |--------------------------------------------------------------------------
@@ -33,11 +41,11 @@ class Ship extends Model
     }
 
     /**
-     * @return mixed
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function rooms()
     {
-        return $this->hasManyThrough(Room::class, Location::class, 'parent_id');
+        return $this->hasMany(Room::class);
     }
 
 

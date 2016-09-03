@@ -10,8 +10,24 @@ class Room extends Model
 {
     use Locatable;
 
+    /**
+     * @var bool
+     */
+    public $timestamps = false;
+
+    /**
+     * The default Location type for a new Locatable.
+     * Must match a belongsTo relationship.
+     *
+     * @var string
+     */
+    public $locatedInside = 'ship';
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function ship()
     {
-        return $this->hasManyThrough(Ship::class, Location::class, 'locatable_id');
+        return $this->belongsTo(Ship::class);
     }
 }

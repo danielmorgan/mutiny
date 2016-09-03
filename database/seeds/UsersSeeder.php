@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class UsersTableSeeder extends Seeder
+class UsersSeeder extends Seeder
 {
     /**
      * Seed the test user.
@@ -11,13 +11,13 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        $user1 = factory(App\User::class)->create([
+        factory(App\User::class)->create([
             'name' => 'Alice',
             'email' => 'alice@example.com',
             'password' => bcrypt('test'),
         ]);
 
-        $user2 = factory(App\User::class)->create([
+        factory(App\User::class)->create([
             'name' => 'Bob',
             'email' => 'bob@example.com',
             'password' => bcrypt('test'),
