@@ -23,8 +23,7 @@ class UserController extends Controller
      */
     public function moveToRoom(Request $request, Room $room)
     {
-        Auth::user()->location->parent_id = $room->location->id;
-        Auth::user()->location->save();
+        Auth::user()->moveTo($room->location);
 
         $request->session()->flash('info', 'Moved.');
 

@@ -73,4 +73,26 @@ class User extends Authenticatable
             $user->save();
         });
     }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Domain specific methods
+    |--------------------------------------------------------------------------
+    */
+
+    /**
+     * Move User to a Location.
+     * 
+     * @param Location $location
+     * @return mixed
+     */
+    public function moveTo(Location $location)
+    {
+        // @todo Validate location is accessible
+
+        $this->location->parent_id = $location->id;
+
+        return $this->location->save();
+    }
 }
