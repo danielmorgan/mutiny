@@ -44,4 +44,4 @@ Route::post('spamtest', 'NotificationController@spamTest');
 Route::post('wallet/transfer', 'WalletController@transfer');
 
 // Location
-Route::post('move/self/{room}', 'LocationController@moveSelfToRoom')->name('move.self.toRoom');
+Route::post('move/{room}', 'UserController@moveToRoom')->name('move.user.room');

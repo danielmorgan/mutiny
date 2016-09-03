@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Rooms\Room;
 use Auth;
 
-class LocationController extends Controller
+class UserController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -21,7 +21,7 @@ class LocationController extends Controller
      * @param \App\Rooms\Room $room
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function moveSelfToRoom(Request $request, Room $room)
+    public function moveToRoom(Request $request, Room $room)
     {
         Auth::user()->location->parent_id = $room->location->id;
         Auth::user()->location->save();
