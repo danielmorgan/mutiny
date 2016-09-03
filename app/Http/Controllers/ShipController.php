@@ -21,6 +21,7 @@ class ShipController extends Controller
     public function page()
     {
         $ship = Auth::user()->ship;
+        dd($ship->rooms);
 
         return view('locations.ship')->with(compact('ship'));
     }
