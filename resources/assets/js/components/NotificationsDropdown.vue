@@ -70,7 +70,7 @@ export default {
 
   methods: {
     listen() {
-      window.Echo.private(`App.User.${window.USER.id}`)
+      window.Echo.private(`user.${window.USER.id}`)
         .notification(notification => {
           this.total++
           this.notifications.unshift(notification)

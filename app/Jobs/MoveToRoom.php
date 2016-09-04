@@ -7,8 +7,10 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Carbon\Carbon;
-use App\Rooms\Room;
+use App\Events\UserEnteredRoom;
+use App\Events\UserLeftRoom;
 use App\User;
+use App\Rooms\Room;
 
 class MoveToRoom extends DeferredAction implements ShouldQueue
 {
@@ -44,6 +46,9 @@ class MoveToRoom extends DeferredAction implements ShouldQueue
         // Move the user to the ship corridors right away
         $this->user->moveTo($this->user->ship->location);
 
+        // Fire an event saying User left their current room
+        event(new UserLeftRoom($this->user, $this->user->room->first()));
+
         // Set a delay
         $this->delay(Carbon::now()->addSeconds($this->duration));
     }
@@ -55,5 +60,8 @@ class MoveToRoom extends DeferredAction implements ShouldQueue
     {
         // Move user to their intended room after delay
         $this->user->moveTo($this->room->location);
+
+        // Fire an event saying User entered the room
+        event(new UserEnteredRoom($this->user, $this->room));
     }
 }
