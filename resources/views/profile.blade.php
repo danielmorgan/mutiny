@@ -29,6 +29,7 @@
 
                         <hr>
 
+                        <h3>Notifications</h3>
                         @include ('interfaces.notifications')
                     @endif
             </div></div>
