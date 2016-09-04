@@ -13,10 +13,10 @@
 
 Auth::routes();
 
-Route::get('/', 'ShipController@ship')->name('dashboard');
+Route::get('/', 'ShipController@room')->name('dashboard');
+Route::get('room', 'ShipController@room')->name('room');
 Route::get('ship/{ship?}', 'ShipController@ship')->name('ship');
 Route::get('profile/{user?}', 'UserController@profile')->name('profile');
-Route::get('room', 'ShipController@room')->name('room');
 Route::get('wallet', 'WalletController@page')->name('wallet');
 Route::get('admin', 'HomeController@admin');
 

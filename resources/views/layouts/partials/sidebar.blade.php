@@ -2,10 +2,10 @@
     <div class="col-xs-12">
         <ul class="list-group">
             <li class="list-group-item">
-                <a href="{{ route('ship') }}">Ship</a>
+                <a href="{{ route('room') }}">Room</a>
             </li>
             <li class="list-group-item">
-                <a href="{{ route('room') }}">Room</a>
+                <a href="{{ route('ship') }}">Ship</a>
             </li>
             <li class="list-group-item">
                 <a href="{{ route('profile') }}">Profile</a>
