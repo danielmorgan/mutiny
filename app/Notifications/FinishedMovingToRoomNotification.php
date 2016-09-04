@@ -8,17 +8,25 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use NotificationChannels\WebPush\WebPushMessage;
 use NotificationChannels\WebPush\WebPushChannel;
+use App\Rooms\Room;
 
-class HelloNotification extends Notification
+class FinishedMovingToRoomNotification extends Notification
 {
     use Queueable;
 
     /**
-     * Create a new notification instance.
+     * @var \App\Rooms\Room
      */
-    public function __construct()
+    public $room;
+
+    /**
+     * Create a new notification instance.
+     *
+     * @param \App\Rooms\Room $room
+     */
+    public function __construct(Room $room)
     {
-        //
+        $this->room = $room;
     }
 
     /**
@@ -41,8 +49,7 @@ class HelloNotification extends Notification
     public function toArray($notifiable)
     {
         return [
-            'title' => 'Fire in Engineering!',
-            'body' => 'The jump drive overloaded and tripped a breaker. The engineering bay is on fire and losing oxygen fast.',
+            'title' => "You arrive in the {$this->room}",
             'action_url' => url('/'),
             'created' => Carbon::now()->toIso8601String(),
         ];
@@ -57,12 +64,12 @@ class HelloNotification extends Notification
      */
     public function toWebPush($notifiable, $notification)
     {
+        $room = Room::find($notification->room->id);
+
         return WebPushMessage::create()
             ->id($notification->id)
-            ->title('Fire in Engineering!')
+            ->title("You arrive in the {$room}")
             ->icon('/img/notification-icon.png')
-            ->body('The jump drive overloaded and tripped a breaker. The engineering bay is on fire and losing oxygen fast.')
-            ->action('Fight fire', 'view_app')
-            ->action('Abandon ship', 'view_app');
+            ->action("Access {$room->type} Computers", 'view_app');
     }
 }

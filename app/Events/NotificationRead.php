@@ -26,7 +26,6 @@ class NotificationRead implements ShouldBroadcast
      *
      * @param  int $userId
      * @param  int $notificationId
-     * @return void
      */
     public function __construct($userId, $notificationId)
     {
@@ -39,10 +38,10 @@ class NotificationRead implements ShouldBroadcast
     /**
      * Get the channels the event should be broadcast on.
      *
-     * @return array
+     * @return \Illuminate\Broadcasting\PrivateChannel
      */
     public function broadcastOn()
     {
-        return [new PrivateChannel("App.User.{$this->userId}")];
+        return new PrivateChannel("user.{$this->userId}");
     }
 }
