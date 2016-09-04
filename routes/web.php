@@ -13,9 +13,11 @@
 
 Auth::routes();
 
-Route::get('/', 'HomeController@index');
-Route::get('ship', 'ShipController@page');
-Route::get('wallet', 'WalletController@page');
+Route::get('/', 'HomeController@index')->name('dashboard');
+Route::get('ship', 'ShipController@page')->name('ship');
+Route::get('wallet', 'WalletController@page')->name('wallet');
+Route::get('me', 'UserController@page')->name('me');
+Route::get('admin', 'HomeController@admin');
 
 Route::get('manifest.json', function() {
     return new \Illuminate\Http\JsonResponse([
@@ -36,12 +38,11 @@ Route::post('notifications/{id}/dismiss', 'NotificationController@dismiss');
 Route::post('subscriptions', 'PushSubscriptionController@update');
 Route::post('subscriptions/delete', 'PushSubscriptionController@destroy');
 
-// Admin
-Route::get('admin', 'HomeController@admin');
+// Admin Actions
 Route::post('spamtest', 'NotificationController@spamTest');
 
-// Wallet
+// Wallet Actions
 Route::post('wallet/transfer', 'WalletController@transfer');
 
-// Location
+// User Actions
 Route::post('move/{room}', 'UserController@moveToRoom')->name('move.user.room');

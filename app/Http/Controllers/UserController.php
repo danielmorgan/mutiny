@@ -18,6 +18,14 @@ class UserController extends Controller
     }
 
     /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function page()
+    {
+        return view('me');
+    }
+
+    /**
      * @param \Illuminate\Http\Request $request
      * @param \App\Rooms\Room $room
      * @return \Illuminate\Http\RedirectResponse

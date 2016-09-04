@@ -5,13 +5,16 @@
     <div class="row">
         <div class="col-xs-12">
             <div class="panel panel-default">
-                <div class="panel-heading">Notifications</div>
+                <div class="panel-heading">Dashboard</div>
 
-                <div class="panel-body text-center">
+                <div class="panel-body">
+                    <h2>Notifications</h2>
                     <notifications inline-template>
                         <button type="btn" class="btn btn-success btn-send" :disabled="loading" @click="sendNotification">
-                            Send Notification
+                            Send Test Notification
                         </button>
+
+                        <br>
 
                         <button type="btn" class="btn btn-primary"
                             @click="togglePush"

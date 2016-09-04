@@ -2,13 +2,16 @@
     <div class="col-xs-12">
         <ul class="list-group">
             <li class="list-group-item">
-                <a href="{{ url('/') }}">Home</a>
+                <a href="{{ route('dashboard') }}">Dashboard</a>
             </li>
             <li class="list-group-item">
-                <a href="{{ url('/wallet') }}">Wallet</a>
+                <a href="{{ route('wallet') }}">Wallet</a>
             </li>
             <li class="list-group-item">
-                <a href="{{ url('/ship') }}">Ship</a>
+                <a href="{{ route('ship') }}">Ship</a>
+            </li>
+            <li class="list-group-item">
+                <a href="{{ route('me') }}">Me</a>
             </li>
         </ul>
     </div>
