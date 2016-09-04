@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Ships\Ship;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Broadcast;
 use App\User;
@@ -23,6 +24,15 @@ class BroadcastServiceProvider extends ServiceProvider
          */
         Broadcast::channel('user.*', function ($user, $userId) {
             return (int) $user->id === (int) $userId;
+        });
+
+        /**
+         * Authenticate a ship's channel...
+         */
+        Broadcast::channel('ship.*', function (User $user, $shipId) {
+            if ($user->isInShip(Ship::find($shipId))) {
+                return ['id' => $user->id, 'name' => $user->name];
+            }
         });
 
         /**

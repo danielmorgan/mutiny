@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Ships\Ship;
 use Illuminate\Http\Request;
 use NotificationChannels\WebPush\PushSubscription;
 use App\User;
@@ -66,6 +67,15 @@ class NotificationController extends Controller
         }
 
         return response()->json('Notifications spammed.', 201);
+    }
+
+    public function testShipPA(Request $request, Ship $ship)
+    {
+        $ship->notify(new HelloNotification());
+
+        $request->session()->flash('success', "Test notification sent to {$ship},");
+
+        return redirect()->back();
     }
 
     /**

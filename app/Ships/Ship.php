@@ -3,13 +3,14 @@
 namespace App\Ships;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 use App\Locatable;
 use App\User;
 use App\Rooms\Room;
 
 class Ship extends Model
 {
-    use Locatable;
+    use Notifiable, Locatable;
 
     /**
      * @var array
@@ -43,6 +44,17 @@ class Ship extends Model
     public function getRouteKey()
     {
         return str_slug($this->getAttribute($this->getRouteKeyName()));
+    }
+
+    /**
+     * Send the given notification.
+     *
+     * @param  mixed  $instance
+     * @return void
+     */
+    public function notify($instance)
+    {
+        app(\Illuminate\Notifications\ChannelManager::class)->send($this->crew, $instance);
     }
 
 

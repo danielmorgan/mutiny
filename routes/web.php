@@ -40,6 +40,7 @@ Route::post('subscriptions/delete', 'PushSubscriptionController@destroy');
 
 // Admin Actions
 Route::post('spamtest', 'NotificationController@spamTest');
+Route::post('testshippa/{ship}', 'NotificationController@testShipPA')->name('testshippa');
 
 // Wallet Actions
 Route::post('wallet/transfer', 'WalletController@transfer');

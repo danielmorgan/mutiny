@@ -141,6 +141,15 @@ class User extends Authenticatable
     }
 
     /**
+     * @param \App\Ships\Ship $ship
+     * @return bool
+     */
+    public function isInShip(Ship $ship)
+    {
+        return $this->ship->id === $ship->id;
+    }
+
+    /**
      * @param \App\Rooms\Room $room
      * @return bool
      */
