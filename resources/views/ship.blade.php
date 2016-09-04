@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-xs-12">
             <div class="panel panel-default">
-                <div class="panel-heading">Ship</div>
+                    <div class="panel-heading">Ship</div>
 
                 <div class="panel-body">
                     <h2>{{ $ship->name }}</h2>
@@ -17,8 +17,8 @@
                     <h3>Rooms</h3>
                     @foreach ($ship->rooms as $room)
                         <div class="room">
-                            @if ($room->id == Auth::user()->room->first()->id)
-                                <a href="{{ route('room') }}">
+                            @if (Auth::user()->isInRoom($room))
+                                <a href="{{ route('location') }}">
                                     <h4 class="name"><strong>{{ $room->type }}</strong></h4>
                                 </a>
                                 (You are here)

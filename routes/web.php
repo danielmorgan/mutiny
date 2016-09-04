@@ -13,8 +13,7 @@
 
 Auth::routes();
 
-Route::get('/', 'ShipController@location')->name('dashboard');
-Route::get('room', 'ShipController@room')->name('room');
+Route::get('/', 'UserController@location')->name('location');
 Route::get('ship/{ship?}', 'ShipController@ship')->name('ship');
 Route::get('profile/{user?}', 'UserController@profile')->name('profile');
 Route::get('wallet', 'WalletController@page')->name('wallet');

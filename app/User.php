@@ -141,6 +141,15 @@ class User extends Authenticatable
     }
 
     /**
+     * @param \App\Rooms\Room $room
+     * @return bool
+     */
+    public function isInRoom(Room $room)
+    {
+        return $this->location->parent->id == $room->location->id;
+    }
+
+    /**
      * @return string
      */
     public function __toString()
