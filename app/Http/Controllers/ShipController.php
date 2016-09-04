@@ -30,13 +30,19 @@ class ShipController extends Controller
         return view('ship')->with(compact('ship'));
     }
 
+    public function location()
+    {
+        dump(Auth::user()->location->toArray());
+        dd(Auth::user()->location->locatable->toArray());
+    }
+
     /**
      * @return $this
      */
     public function room()
     {
         $room = Auth::user()->room->first();
-        
+
         return view('room')->with(compact('room'));
     }
 }

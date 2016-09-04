@@ -9,6 +9,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Carbon\Carbon;
 use App\Rooms\Room;
 use App\User;
+use Log;
 
 class MoveToRoom extends DeferredAction implements ShouldQueue
 {
@@ -17,7 +18,7 @@ class MoveToRoom extends DeferredAction implements ShouldQueue
     /**
      * @var int
      */
-    public $duration = 5;
+    public $duration = 20;
 
     /**
      * @var \App\User
@@ -34,11 +35,16 @@ class MoveToRoom extends DeferredAction implements ShouldQueue
      *
      * @param \App\User $user
      * @param \App\Rooms\Room $room
+     * @param int $delay
      */
-    public function __construct(User $user, Room $room)
+    public function __construct(User $user, Room $room, $delay = null)
     {
         $this->room = $room;
         $this->user = $user;
+
+        // Move the user to the ship corridors right away
+        Log::info('moving user to ship corridors', $this->user->ship->toArray());
+        $this->user->moveTo($this->user->ship->location);
 
         $this->delay(Carbon::now()->addSeconds($this->duration));
     }
