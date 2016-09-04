@@ -13,10 +13,11 @@
 
 Auth::routes();
 
-Route::get('/', 'HomeController@index')->name('dashboard');
-Route::get('ship', 'ShipController@page')->name('ship');
+Route::get('/', 'ShipController@ship')->name('dashboard');
+Route::get('ship/{ship?}', 'ShipController@ship')->name('ship');
+Route::get('profile/{user?}', 'UserController@profile')->name('profile');
+Route::get('room', 'ShipController@room')->name('room');
 Route::get('wallet', 'WalletController@page')->name('wallet');
-Route::get('me', 'UserController@page')->name('me');
 Route::get('admin', 'HomeController@admin');
 
 Route::get('manifest.json', function() {
@@ -46,3 +47,11 @@ Route::post('wallet/transfer', 'WalletController@transfer');
 
 // User Actions
 Route::post('move/{room}', 'UserController@moveToRoom')->name('move.user.room');
+
+// Model bindings
+Route::bind('ship', function($value) {
+    return \App\Ships\Ship::where('name', str_replace('-', ' ', $value))->first();
+});
+Route::bind('user', function($value) {
+    return \App\User::where('name', str_replace('-', ' ', $value))->first();
+});

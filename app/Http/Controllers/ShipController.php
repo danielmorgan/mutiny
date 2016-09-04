@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Rooms\Room;
+use App\Ships\Ship;
 use Auth;
 
 class ShipController extends Controller
@@ -15,10 +17,26 @@ class ShipController extends Controller
         $this->middleware('auth');
     }
 
-    public function page()
+    /**
+     * @param \App\Ships\Ship $ship
+     * @return $this
+     */
+    public function ship(Ship $ship)
     {
-        $ship = Auth::user()->ship;
+        if (! $ship->exists) {
+            $ship = Auth::user()->ship;
+        }
 
-        return view('locations.ship')->with(compact('ship'));
+        return view('ship')->with(compact('ship'));
+    }
+
+    /**
+     * @return $this
+     */
+    public function room()
+    {
+        $room = Auth::user()->room->first();
+        
+        return view('room')->with(compact('room'));
     }
 }

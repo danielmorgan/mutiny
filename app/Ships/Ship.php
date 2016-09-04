@@ -25,6 +25,26 @@ class Ship extends Model
      */
     public $locatedInside = null;
 
+    /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'name';
+    }
+
+    /**
+     * Get the value of the model's route key.
+     *
+     * @return mixed
+     */
+    public function getRouteKey()
+    {
+        return str_slug($this->getAttribute($this->getRouteKeyName()));
+    }
+
 
     /*
     |--------------------------------------------------------------------------
@@ -65,5 +85,13 @@ class Ship extends Model
                 'parent_id' => 1,
             ]);
         });
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->name;
     }
 }

@@ -5,14 +5,16 @@ namespace App;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
+use LaravelCustomRelation\HasCustomRelations;
 use NotificationChannels\WebPush\HasPushSubscriptions;
 use App\Wallet\HasWallet;
-use App\Locatable;
 use App\Ships\Ship;
+use App\Rooms\Room;
+use Auth;
 
 class User extends Authenticatable
 {
-    use Notifiable, HasApiTokens, HasPushSubscriptions, HasWallet, Locatable;
+    use Notifiable, HasApiTokens, HasPushSubscriptions, HasWallet, Locatable, HasCustomRelations;
 
     /**
      * @var array
@@ -32,6 +34,26 @@ class User extends Authenticatable
      */
     public $locatedInside = 'ship';
 
+    /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'name';
+    }
+
+    /**
+     * Get the value of the model's route key.
+     *
+     * @return mixed
+     */
+    public function getRouteKey()
+    {
+        return str_slug($this->getAttribute($this->getRouteKeyName()));
+    }
+
 
     /*
     |--------------------------------------------------------------------------
@@ -42,6 +64,22 @@ class User extends Authenticatable
     public function ship()
     {
         return $this->belongsTo(Ship::class, 'ship_id');
+    }
+
+    public function room()
+    {
+        return $this->custom(Room::class,
+            function($relation) {
+                $relation->getQuery()
+                    ->join('locations', 'rooms.id', '=', 'locations.locatable_id')
+                    ->where([
+                        ['locations.locatable_type', Room::class],
+                        ['locations.locatable_id', $this->location->parent->locatable->id],
+                    ]);
+            },
+            function($relation, $models) {
+                throw new \DomainException('Eager loading of Custom relationships not supported yet.');
+            });
     }
 
 
@@ -94,5 +132,21 @@ class User extends Authenticatable
         $this->location->parent_id = $location->id;
 
         return $this->location->save();
+    }
+
+    /**
+     * @return bool
+     */
+    public function isYou()
+    {
+        return $this->id == Auth::user()->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->name;
     }
 }

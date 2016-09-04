@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Jobs\MoveToRoom;
 use App\Rooms\Room;
+use App\User;
 use Auth;
 
 class UserController extends Controller
@@ -18,11 +19,16 @@ class UserController extends Controller
     }
 
     /**
+     * @param \App\User $user
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function page()
+    public function profile(User $user)
     {
-        return view('me');
+        if (! $user->exists) {
+            $user = Auth::user();
+        }
+
+        return view('profile', compact('user'));
     }
 
     /**

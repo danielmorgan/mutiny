@@ -25,6 +25,26 @@ class Room extends Model
      */
     public $locatedInside = 'ship';
 
+    /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'type';
+    }
+
+    /**
+     * Get the value of the model's route key.
+     *
+     * @return mixed
+     */
+    public function getRouteKey()
+    {
+        return str_slug($this->getAttribute($this->getRouteKeyName()));
+    }
+
 
     /*
     |--------------------------------------------------------------------------
@@ -41,7 +61,7 @@ class Room extends Model
     }
 
     /**
-     * @return \App\Relations\Custom
+     * @return \LaravelCustomRelation\Relations\Custom;
      */
     public function occupants()
     {
@@ -53,15 +73,13 @@ class Room extends Model
                         ['locations.locatable_type', User::class],
                         ['locations.parent_id', $this->location->id],
                     ]);
-            },
-            function() {
+            }, function() {
                 throw new \DomainException('Eager loading of Custom relationships not supported yet.');
-            }
-        );
+            });
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function __toString()
     {
