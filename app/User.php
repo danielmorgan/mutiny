@@ -129,9 +129,7 @@ class User extends Authenticatable
     {
         // @todo Validate location is accessible
 
-        $this->location->parent_id = $location->id;
-
-        return $this->location->save();
+        return $this->location->update(['parent_id' => $location->id]);
     }
 
     /**
@@ -140,6 +138,15 @@ class User extends Authenticatable
     public function isYou()
     {
         return $this->id == Auth::user()->id;
+    }
+
+    /**
+     * @param \App\Rooms\Room $room
+     * @return bool
+     */
+    public function isInRoom(Room $room)
+    {
+        return $this->location->parent->id == $room->location->id;
     }
 
     /**

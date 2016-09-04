@@ -17,7 +17,7 @@ class MoveToRoom extends DeferredAction implements ShouldQueue
     /**
      * @var int
      */
-    public $duration = 5;
+    public $duration = 10;
 
     /**
      * @var \App\User
@@ -34,22 +34,26 @@ class MoveToRoom extends DeferredAction implements ShouldQueue
      *
      * @param \App\User $user
      * @param \App\Rooms\Room $room
+     * @param int $delay
      */
-    public function __construct(User $user, Room $room)
+    public function __construct(User $user, Room $room, $delay = null)
     {
         $this->room = $room;
         $this->user = $user;
 
+        // Move the user to the ship corridors right away
+        $this->user->moveTo($this->user->ship->location);
+
+        // Set a delay
         $this->delay(Carbon::now()->addSeconds($this->duration));
     }
 
     /**
      * Execute the job.
-     *
-     * @return void
      */
     public function handle()
     {
+        // Move user to their intended room after delay
         $this->user->moveTo($this->room->location);
     }
 }

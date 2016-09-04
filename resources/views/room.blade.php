@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-xs-12">
             <div class="panel panel-default">
-                <div class="panel-heading">You are in the:</div>
+                <div class="panel-heading">Room</div>
 
                 <div class="panel-body">
                     <h2>{{ $room }}</h2>

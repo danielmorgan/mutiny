@@ -59,15 +59,6 @@ class Location extends Model
         });
     }
 
-    public function getNameAttribute($value)
-    {
-        if ($this->isLocatable()) {
-            return $this->locatable->name;
-        }
-
-        return $value;
-    }
-
 
     /*
     |--------------------------------------------------------------------------
@@ -88,5 +79,14 @@ class Location extends Model
     public function isInstantiable()
     {
         return $this->locatable_type !== null && $this->locatable_id == null;
+    }
+
+    public function __toString()
+    {
+        if ($this->isLocatable()) {
+            return (string) $this->locatable;
+        }
+
+        return $this->name;
     }
 }

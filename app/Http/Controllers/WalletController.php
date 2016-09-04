@@ -2,23 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
-use App\Http\Requests\TransferMoney;
 use Illuminate\Http\Request;
-use Illuminate\Http\JsonResponse;
+use App\Http\Requests\TransferMoney;
+use App\User;
 
 class WalletController extends Controller
 {
     /**
      * Create a new controller instance.
-     *
-     * @return void
      */
     public function __construct()
     {
         $this->middleware('auth');
     }
 
+    /**
+     * @return \Illuminate\View\View
+     *
+     */
     public function page()
     {
         return view('wallet');

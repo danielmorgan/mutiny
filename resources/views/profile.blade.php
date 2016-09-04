@@ -21,10 +21,7 @@
 
                         <h3>Current Location</h3>
                         <p>
-                            <a href="{{ route('ship') }}">{{ $user->ship }}</a>
-                            @if ($user->room)
-                                &rarr; <a href="{{ route('room') }}">{{ $user->room->first() }}</a>
-                            @endif
+                            <a href="{{ route('location') }}">{{ $user->location->parent }}</a>
                         </p>
 
                         <hr>

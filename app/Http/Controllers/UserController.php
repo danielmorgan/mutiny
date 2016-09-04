@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Jobs\MoveToRoom;
+use App\Ships\Ship;
 use App\Rooms\Room;
 use App\User;
 use Auth;
@@ -20,7 +21,7 @@ class UserController extends Controller
 
     /**
      * @param \App\User $user
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return \Illuminate\View\View
      */
     public function profile(User $user)
     {
@@ -29,6 +30,25 @@ class UserController extends Controller
         }
 
         return view('profile', compact('user'));
+    }
+
+    /**
+     * @return \Illuminate\View\View
+     */
+    public function location()
+    {
+        $location = Auth::user()->location->parent;
+
+        switch ($location->locatable_type) {
+            case Ship::class:
+                return view('ship')->with(['ship' => $location->locatable]);
+                break;
+            case Room::class:
+                return view('room')->with(['room' => $location->locatable]);
+                break;
+            default:
+                return view('location')->with(compact('location'));
+        }
     }
 
     /**

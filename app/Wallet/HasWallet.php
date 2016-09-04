@@ -6,18 +6,28 @@ use App\Exceptions\WalletBalanceIsNegativeException;
 
 trait HasWallet
 {
-    /**
-     * Eloquent observers.
-     */
-    public static function bootHasWallet()
-    {
-        static::updating(function($model) {
-            // Ensure wallet balance can't drop below 0
-            if ($model->balance < 0) {
-                throw new WalletBalanceIsNegativeException;
-            }
-        });
-    }
+    /*
+    |--------------------------------------------------------------------------
+    | Observers
+    |--------------------------------------------------------------------------
+    */
+
+        public static function bootHasWallet()
+        {
+            static::updating(function($model) {
+                // Ensure wallet balance can't drop below 0
+                if ($model->balance < 0) {
+                    throw new WalletBalanceIsNegativeException;
+                }
+            });
+        }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Domain specific methods
+    |--------------------------------------------------------------------------
+    */
 
     /**
      * @param  int
