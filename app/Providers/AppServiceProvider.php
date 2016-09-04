@@ -29,10 +29,6 @@ class AppServiceProvider extends ServiceProvider
         Blade::directive('currency', function($expression) {
             return "<?php echo currency($expression); ?>";
         });
-
-        DB::listen(function($query) {
-            Log::info($query->sql, $query->bindings);
-        });
     }
 
     /**

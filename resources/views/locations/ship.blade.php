@@ -15,19 +15,19 @@
 
                     <hr>
 
+                    <h3>Rooms</h3>
+                    @foreach ($ship->rooms as $room)
+                        @include('locations.room', compact('room'))
+                    @endforeach
+
+                    <hr>
+
                     <h3>Crew</h3>
                     <ul>
                         @foreach ($ship->crew as $user)
                             <li>{{ $user->name }}</li>
                         @endforeach
                     </ul>
-
-                    <hr>
-
-                    <h3>Rooms</h3>
-                    @foreach ($ship->rooms as $room)
-                        @include('locations.room', compact('room'))
-                    @endforeach
                 </div>
             </div>
         </div>

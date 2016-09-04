@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Jobs\MoveToRoom;
 use App\Rooms\Room;
 use Auth;
 
@@ -23,9 +24,10 @@ class UserController extends Controller
      */
     public function moveToRoom(Request $request, Room $room)
     {
-        Auth::user()->moveTo($room->location);
+        $job = new MoveToRoom(Auth::user(), $room);
+        dispatch($job);
 
-        $request->session()->flash('info', 'Moved.');
+        $request->session()->flash('info', "You scramble through the corridors and maintenance shafts of the ship. You estimate you will reach the $room $job->when.");
 
         return redirect()->back();
     }

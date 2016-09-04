@@ -59,4 +59,12 @@ class Room extends Model
             }
         );
     }
+
+    /**
+     * @return mixed
+     */
+    public function __toString()
+    {
+        return "$this->type Room";
+    }
 }
