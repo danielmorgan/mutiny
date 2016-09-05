@@ -122,14 +122,13 @@ class User extends Authenticatable
     /**
      * Move User to a Location.
      * 
-     * @param Location $location
-     * @return mixed
+     * @param \App\Location $location
      */
     public function moveTo(Location $location)
     {
         // @todo Validate location is accessible
 
-        return $this->location->update(['parent_id' => $location->id]);
+        $this->location->update(['parent_id' => $location->id]);
     }
 
     /**

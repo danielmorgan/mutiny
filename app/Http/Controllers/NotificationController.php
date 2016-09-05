@@ -62,11 +62,14 @@ class NotificationController extends Controller
     public function spamTest(Request $request)
     {
         $users = User::all();
+
         foreach ($users as $user) {
             $user->notify(new HelloNotification);
         }
 
-        return response()->json('Notifications spammed.', 201);
+        $request->session()->flash('success', "Test notification sent to all Users,");
+
+        return redirect()->back();
     }
 
     public function testShipPA(Request $request, Ship $ship)

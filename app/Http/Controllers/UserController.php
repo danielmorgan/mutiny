@@ -19,6 +19,11 @@ class UserController extends Controller
         $this->middleware('auth');
     }
 
+    public function settings()
+    {
+        return view('settings');
+    }
+
     /**
      * @param \App\User $user
      * @return \Illuminate\View\View

@@ -70,6 +70,6 @@ class FinishedMovingToRoomNotification extends Notification
             ->id($notification->id)
             ->title("You arrive in the {$room}")
             ->icon('/img/notification-icon.png')
-            ->action("Access {$room->type} Computers", 'view_app');
+            ->action("Access {$room->type} Computers", 'view.current_location');
     }
 }

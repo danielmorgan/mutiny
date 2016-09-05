@@ -17,6 +17,7 @@ Route::get('/', 'UserController@location')->name('location');
 Route::get('ship/{ship?}', 'ShipController@ship')->name('ship');
 Route::get('profile/{user?}', 'UserController@profile')->name('profile');
 Route::get('wallet', 'WalletController@page')->name('wallet');
+Route::get('settings', 'UserController@settings')->name('settings');
 Route::get('admin', 'HomeController@admin');
 
 Route::get('manifest.json', function() {

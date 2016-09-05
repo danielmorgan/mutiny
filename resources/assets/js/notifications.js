@@ -1,4 +1,4 @@
-//https://github.com/GoogleChrome/samples/tree/gh-pages/push-messaging-and-notifications
+'use strict';
 
 export default {
     data() {

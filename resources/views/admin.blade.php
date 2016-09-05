@@ -7,9 +7,9 @@
             <div class="panel-heading">Admin</div>
 
             <div class="panel-body">
-                <p>
-                    <button id="notifyEveryone" class="btn btn-danger">SPAM EVERYONE</button>
-                </p>
+                <form action="{{ url('spamtest') }}" method="POST">
+                    <button type="submit" class="btn btn-small btn-danger" onclick="return confirm('Are you sure? This is really annoying.');">SPAM EVERYONE</button>
+                </form>
 
                 <h3>Ships</h3>
                 <table class="table table-striped">
@@ -26,7 +26,7 @@
                             <td>{{ $ship->crew->count() }}</td>
                             <td>
                                 <form action="{{ route('testshippa', ['ship' => $ship]) }}" method="POST">
-                                    <button type="submit" class="btn btn-small btn-success">Test PA System</button>
+                                    <button type="submit" class="btn btn-small btn-success" onclick="return confirm('Are you sure? This is really annoying.');">Test PA System</button>
                                 </form>
                             </td>
                         </tr>

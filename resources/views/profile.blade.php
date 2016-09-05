@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-    {{--User Profile--}}
     <div class="row">
         <div class="col-xs-12">
             <div class="panel panel-default panel-wallet">
@@ -23,13 +22,9 @@
                         <p>
                             <a href="{{ route('location') }}">{{ $user->location->parent }}</a>
                         </p>
-
-                        <hr>
-
-                        <h3>Notifications</h3>
-                        @include ('interfaces.notifications')
                     @endif
-            </div></div>
+                </div>
+            </div>
         </div>
     </div>
 @endsection

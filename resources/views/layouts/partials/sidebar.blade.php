@@ -12,10 +12,13 @@
                         <a href="{{ route('ship') }}">Ship</a>
                     </li>
                     <li class="list-group-item">
+                        <a href="{{ route('wallet') }}">Wallet</a>
+                    </li>
+                    <li class="list-group-item">
                         <a href="{{ route('profile') }}">Profile</a>
                     </li>
                     <li class="list-group-item">
-                        <a href="{{ route('wallet') }}">Wallet</a>
+                        <a href="{{ route('settings') }}">Settings</a>
                     </li>
                 @else
                     <li class="list-group-item">
