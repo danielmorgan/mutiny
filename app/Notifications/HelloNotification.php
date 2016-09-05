@@ -59,10 +59,10 @@ class HelloNotification extends Notification
     {
         return WebPushMessage::create()
             ->id($notification->id)
-            ->title('Fire in Engineering!')
+            ->title('Welcome aboard!')
             ->icon('/img/notification-icon.png')
-            ->body('The jump drive overloaded and tripped a breaker. The engineering bay is on fire and losing oxygen fast.')
-            ->action('Fight fire', 'view_app')
-            ->action('Abandon ship', 'view_app');
+            ->body('You have joined the crew of a starship. It\'s time to take your place among the stars.')
+            ->action('Explore the ship', 'view.ship')
+            ->action('Head to your station', 'view.location');
     }
 }
