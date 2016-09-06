@@ -3,13 +3,15 @@
         <button type="btn" class="btn btn-primary"
             @click="togglePush"
             :disabled="pushButtonDisabled || loading"
-            :class="{'btn-primary': !isPushEnabled, 'btn-danger': isPushEnabled}">
+            :class="{'btn-primary': !isPushEnabled, 'btn-danger': isPushEnabled}"
+        >
             {{ isPushEnabled ? 'Disable' : 'Enable' }} Push Notifications
         </button>
 
         <button type="btn" class="btn btn-success btn-send"
             @click="sendTestNotification"
-            :disabled="loading">
+            :disabled="loading"
+        >
             Send Test Notification
         </button>
     </div>
@@ -66,49 +68,57 @@
              * Subscribe for push notifications.
              */
             subscribe() {
-                navigator.serviceWorker.ready.then((registration) => {
-                    registration.pushManager.subscribe({userVisibleOnly: true})
-                        .then(subscription => {
-                            this.isPushEnabled = true;
-                            this.pushButtonDisabled = false;
-                            this.updateSubscription(subscription);
-                        })
-                        .catch(e => {
-                            if (Notification.permission === 'denied') {
-                                console.log('Permission for Notifications was denied');
-                                this.pushButtonDisabled = true;
-                            } else {
-                                console.log('Unable to subscribe to push.', e);
+                navigator.serviceWorker.ready
+                    .then((registration) => {
+                        registration.pushManager.subscribe({userVisibleOnly: true})
+                            .then(subscription => {
+                                this.isPushEnabled = true;
                                 this.pushButtonDisabled = false;
-                            }
-                        });
-                })
+                                this.updateSubscription(subscription);
+                            })
+                            .catch(e => {
+                                if (Notification.permission === 'denied') {
+                                    console.log('Permission for Notifications was denied');
+                                    this.pushButtonDisabled = true;
+                                } else {
+                                    console.log('Unable to subscribe to push.', e);
+                                    this.pushButtonDisabled = false;
+                                }
+                            });
+                    });
             },
 
             /**
              * Unsubscribe from push notifications.
              */
             unsubscribe() {
-                navigator.serviceWorker.ready.then(registration => {
-                    registration.pushManager.getSubscription().then(subscription => {
-                        if (! subscription) {
-                            this.isPushEnabled = false;
-                            this.pushButtonDisabled = false;
-                            return;
-                        }
+                navigator.serviceWorker.ready
+                    .then(registration => {
 
-                        subscription.unsubscribe().then(() => {
-                            this.deleteSubscription(subscription);
-                            this.isPushEnabled = false;
-                            this.pushButtonDisabled = false;
-                        }).catch(e => {
-                            console.log('Unsubscription error: ', e);
-                            this.pushButtonDisabled = false;
-                        })
-                    }).catch(e => {
-                        console.log('Error thrown while unsubscribing.', e);
+                        registration.pushManager.getSubscription()
+                            .then(subscription => {
+                                if (! subscription) {
+                                    this.isPushEnabled = false;
+                                    this.pushButtonDisabled = false;
+                                    return;
+                                }
+
+                                subscription.unsubscribe()
+                                    .then(() => {
+                                        this.deleteSubscription(subscription);
+                                        this.isPushEnabled = false;
+                                        this.pushButtonDisabled = false;
+                                    })
+                                    .catch(e => {
+                                        console.log('Unsubscription error: ', e);
+                                        this.pushButtonDisabled = false;
+                                    });
+                            })
+                            .catch(e => {
+                                console.log('Error thrown while unsubscribing.', e);
+                            });
+
                     });
-                })
             },
 
             /**
@@ -162,8 +172,8 @@
                 this.loading = true
 
                 this.$http.post('/notifications')
-                        .catch(response => console.log(response))
-                        .then(() => this.loading = false);
+                    .catch(response => console.log(response))
+                    .then(() => this.loading = false);
             }
         }
     }

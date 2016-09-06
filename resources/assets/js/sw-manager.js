@@ -5,7 +5,7 @@ module.exports = {
      * Register the service worker.
      */
     registerServiceWorker() {
-        if (!'serviceWorker' in navigator) {
+        if (! 'serviceWorker' in navigator) {
             console.log('Service workers aren\'t supported in this browser.');
             return;
         }
@@ -18,7 +18,7 @@ module.exports = {
      * Check for feature support.
      */
     _check() {
-        if (!'showNotification' in ServiceWorkerRegistration.prototype) {
+        if (! 'showNotification' in ServiceWorkerRegistration.prototype) {
             console.log('Notifications aren\'t supported.');
             return;
         }
@@ -28,7 +28,7 @@ module.exports = {
             return;
         }
 
-        if (!'PushManager' in window) {
+        if (! 'PushManager' in window) {
             console.log('Push messaging isn\'t supported.');
             return;
         }
@@ -36,7 +36,7 @@ module.exports = {
         navigator.serviceWorker.ready.then(registration => {
             registration.pushManager.getSubscription()
                 .then(subscription => {
-                    if (! USER) return;
+                    if (! window.USER) return;
                     if (subscription) return;
                     if (localStorage.getItem('notification-prompt-seen')) return;
                     if (window.location.pathname == '/settings') return;
@@ -48,6 +48,7 @@ module.exports = {
                     localStorage.setItem('notification-prompt-seen', true);
                 })
                 .catch(err => console.log('Error during getSubscription()', err));
+
         });
     }
 }
