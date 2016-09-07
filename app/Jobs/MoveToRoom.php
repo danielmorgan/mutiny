@@ -19,17 +19,17 @@ class MoveToRoom extends DeferredAction implements ShouldQueue
     /**
      * @var int
      */
-    public $duration = 10;
+    public $duration = 30;
 
     /**
      * @var \App\User
      */
-    private $user;
+    public $user;
 
     /**
      * @var \App\Rooms\Room
      */
-    private $room;
+    public $room;
 
     /**
      * Create a new job instance.
@@ -43,11 +43,11 @@ class MoveToRoom extends DeferredAction implements ShouldQueue
         $this->room = $room;
         $this->user = $user;
 
-        // Move the user to the ship corridors right away
-        $this->user->moveTo($this->user->ship->location);
-
         // Fire an event saying User left their current room
         event(new UserLeftRoom($this->user, $this->user->room->first()));
+
+        // Move the user to the ship corridors right away
+        $this->user->moveTo($this->user->ship->location);
 
         // Set a delay
         $this->delay(Carbon::now()->addSeconds($this->duration));
