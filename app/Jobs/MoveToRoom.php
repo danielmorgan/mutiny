@@ -19,17 +19,17 @@ class MoveToRoom extends DeferredAction implements ShouldQueue
     /**
      * @var int
      */
-    public $duration = 10;
+    public $duration = 15;
 
     /**
      * @var \App\User
      */
-    private $user;
+    public $user;
 
     /**
      * @var \App\Rooms\Room
      */
-    private $room;
+    public $room;
 
     /**
      * Create a new job instance.

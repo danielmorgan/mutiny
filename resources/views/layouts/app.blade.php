@@ -29,7 +29,9 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
+                @include('layouts.partials.errors')
                 @include('layouts.partials.messages')
+                @include('layouts.partials.actions')
             </div>
         </div>
 

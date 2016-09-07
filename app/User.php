@@ -82,6 +82,28 @@ class User extends Authenticatable
             });
     }
 
+    public function jobs()
+    {
+        return $this->custom(Job::class,
+            function($relation) {
+                $usersJobs = [];
+                foreach ($relation->getQuery()->select(['jobs.id', 'jobs.payload'])->get() as $job) {
+                    try {
+                        $payload = json_decode($job->toArray()['payload']);
+                        $action = unserialize($payload->data->command);
+                        if ($action->user->id == $this->id) {
+                            $usersJobs[] = $job->id;
+                        }
+                    } catch (\Exception $e) {}
+                }
+
+                $relation->getQuery()->whereIn('jobs.id', $usersJobs);
+            },
+            function($relation, $models) {
+                throw new \DomainException('Eager loading of Custom relationships not supported yet.');
+            });
+    }
+
 
     /*
     |--------------------------------------------------------------------------
