@@ -10,4 +10,9 @@ class Job extends Model
     {
         return unserialize(json_decode($this->payload)->data->command);
     }
+
+    public function getClassAttribute()
+    {
+        return json_decode($this->payload)->data->commandName;
+    }
 }

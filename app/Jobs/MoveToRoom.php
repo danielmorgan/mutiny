@@ -19,7 +19,17 @@ class MoveToRoom extends DeferredAction implements ShouldQueue
     /**
      * @var int
      */
-    public $duration = 30;
+    public $duration = 60 * 2;
+
+    /**
+     * @var string
+     */
+    public $description = 'You scramble through the corridors and maintenance shafts of the ship.';
+
+    /**
+     * @var string
+     */
+    public $completedUrl;
 
     /**
      * @var \App\User
@@ -40,6 +50,8 @@ class MoveToRoom extends DeferredAction implements ShouldQueue
      */
     public function __construct(User $user, Room $room, $delay = null)
     {
+        $this->completedUrl = route('location');
+
         $this->room = $room;
         $this->user = $user;
 

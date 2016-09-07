@@ -66,8 +66,6 @@ class UserController extends Controller
         $job = new MoveToRoom(Auth::user(), $room);
         dispatch($job);
 
-        $request->session()->flash('info', "You scramble through the corridors and maintenance shafts of the ship. You estimate you will reach the $room $job->when.");
-
         return redirect()->back();
     }
 }
