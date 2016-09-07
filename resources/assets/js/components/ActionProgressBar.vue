@@ -1,7 +1,7 @@
 <template>
     <div>
         <div v-if="action && timeLeft > 0" class="well">
-            <p>{{ action.description }} (Time remaining: <strong>{{ humanizedTimeLeft }}</strong>)</p>
+            <p>{{ action.description }} (Time remaining: <strong>{{ timeLeft | humanize }}</strong>)</p>
 
             <div class="progress">
                 <div class="progress-bar progress-bar-striped active"
@@ -16,9 +16,7 @@
 
 
 <style>
-    .progress {
-        margin: 0;
-    }
+    .progress { margin: 0; }
 </style>
 
 
@@ -37,11 +35,14 @@
         },
 
         computed: {
-            humanizedTimeLeft() {
-                return moment.duration(this.timeLeft, 's').humanize();
-            },
             percent() {
                 return 100 + (-this.timeLeft / this.action.duration) * 100;
+            }
+        },
+
+        filters: {
+            humanize(duration) {
+                return moment.duration(duration, 's').humanize();
             }
         },
 
