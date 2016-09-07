@@ -87,7 +87,7 @@ class User extends Authenticatable
         return $this->custom(Job::class,
             function($relation) {
                 $usersJobs = [];
-                foreach ($relation->getQuery()->select(['jobs.id', 'jobs.payload'])->get() as $job) {
+                foreach ($relation->getQuery()->get() as $job) {
                     try {
                         $payload = json_decode($job->toArray()['payload']);
                         $action = unserialize($payload->data->command);

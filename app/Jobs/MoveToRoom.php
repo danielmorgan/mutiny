@@ -19,7 +19,7 @@ class MoveToRoom extends DeferredAction implements ShouldQueue
     /**
      * @var int
      */
-    public $duration = 15;
+    public $duration = 60 * 5;
 
     /**
      * @var \App\User
