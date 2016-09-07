@@ -26,7 +26,7 @@
                                 <h4 class="name"><strong>{{ $room->type }}</strong></h4>
                                 <form action="{{ route('move.user.room', ['room' => $room]) }}" method="POST" class="move">
                                     <button type="submit" class="btn btn-sm btn-success">
-                                        Move to - <i class="fa fa-clock-o"></i> 5m
+                                        Move to - <i class="fa fa-clock-o"></i> 30s
                                     </button>
                                 </form>
                             @endif

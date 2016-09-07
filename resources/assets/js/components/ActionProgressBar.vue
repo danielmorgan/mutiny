@@ -1,9 +1,11 @@
 <template>
     <div>
+        <p>Action will be completed in <strong>{{ humanizedTimeLeft }}</strong></p>
         <div class="progress" v-if="action && timeLeft > 0">
-            <p>Action will be completed in {{ humanizedTimeLeft }}</p>
-            <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 45%">
-                <span class="sr-only">45% Complete</span>
+            <div class="progress-bar progress-bar-striped active"
+                v-bind:style="{ width: percent + '%' }"
+            >
+                <span class="sr-only">{{ percent }}% Complete</span>
             </div>
         </div>
     </div>
@@ -26,7 +28,10 @@
 
         computed: {
             humanizedTimeLeft() {
-                return moment.duration(this.timeLeft, 'ms').humanize();
+                return moment.duration(this.timeLeft, 's').humanize();
+            },
+            percent() {
+                return 100 - (100 / this.timeLeft);
             }
         },
 
@@ -38,7 +43,8 @@
             update() {
                 setTimeout(() => {
                     this.currentTimestamp = moment.utc().valueOf();
-                    this.timeLeft = this.targetTimestamp - this.currentTimestamp;
+                    this.timeLeft = (this.targetTimestamp - this.currentTimestamp) / 1000;
+                    console.log(this.percent);
                     this.update();
                 }, 1000);
             }
