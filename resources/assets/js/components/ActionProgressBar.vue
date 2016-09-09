@@ -17,6 +17,11 @@
 
 <style>
     .progress { margin: 0; }
+
+    .progress-bar {
+        -webkit-transition: none !important;
+        transition: none !important;
+    }
 </style>
 
 
