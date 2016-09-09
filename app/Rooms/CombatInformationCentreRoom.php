@@ -8,6 +8,6 @@ class CombatInformationCentreRoom extends Room
 {
     use Locatable;
 
-    protected static $singleTableType = 'CombatInformationCenter';
+    protected static $singleTableType = 'CombatInformationCentre';
     protected static $throwInvalidAttributeExceptions = true;
 }
