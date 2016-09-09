@@ -14,6 +14,8 @@
                             <a href="{{ route('ship') }}">{{ $room->ship }}</a>
                         </p>
                     </div>
+                    <p>{{ $room->location->description }}</p>
+                    <img src="{{ $room->location->image }}" class="img-responsive">
 
                     <hr>
 

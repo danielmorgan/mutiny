@@ -85,4 +85,16 @@ class Room extends Model
     {
         return "$this->type Room";
     }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Accessors
+    |--------------------------------------------------------------------------
+    */
+
+    public function getDescriptionAttribute()
+    {
+        return 'This is a test room description.';
+    }
 }

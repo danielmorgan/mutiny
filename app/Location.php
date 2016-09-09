@@ -59,6 +59,13 @@ class Location extends Model
         });
     }
 
+    public function getImageAttribute()
+    {
+        $locationType = str_slug(class_basename($this->locatable_type));
+
+        return "/img/locations/$locationType.jpg";
+    }
+
 
     /*
     |--------------------------------------------------------------------------
