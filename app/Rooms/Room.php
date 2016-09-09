@@ -4,18 +4,14 @@ namespace App\Rooms;
 
 use Illuminate\Database\Eloquent\Model;
 use LaravelCustomRelation\HasCustomRelations;
+use Nanigans\SingleTableInheritance\SingleTableInheritanceTrait;
 use App\Locatable;
 use App\Ships\Ship;
 use App\User;
 
 class Room extends Model
 {
-    use Locatable, HasCustomRelations;
-
-    /**
-     * @var bool
-     */
-    public $timestamps = false;
+    use Locatable, HasCustomRelations, SingleTableInheritanceTrait;
 
     /**
      * The default Location type for a new Locatable.
@@ -24,6 +20,17 @@ class Room extends Model
      * @var string|null
      */
     public $locatedInside = 'ship';
+
+    /*
+    |--------------------------------------------------------------------------
+    | Eloquent/Laravel default overrides
+    |--------------------------------------------------------------------------
+    */
+
+    /**
+     * @var bool
+     */
+    public $timestamps = false;
 
     /**
      * Get the route key for the model.
@@ -48,6 +55,28 @@ class Room extends Model
 
     /*
     |--------------------------------------------------------------------------
+    | Single table inheritence
+    |--------------------------------------------------------------------------
+    */
+
+    /**
+     * @var string
+     */
+    protected $table = 'rooms';
+
+    /**
+     * @var string
+     */
+    protected static $singleTableTypeField = 'type';
+
+    /**
+     * @var array
+     */
+    protected static $singleTableSubclasses = [CombatInformationCentreRoom::class, EngineeringRoom::class];
+
+
+    /*
+    |--------------------------------------------------------------------------
     | Relationships
     |--------------------------------------------------------------------------
     */
@@ -57,7 +86,7 @@ class Room extends Model
      */
     public function ship()
     {
-        return $this->belongsTo(Ship::class);
+        return $this->belongsTo(Ship::class, 'ship_id');
     }
 
     /**
@@ -78,7 +107,7 @@ class Room extends Model
             });
     }
 
-    /**
+    /**CombatInformationCenterRoom
      * @return string
      */
     public function __toString()

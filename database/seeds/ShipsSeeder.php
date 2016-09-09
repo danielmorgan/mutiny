@@ -11,10 +11,16 @@ class ShipsSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Ships\Ship::class, 3)->create()->each(function($ship) {
-            foreach (['Operations', 'Communications', 'Navigation', 'Systems', 'Engineering'] as $type) {
-                $ship->rooms()->create(['type' => $type]);
-            }
+        factory(App\Ships\Ship::class)->create()->each(function($ship) {
+            $ship->rooms()->saveMany([
+                new \App\Rooms\CombatInformationCentreRoom,
+                new \App\Rooms\CombatInformationCentreRoom,
+                new \App\Rooms\CombatInformationCentreRoom,
+                new \App\Rooms\CombatInformationCentreRoom,
+                new \App\Rooms\EngineeringRoom,
+                new \App\Rooms\EngineeringRoom,
+                new \App\Rooms\EngineeringRoom,
+            ]);
         });
     }
 }

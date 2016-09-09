@@ -15,7 +15,8 @@ class CreateRoomsTable extends Migration
     {
         Schema::create('rooms', function (Blueprint $table) {
             $table->increments('id');
-            $table->enum('type', ['Operations', 'Communications', 'Navigation', 'Systems', 'Engineering']);
+            // @todo don't allow nullable
+            $table->string('type')->nullable()->default(null);
             $table->integer('ship_id')->unsigned()->index();
 
             $table->foreign('ship_id')
