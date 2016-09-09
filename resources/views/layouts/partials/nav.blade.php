@@ -19,11 +19,27 @@
         <div class="collapse navbar-collapse" id="app-navbar-collapse">
             <!-- Left Side Of Navbar --><!-- Left Side Of Navbar -->
             <ul class="nav navbar-nav">
-                <ul class="nav navbar-nav">
-                    @if (Auth::check())
-                        <notifications-dropdown></notifications-dropdown>
-                    @endif
-                </ul>
+                @if (Auth::check())
+                    <notifications-dropdown></notifications-dropdown>
+                    <li>
+                        <a href="{{ route('location') }}">
+                            Location
+                            (<em>{{ Auth::user()->location->parent }}</em>)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('ship') }}">Ship</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('wallet') }}">Wallet</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('profile') }}">Profile</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('settings') }}">Settings</a>
+                    </li>
+                @endif
             </ul>
 
             <!-- Right Side Of Navbar -->
