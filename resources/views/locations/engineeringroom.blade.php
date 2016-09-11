@@ -3,4 +3,4 @@
 
 <hr>
 
-@include('locations.partials.room-occupants', ['room' => $engineeringroom]);
+@include('locations.partials.room-occupants', ['room' => $engineeringroom])

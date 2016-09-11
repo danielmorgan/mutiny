@@ -46,7 +46,7 @@ class UserController extends Controller
 
         $data['location'] = $location;
         $data['template'] = 'locations/generic';
-        $data['locationData'] = [];
+        $data['locatableData'] = [];
 
         if ($location->isLocatable()) {
             $type = str_slug(class_basename($location->locatable));
