@@ -53,6 +53,12 @@ Route::post('move/{room}', 'UserController@moveToRoom')->name('move.user.room');
 Route::bind('ship', function($value) {
     return \App\Ships\Ship::where('name', str_replace('-', ' ', $value))->first();
 });
+Route::bind('room', function($value) {
+    return \App\Rooms\Room::where([
+        ['type', $value],
+        ['ship_id', Auth::user()->ship->id],
+    ])->first();
+});
 Route::bind('user', function($value) {
     return \App\User::where('name', str_replace('-', ' ', $value))->first();
 });

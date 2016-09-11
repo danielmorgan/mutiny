@@ -67,6 +67,6 @@ class UserController extends Controller
         $job = new MoveToRoom(Auth::user(), $room);
         dispatch($job);
 
-        return redirect()->back();
+        return redirect(route('location'));
     }
 }
