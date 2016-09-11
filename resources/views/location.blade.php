@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-xs-12">
             <div class="panel panel-default">
-                <div class="panel-heading">Location</div>
+                <div class="panel-heading">Current Location</div>
 
                 <div class="panel-body">
                     <h2>{{ $location }}</h2>
@@ -16,6 +16,10 @@
                     </div>
                     <p>{{ $location->description }}</p>
                     <img src="{{ $location->image }}" class="img-responsive">
+
+                    <hr>
+
+                    @include($template, $locationData)
                 </div>
             </div>
         </div>

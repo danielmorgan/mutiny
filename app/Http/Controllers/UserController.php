@@ -44,16 +44,18 @@ class UserController extends Controller
     {
         $location = Auth::user()->location->parent;
 
-        switch ($location->locatable_type) {
-            case Ship::class:
-                return view('ship')->with(['ship' => $location->locatable]);
-                break;
-            case Room::class:
-                return view('room')->with(['room' => $location->locatable]);
-                break;
-            default:
-                return view('location')->with(compact('location'));
+
+        $data['location'] = $location;
+        $data['template'] = 'locations/generic';
+        $data['locationData'] = [];
+
+        if ($location->isLocatable()) {
+            $type = str_slug(class_basename($location->locatable));
+            $data['template'] = "locations/$type";
+            $data['locationData'] = [$type => $location->locatable];
         }
+
+        return view('location')->with($data);
     }
 
     /**

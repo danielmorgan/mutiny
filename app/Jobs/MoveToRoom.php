@@ -56,7 +56,9 @@ class MoveToRoom extends DeferredAction implements ShouldQueue
         $this->user = $user;
 
         // Fire an event saying User left their current room
-        event(new UserLeftRoom($this->user, $this->user->room->first()));
+        if ($this->user->isInARoom()) {
+            event(new UserLeftRoom($this->user, $this->user->room->first()));
+        }
 
         // Move the user to the ship corridors right away
         $this->user->moveTo($this->user->ship->location);

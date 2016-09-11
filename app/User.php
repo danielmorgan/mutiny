@@ -68,13 +68,18 @@ class User extends Authenticatable
 
     public function room()
     {
+        $roomId = 0;
+        try {
+            $roomId = $this->location->parent->locatable->id;
+        } catch (\Exception $e) {}
+
         return $this->custom(Room::class,
-            function($relation) {
+            function($relation) use ($roomId) {
                 $relation->getQuery()
                     ->join('locations', 'rooms.id', '=', 'locations.locatable_id')
                     ->where([
-                        ['locations.locatable_type', Room::class],
-                        ['locations.locatable_id', $this->location->parent->locatable->id],
+                        ['locations.locatable_type', 'LIKE', '%Room'],
+                        ['locations.locatable_id', $roomId],
                     ]);
             },
             function($relation, $models) {
@@ -177,6 +182,14 @@ class User extends Authenticatable
     public function isInRoom(Room $room)
     {
         return $this->location->parent->id == $room->location->id;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isInARoom()
+    {
+        return strpos($this->location->parent->locatable_type, 'Room') !== false;
     }
 
     /**
