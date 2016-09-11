@@ -28,6 +28,15 @@
     </li>
 </template>
 
+
+<style>
+    .dropdown-notifications .dropdown-container {
+        right: 0;
+        left: auto;
+    }
+</style>
+
+
 <script>
     import _ from 'lodash';
     import $ from 'jquery';

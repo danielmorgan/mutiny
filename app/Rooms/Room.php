@@ -21,6 +21,11 @@ class Room extends Model
      */
     public $locatedInside = 'ship';
 
+    /**
+     * @var string
+     */
+    public $name = 'Standard Room';
+
     /*
     |--------------------------------------------------------------------------
     | Eloquent/Laravel default overrides
@@ -107,12 +112,12 @@ class Room extends Model
             });
     }
 
-    /**CombatInformationCenterRoom
+    /**
      * @return string
      */
     public function __toString()
     {
-        return "$this->type Room";
+        return "$this->name";
     }
 
 

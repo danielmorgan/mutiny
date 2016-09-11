@@ -19,11 +19,11 @@
                         <div class="room">
                             @if (Auth::user()->isInRoom($room))
                                 <a href="{{ route('location') }}">
-                                    <h4 class="name"><strong>{{ $room->type }}</strong></h4>
+                                    <h4 class="name"><strong>{{ $room }}</strong></h4>
                                 </a>
                                 (You are here)
                             @else
-                                <h4 class="name"><strong>{{ $room->type }}</strong></h4>
+                                <h4 class="name"><strong>{{ $room }}</strong></h4>
                                 <form action="{{ route('move.user.room', ['room' => $room]) }}" method="POST" class="move">
                                     <button type="submit" class="btn btn-sm btn-success">
                                         Move to - <i class="fa fa-clock-o"></i> 2m

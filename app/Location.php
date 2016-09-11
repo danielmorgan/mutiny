@@ -3,7 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Ships\Ship;
+use File;
 
 class Location extends Model
 {
@@ -62,8 +62,13 @@ class Location extends Model
     public function getImageAttribute()
     {
         $locationType = str_slug(class_basename($this->locatable_type));
+        $filePath = "/img/locations/$locationType.jpg";
 
-        return "/img/locations/$locationType.jpg";
+        if (! File::exists(public_path($filePath))) {
+            $filePath = "/img/locations/room.jpg";
+        }
+
+        return $filePath;
     }
 
 
