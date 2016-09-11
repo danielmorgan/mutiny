@@ -61,14 +61,12 @@ class Location extends Model
 
     public function getImageAttribute()
     {
-        $locationType = str_slug(class_basename($this->locatable_type));
-        $filePath = "/img/locations/$locationType.jpg";
+        $locatableType = str_slug(class_basename($this->locatable_type));
+        $filePath = "/img/locations/$locatableType.jpg";
 
-        if (! File::exists(public_path($filePath))) {
-            $filePath = "/img/locations/room.jpg";
+        if (File::exists(public_path($filePath))) {
+            return $filePath;
         }
-
-        return $filePath;
     }
 
 

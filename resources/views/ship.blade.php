@@ -15,6 +15,7 @@
                     <hr>
 
                     <h3>Rooms</h3>
+                    {{ dump($ship->rooms->toArray()) }}
                     @foreach ($ship->rooms as $room)
                         <div class="room">
                             @if (Auth::user()->isInRoom($room))

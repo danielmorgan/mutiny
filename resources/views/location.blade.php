@@ -19,7 +19,7 @@
 
                     <hr>
 
-                    @include($template, $locationData)
+                    @include($template, $locatableData)
                 </div>
             </div>
         </div>

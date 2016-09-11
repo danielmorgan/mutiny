@@ -4,7 +4,7 @@ namespace App\Rooms;
 
 class EngineeringRoom extends Room
 {
-    protected static $singleTableType = 'engineering';
+    protected static $singleTableType = 'eng';
     protected static $throwInvalidAttributeExceptions = true;
-    public $name = 'Engineering Room';
+    public $name = 'Engineering Bay';
 }

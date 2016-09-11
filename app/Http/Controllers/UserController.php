@@ -44,7 +44,6 @@ class UserController extends Controller
     {
         $location = Auth::user()->location->parent;
 
-
         $data['location'] = $location;
         $data['template'] = 'locations/generic';
         $data['locationData'] = [];
@@ -52,7 +51,7 @@ class UserController extends Controller
         if ($location->isLocatable()) {
             $type = str_slug(class_basename($location->locatable));
             $data['template'] = "locations/$type";
-            $data['locationData'] = [$type => $location->locatable];
+            $data['locatableData'] = [$type => $location->locatable];
         }
 
         return view('location')->with($data);
