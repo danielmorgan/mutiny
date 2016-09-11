@@ -36,7 +36,10 @@
         </div>
 
         <div class="row">
-            <div class="col-md-6 col-md-offset-3">
+            <div class="col-md-3">
+                @include('locations.partials.rooms')
+            </div>
+            <div class="col-md-9">
                 @yield('content')
             </div>
         </div>

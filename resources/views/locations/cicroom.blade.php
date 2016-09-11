@@ -3,4 +3,4 @@
 
 <hr>
 
-@include('locations/room-occupants', ['room' => $cicroom]);
+@include('locations.partials.room-occupants', ['room' => $cicroom]);
