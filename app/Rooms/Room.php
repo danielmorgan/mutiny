@@ -77,7 +77,13 @@ class Room extends Model
     /**
      * @var array
      */
-    protected static $singleTableSubclasses = [CICRoom::class, EngineeringRoom::class];
+    protected static $singleTableSubclasses = [
+        CICRoom::class,
+        CommunicationsRoom::class,
+        NavigationRoom::class,
+        SystemsRoom::class,
+        EngineeringRoom::class,
+    ];
 
 
     /*
