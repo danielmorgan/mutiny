@@ -54,7 +54,10 @@ trait Locatable
         static::created(function($locatable) {
             if (! is_null($locatable->locatedInside)) {
                 $locatedInside = $locatable->locatedInside;
-                $parent = Location::where('locatable_id', $locatable->$locatedInside->id)->first();
+                $parent = Location::where([
+                    ['locatable_type', get_class($locatable->$locatedInside)],
+                    ['locatable_id', $locatable->$locatedInside->id],
+                ])->first();
             } else {
                 $parent = Location::where('parent_id', null)->first();
             }
