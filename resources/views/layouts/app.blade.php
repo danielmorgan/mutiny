@@ -36,12 +36,18 @@
         </div>
 
         <div class="row">
-            <div class="col-md-3">
-                @include('locations.partials.rooms')
-            </div>
-            <div class="col-md-9">
-                @yield('content')
-            </div>
+            @if (Auth::check())
+                <div class="col-md-3">
+                    @include('locations.partials.rooms')
+                </div>
+                <div class="col-md-9">
+                    @yield('content')
+                </div>
+            @else
+                <div class="col-md-8 col-md-offset-2">
+                    @yield('content')
+                </div>
+            @endif
         </div>
     </div>
 
