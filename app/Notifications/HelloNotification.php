@@ -41,9 +41,9 @@ class HelloNotification extends Notification
     public function toArray($notifiable)
     {
         return [
-            'title' => 'Fire in Engineering!',
-            'body' => 'The jump drive overloaded and tripped a breaker. The engineering bay is on fire and losing oxygen fast.',
-            'action_url' => url('/'),
+            'title' => 'Welcome aboard!',
+            'body' => 'You have joined the crew of a starship. It\'s time to take your place among the stars.',
+            'action_url' => route('ship'),
             'created' => Carbon::now()->toIso8601String(),
         ];
     }

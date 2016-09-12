@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use File;
+use Auth;
 
 class Location extends Model
 {
@@ -33,6 +34,36 @@ class Location extends Model
         return $this->hasOne(Location::class, 'id', 'parent_id');
     }
 
+    public function siblings()
+    {
+        return $this->hasMany(Location::class, 'parent_id', 'parent_id');
+    }
+
+    // Not a real relationship, can't be accessed as a property
+    public function enterableByUser()
+    {
+        return collect()
+            ->merge($this->parent()->userCanEnter()->get())
+            ->merge($this->siblings()->userCanEnter()->get())
+            ->merge($this->children()->userCanEnter()->get());
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Scopes
+    |--------------------------------------------------------------------------
+    */
+
+    public function scopeUserCanEnter($query)
+    {
+        if (Auth::check()) {
+            $query = $query->where('id', '!=', Auth::user()->location->parent->id);
+        }
+
+        return $query->whereNotIn('locatable_type', [User::class, 'NULL']);
+    }
+
 
     /*
     |--------------------------------------------------------------------------
@@ -57,6 +88,15 @@ class Location extends Model
         return $this->children->transform(function($child) {
             return $child->locatable;
         });
+    }
+
+    public function getClassAttribute()
+    {
+        if ($this->isLocatable()) {
+            return class_basename($this->locatable);
+        }
+
+        return class_basename($this);
     }
 
     public function getImageAttribute()

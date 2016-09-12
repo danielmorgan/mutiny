@@ -7,11 +7,17 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use NotificationChannels\WebPush\WebPushMessage;
 use NotificationChannels\WebPush\WebPushChannel;
+use App\User;
 use App\Rooms\Room;
 
-class FinishedMovingToRoomNotification extends Notification
+class UserLeftRoomNotification extends Notification
 {
     use Queueable;
+
+    /**
+     * @var \App\User
+     */
+    public $user;
 
     /**
      * @var \App\Rooms\Room
@@ -21,10 +27,12 @@ class FinishedMovingToRoomNotification extends Notification
     /**
      * Create a new notification instance.
      *
+     * @param \App\User $user
      * @param \App\Rooms\Room $room
      */
-    public function __construct(Room $room)
+    public function __construct(User $user, Room $room)
     {
+        $this->user = $user;
         $this->room = $room;
     }
 
@@ -48,8 +56,7 @@ class FinishedMovingToRoomNotification extends Notification
     public function toArray($notifiable)
     {
         return [
-            'title' => "You arrive at the {$this->room}",
-            'action_url' => route('location'),
+            'title' => "{$this->user} left the {$this->room}",
             'created' => Carbon::now()->toIso8601String(),
         ];
     }
@@ -63,12 +70,12 @@ class FinishedMovingToRoomNotification extends Notification
      */
     public function toWebPush($notifiable, $notification)
     {
+        $user = User::find($notification->user->id);
         $room = Room::find($notification->room->id);
 
         return WebPushMessage::create()
             ->id($notification->id)
-            ->title("You arrive at the {$room}")
-            ->icon('/img/notification-icon.png')
-            ->action("Enter room", 'view.current_location');
+            ->title("{$user} left the {$room}")
+            ->icon('/img/notification-icon.png');
     }
 }

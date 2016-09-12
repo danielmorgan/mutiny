@@ -47,7 +47,8 @@ Route::post('testshippa/{ship}', 'NotificationController@testShipPA')->name('tes
 Route::post('wallet/transfer', 'WalletController@transfer');
 
 // User Actions
-Route::post('move/{room}', 'UserController@moveToRoom')->name('move.user.room');
+Route::post('move-cancel', 'UserController@cancelMove')->name('move.user.cancel');
+Route::post('move/{location}', 'UserController@move')->name('move.user.location');
 
 // Model bindings
 Route::bind('ship', function($value) {

@@ -10,6 +10,7 @@ use NotificationChannels\WebPush\HasPushSubscriptions;
 use App\Wallet\HasWallet;
 use App\Ships\Ship;
 use App\Rooms\Room;
+use App\Jobs\Job;
 use Auth;
 
 class User extends Authenticatable
@@ -109,6 +110,11 @@ class User extends Authenticatable
             });
     }
 
+    public function reachableLocations()
+    {
+        return $this->location->parent->enterableByUser();
+    }
+
 
     /*
     |--------------------------------------------------------------------------
@@ -148,13 +154,11 @@ class User extends Authenticatable
 
     /**
      * Move User to a Location.
-     * 
+     *
      * @param \App\Location $location
      */
     public function moveTo(Location $location)
     {
-        // @todo Validate location is accessible
-
         $this->location->update(['parent_id' => $location->id]);
     }
 
@@ -164,6 +168,48 @@ class User extends Authenticatable
     public function isYou()
     {
         return $this->id == Auth::user()->id;
+    }
+
+    /**
+     * @return \App\Location|null
+     */
+    public function getTargetLocationAttribute()
+    {
+        if ($this->isMoving()) {
+            return $this->jobs()->userMove()->get()->first()->action->location->location;
+        }
+
+        return null;
+    }
+
+    /**
+     * @param Location $location
+     * @return bool
+     */
+    public function isInLocation(Location $location)
+    {
+        return $this->location->parent->id == $location->id;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isMoving()
+    {
+        return ! $this->jobs()->userMove()->get()->isEmpty();
+    }
+
+    /**
+     * @param Location $location
+     * @return bool
+     */
+    public function isMovingToLocation(Location $location)
+    {
+        if (! $this->isMoving()) {
+            return false;
+        }
+
+        return $this->targetLocation->id == $location->id;
     }
 
     /**
@@ -190,6 +236,48 @@ class User extends Authenticatable
     public function isInARoom()
     {
         return strpos($this->location->parent->locatable_type, 'Room') !== false;
+    }
+
+    /**
+     * @param \App\Rooms\Room $room
+     * @return bool
+     */
+    public function isMovingToRoom(Room $room)
+    {
+        if (! $this->isMovingToARoom()) {
+            return false;
+        }
+
+        return $this->targetRoom->id == $room->id;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isMovingToARoom()
+    {
+        return ! $this->jobs()->moveToRoom()->get()->isEmpty();
+    }
+
+    /**
+     * @return \App\Rooms\Room|null
+     */
+    public function getTargetRoomAttribute()
+    {
+        if ($this->isMovingToARoom()) {
+            return $this->jobs()->moveToRoom()->get()->first()->action->room;
+        }
+
+        return null;
+    }
+
+    /**
+     * @param \App\Location $location
+     * @return bool
+     */
+    public function canReach(Location $location)
+    {
+        return ! $this->reachableLocations()->where('id', $location->id)->isEmpty();
     }
 
     /**

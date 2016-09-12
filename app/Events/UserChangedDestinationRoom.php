@@ -3,13 +3,13 @@
 namespace App\Events;
 
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Broadcasting\PresenceChannel;
+use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use App\User;
 use App\Rooms\Room;
 
-class UserLeftRoom implements ShouldBroadcast
+class UserChangedDestinationRoom implements ShouldBroadcast
 {
     use InteractsWithSockets, SerializesModels;
 
@@ -17,24 +17,22 @@ class UserLeftRoom implements ShouldBroadcast
      * @var \App\User
      */
     public $user;
-    
+
     /**
      * @var \App\Rooms\Room
      */
-    public $room;
+    public $newTarget;
 
     /**
      * Create a new event instance.
      *
      * @param \App\User $user
-     * @param \App\Rooms\Room $room
+     * @param \App\Rooms\Room $newTarget
      */
-    public function __construct(User $user, Room $room)
+    public function __construct(User $user, Room $newTarget)
     {
         $this->user = $user;
-        $this->room = $room;
-
-        $this->dontBroadcastToCurrentUser();
+        $this->newTarget = $newTarget;
     }
 
     /**
@@ -44,6 +42,6 @@ class UserLeftRoom implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PresenceChannel("room.{$this->room->id}");
+        return new PrivateChannel("user.{$this->user->id}");
     }
 }

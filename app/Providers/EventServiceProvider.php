@@ -14,11 +14,25 @@ class EventServiceProvider extends ServiceProvider
      */
     protected $listen = [
         'App\Events\UserLeftRoom' => [
-            'App\Listeners\NotifyRoomOccupantsThatUserLeft',
+            'App\Listeners\SendUserLeftRoomNotifications',
         ],
         'App\Events\UserEnteredRoom' => [
-            'App\Listeners\NotifyRoomOccupantsThatUserEntered',
+            'App\Listeners\SendUserEnteredRoomNotifications',
         ],
+        'App\Events\UserEnteredLocation' => [
+            'App\Listeners\SendUserEnteredLocationNotifications'
+        ],
+        'App\Events\UserChangedDestinationRoom' => [
+            'App\Listeners\SendUserChangedDestinationRoomNotifications',
+            'App\Listeners\DeleteExistingMoveToRoomJobs',
+        ],
+        'App\Events\CancelledMoveToRoom' => [
+            'App\Listeners\SendUserCancelledMoveToRoomNotifications',
+            'App\Listeners\DeleteExistingMoveToRoomJobs',
+        ],
+        'App\Events\UserChangedDestination' => [
+            'App\Listeners\DeleteExistingMoveToRoomJobs',
+        ]
     ];
 
     /**

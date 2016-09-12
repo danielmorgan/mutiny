@@ -2,14 +2,13 @@
 
 namespace App\Events;
 
+use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Broadcasting\PresenceChannel;
+use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use App\User;
-use App\Rooms\Room;
 
-class UserLeftRoom implements ShouldBroadcast
+class CancelledMoveToRoom
 {
     use InteractsWithSockets, SerializesModels;
 
@@ -17,33 +16,29 @@ class UserLeftRoom implements ShouldBroadcast
      * @var \App\User
      */
     public $user;
-    
+
     /**
      * @var \App\Rooms\Room
      */
-    public $room;
+    public $currentLocation;
 
     /**
      * Create a new event instance.
      *
      * @param \App\User $user
-     * @param \App\Rooms\Room $room
      */
-    public function __construct(User $user, Room $room)
+    public function __construct(User $user)
     {
         $this->user = $user;
-        $this->room = $room;
-
-        $this->dontBroadcastToCurrentUser();
     }
 
     /**
      * Get the channels the event should broadcast on.
      *
-     * @return \Illuminate\Broadcasting\PresenceChannel
+     * @return Channel|array
      */
     public function broadcastOn()
     {
-        return new PresenceChannel("room.{$this->room->id}");
+        return new PrivateChannel("user.{$this->user->id}");
     }
 }

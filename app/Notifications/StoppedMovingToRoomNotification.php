@@ -9,23 +9,23 @@ use NotificationChannels\WebPush\WebPushMessage;
 use NotificationChannels\WebPush\WebPushChannel;
 use App\Rooms\Room;
 
-class FinishedMovingToRoomNotification extends Notification
+class StoppedMovingToRoomNotification extends Notification
 {
     use Queueable;
 
     /**
      * @var \App\Rooms\Room
      */
-    public $room;
+    public $oldTarget;
 
     /**
-     * Create a new notification instance.
+     * ChangedTargetRoomNotification constructor.
      *
-     * @param \App\Rooms\Room $room
+     * @param \App\Rooms\Room $oldTarget
      */
-    public function __construct(Room $room)
+    public function __construct(Room $oldTarget)
     {
-        $this->room = $room;
+        $this->oldTarget = $oldTarget;
     }
 
     /**
@@ -48,8 +48,8 @@ class FinishedMovingToRoomNotification extends Notification
     public function toArray($notifiable)
     {
         return [
-            'title' => "You arrive at the {$this->room}",
-            'action_url' => route('location'),
+            'title' => 'Stopped moving',
+            'body' => "You stop before reaching the {$this->oldTarget}, lingering in the corridors.",
             'created' => Carbon::now()->toIso8601String(),
         ];
     }
@@ -63,12 +63,12 @@ class FinishedMovingToRoomNotification extends Notification
      */
     public function toWebPush($notifiable, $notification)
     {
-        $room = Room::find($notification->room->id);
+        $oldTarget = Room::find($notification->oldTarget->id);
 
         return WebPushMessage::create()
             ->id($notification->id)
-            ->title("You arrive at the {$room}")
-            ->icon('/img/notification-icon.png')
-            ->action("Enter room", 'view.current_location');
+            ->title('Stopped moving')
+            ->body("You stop before reaching the {$oldTarget}, lingering in the corridors.")
+            ->icon('/img/notification-icon.png');
     }
 }

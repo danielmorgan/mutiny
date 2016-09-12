@@ -3,9 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Events\CancelledMoveToRoom;
+use App\Http\Requests\MoveUser;
 use App\Jobs\MoveToRoom;
-use App\Ships\Ship;
+use App\Jobs\MoveToShip;
+use App\Jobs\MoveToLocation;
 use App\Rooms\Room;
+use App\Ships\Ship;
+use App\Location;
 use App\User;
 use Auth;
 
@@ -58,14 +63,35 @@ class UserController extends Controller
     }
 
     /**
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Rooms\Room $room
+     * @param \App\Http\Requests\MoveUser $request
+     * @param \App\Location $location
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function moveToRoom(Request $request, Room $room)
+    public function move(MoveUser $request, Location $location)
     {
-        $job = new MoveToRoom(Auth::user(), $room);
-        dispatch($job);
+        if ($location->isLocatable()) {
+            if ($location->locatable instanceof Room) {
+                dispatch(new MoveToRoom(Auth::user(), $location->locatable));
+                return redirect(route('location'));
+            }
+
+            if ($location->locatable instanceof Ship) {
+                dispatch(new MoveToShip(Auth::user(), $location->locatable));
+                return redirect(route('location'));
+            }
+        }
+
+        dispatch(new MoveToLocation(Auth::user(), $location));
+        return redirect(route('location'));
+
+    }
+
+    /**
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function cancelMove()
+    {
+        event(new CancelledMoveToRoom(Auth::user()));
 
         return redirect(route('location'));
     }

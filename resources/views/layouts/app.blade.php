@@ -38,7 +38,7 @@
         <div class="row">
             @if (Auth::check())
                 <div class="col-md-3">
-                    @include('locations.partials.rooms')
+                    @include('locations.partials.move')
                 </div>
                 <div class="col-md-9">
                     @yield('content')

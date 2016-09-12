@@ -70,7 +70,9 @@
 
             complete() {
                 if (this.action.completedUrl) {
-                    window.location = this.action.completedUrl;
+                    setTimeout(() => {
+                        window.location = this.action.completedUrl;
+                    }, 2500);
                 }
             }
         }

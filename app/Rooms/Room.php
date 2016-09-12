@@ -3,15 +3,17 @@
 namespace App\Rooms;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 use LaravelCustomRelation\HasCustomRelations;
 use Nanigans\SingleTableInheritance\SingleTableInheritanceTrait;
 use App\Locatable;
 use App\Ships\Ship;
 use App\User;
+use Auth;
 
 class Room extends Model
 {
-    use Locatable, HasCustomRelations, SingleTableInheritanceTrait;
+    use Locatable, HasCustomRelations, SingleTableInheritanceTrait, Notifiable;
 
     /**
      * The default Location type for a new Locatable.
@@ -24,7 +26,31 @@ class Room extends Model
     /**
      * @var string
      */
-    public $name = 'Standard Room';
+    public $name = 'All Purpose Room';
+
+    /**
+     * Send the given notification to everyone in the room.
+     *
+     * @param mixed $instance
+     */
+    public function notify($instance)
+    {
+        app(\Illuminate\Notifications\ChannelManager::class)->send($this->occupants, $instance);
+    }
+
+    /**
+     * Send the given notification to everyone in the room except to passed user.
+     *
+     * @param mixed $instance
+     * @param \App\User $exceptUser
+     */
+    public function notifyExcept($instance, User $exceptUser) {
+        $targets = $this->occupants->filter(function($user) use($exceptUser) {
+            return $user->id !== $exceptUser->id;
+        });
+
+        app(\Illuminate\Notifications\ChannelManager::class)->send($targets, $instance);
+    }
 
     /*
     |--------------------------------------------------------------------------

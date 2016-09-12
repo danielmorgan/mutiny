@@ -9,23 +9,30 @@ use NotificationChannels\WebPush\WebPushMessage;
 use NotificationChannels\WebPush\WebPushChannel;
 use App\Rooms\Room;
 
-class FinishedMovingToRoomNotification extends Notification
+class ChangedTargetRoomNotification extends Notification
 {
     use Queueable;
 
     /**
      * @var \App\Rooms\Room
      */
-    public $room;
+    public $newTarget;
 
     /**
-     * Create a new notification instance.
-     *
-     * @param \App\Rooms\Room $room
+     * @var \App\Rooms\Room
      */
-    public function __construct(Room $room)
+    public $oldTarget;
+
+    /**
+     * ChangedTargetRoomNotification constructor.
+     *
+     * @param \App\Rooms\Room $newTarget
+     * @param \App\Rooms\Room $oldTarget
+     */
+    public function __construct(Room $newTarget, Room $oldTarget)
     {
-        $this->room = $room;
+        $this->newTarget = $newTarget;
+        $this->oldTarget = $oldTarget;
     }
 
     /**
@@ -48,8 +55,8 @@ class FinishedMovingToRoomNotification extends Notification
     public function toArray($notifiable)
     {
         return [
-            'title' => "You arrive at the {$this->room}",
-            'action_url' => route('location'),
+            'title' => 'Changing direction',
+            'body' => "You turn around, away from the {$this->oldTarget} and head towards the {$this->newTarget}.",
             'created' => Carbon::now()->toIso8601String(),
         ];
     }
@@ -63,12 +70,13 @@ class FinishedMovingToRoomNotification extends Notification
      */
     public function toWebPush($notifiable, $notification)
     {
-        $room = Room::find($notification->room->id);
+        $oldTarget = Room::find($notification->oldTarget->id);
+        $newTarget = Room::find($notification->newTarget->id);
 
         return WebPushMessage::create()
             ->id($notification->id)
-            ->title("You arrive at the {$room}")
-            ->icon('/img/notification-icon.png')
-            ->action("Enter room", 'view.current_location');
+            ->title('Changing direction')
+            ->body("You turn away from the {$oldTarget} and head towards the {$newTarget}.")
+            ->icon('/img/notification-icon.png');
     }
 }

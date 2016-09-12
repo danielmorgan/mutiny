@@ -2,12 +2,10 @@
 
 namespace App\Listeners;
 
-use App\Events\UserEnteredRoom;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use App\Notifications\FinishedMovingToRoomNotification;
+use App\Notifications\UserEnteredRoomNotification;
 
-class NotifyRoomOccupantsThatUserEntered
+class SendUserEnteredRoomNotifications
 {
     /**
      * Create the event listener.
@@ -20,11 +18,11 @@ class NotifyRoomOccupantsThatUserEntered
     /**
      * Handle the event.
      *
-     * @param  UserEnteredRoom  $event
-     * @return void
+     * @param $event
      */
-    public function handle(UserEnteredRoom $event)
+    public function handle($event)
     {
         $event->user->notify(new FinishedMovingToRoomNotification($event->room));
+        $event->room->notifyExcept(new UserEnteredRoomNotification($event->user, $event->room), $event->user);
     }
 }

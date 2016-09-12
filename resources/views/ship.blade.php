@@ -14,28 +14,22 @@
 
                     <hr>
 
-                    <h3>Rooms</h3>
-                    @foreach ($ship->rooms as $room)
-                        <div class="room">
-                            @if (Auth::user()->isInRoom($room))
-                                <a href="{{ route('location') }}">
-                                    <h4 class="name"><strong>{{ $room }}</strong></h4>
-                                </a>
-                                (You are here)
-                            @else
-                                <h4 class="name"><strong>{{ $room }}</strong></h4>
-                                <form action="{{ route('move.user.room', ['room' => $room]) }}" method="POST" class="move">
-                                    <button type="submit" class="btn btn-sm btn-success">
-                                        Move to - <i class="fa fa-clock-o"></i> 2m
-                                    </button>
-                                </form>
-                            @endif
-                        </div>
-                    @endforeach
+                    <h3>Rooms <small>({{ count($ship->rooms) }})</small></h3>
+                    <ul>
+                        @foreach ($ship->rooms as $room)
+                            <li class="room">
+                                @if (Auth::user()->isInRoom($room))
+                                    <div class="name"><strong>{{ $room }}</strong></div> (You are here)
+                                @else
+                                    <div class="name"><strong>{{ $room }}</strong></div>
+                                @endif
+                            </li>
+                        @endforeach
+                    </ul>
 
                     <hr>
 
-                    <h3>Crew</h3>
+                    <h3>Crew <small>({{ count($ship->crew) }})</small></h3>
                     <ul>
                         @foreach ($ship->crew as $user)
                             <li>

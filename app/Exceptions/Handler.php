@@ -49,6 +49,11 @@ class Handler extends ExceptionHandler
             return redirect()->back()->withErrors($messageBag, 'flash');
         }
 
+        if ($exception instanceof InaccessibleLocationException) {
+            $messageBag = new MessageBag(['location' => 'This location is inaccessible.']);
+            return redirect()->back()->withErrors($messageBag, 'flash');
+        }
+
         return parent::render($request, $exception);
     }
 

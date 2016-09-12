@@ -3,10 +3,9 @@
 namespace App\Listeners;
 
 use App\Events\UserLeftRoom;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
+use App\Notifications\UserLeftRoomNotification;
 
-class NotifyRoomOccupantsThatUserLeft
+class SendUserLeftRoomNotifications
 {
     /**
      * Create the event listener.
@@ -20,10 +19,9 @@ class NotifyRoomOccupantsThatUserLeft
      * Handle the event.
      *
      * @param  UserLeftRoom  $event
-     * @return void
      */
     public function handle(UserLeftRoom $event)
     {
-        //
+        $event->room->notifyExcept(new UserLeftRoomNotification($event->user, $event->room), $event->user);
     }
 }
