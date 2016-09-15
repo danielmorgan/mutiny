@@ -19,7 +19,7 @@ class MoveToLocation extends UserMove implements ShouldQueue
     /**
      * @var int
      */
-    public $duration = 5 * 60;
+    public $duration = 20;
 
     /**
      * @var string

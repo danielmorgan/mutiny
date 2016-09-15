@@ -18,6 +18,10 @@ class MoveUser extends FormRequest
             throw new InaccessibleLocationException;
         }
 
+        if (! $this->route()->location->userCanEnter) {
+            throw new InaccessibleLocationException;
+        }
+
         return true;
     }
 

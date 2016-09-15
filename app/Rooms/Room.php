@@ -27,6 +27,11 @@ class Room extends Model
     /**
      * @var string
      */
+    public $locationType = 'Room';
+
+    /**
+     * @var string
+     */
     public $name = 'All Purpose Room';
 
     /**

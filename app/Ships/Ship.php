@@ -30,6 +30,11 @@ class Ship extends Model
     /**
      * @var string
      */
+    public $locationType = 'Ship';
+
+    /**
+     * @var string
+     */
     public $description = 'I\'ts a bloody spaceship! What more could you possibly want?';
 
     /**

@@ -58,10 +58,11 @@ class Location extends Model
     public function scopeUserCanEnter($query)
     {
         if (Auth::check()) {
+            // A User can't enter their current location
             $query = $query->where('id', '!=', Auth::user()->location->parent->id);
         }
 
-        return $query->whereNotIn('locatable_type', [User::class, 'NULL']);
+        return $query->where('userCanEnter', true);
     }
 
 
@@ -109,6 +110,11 @@ class Location extends Model
         }
 
         return class_basename($this);
+    }
+
+    public function getTypeAttribute()
+    {
+        return $this->locatable->locationType ? $this->locatable->locationType : $this->locatable_type;
     }
 
 

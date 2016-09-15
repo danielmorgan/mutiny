@@ -2,14 +2,19 @@
 
 namespace App\Jobs;
 
-use App\Ships\Ship;
 use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use App\Exceptions\FeatureNotSupportedException;
+use App\Ships\Ship;
 use App\User;
 
+/**
+ * @TODO: Finish implementing events and listeners and notifications and everything else involved in boarding a new ship.
+ * @package App\Jobs
+ */
 class MoveToShip extends UserMove implements ShouldQueue
 {
     use InteractsWithQueue, Queueable, SerializesModels;
@@ -49,10 +54,13 @@ class MoveToShip extends UserMove implements ShouldQueue
      *
      * @param \App\User $user
      * @param \App\Ships\Ship $ship
+     * @throws \App\Exceptions\FeatureNotSupportedException
      * @param int $delay
      */
     public function __construct(User $user, Ship $ship, $delay = null)
     {
+        throw new FeatureNotSupportedException;
+
         $this->location = $ship;
         $this->ship = $ship;
         $this->user = $user;

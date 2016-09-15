@@ -3,7 +3,7 @@
     @if (Auth::user()->isMovingToLocation($location)) list-group-item-warning @endif
 ">
 
-    <h4 class="name list-group-item-heading"><strong>{{ $location }}</strong></h4>
+    <div class="name list-group-item-heading"><strong>{{ $location->type }}:</strong> {{ $location }}</div>
 
     @if (Auth::user()->isInLocation($location))
         <p class="list-group-item-text">(You are here)</p>

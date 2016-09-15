@@ -46,6 +46,11 @@ class User extends Authenticatable
     public $shipCanEnter = false;
 
     /**
+     * @var string
+     */
+    public $locationType = 'User';
+
+    /**
      * Get the route key for the model.
      *
      * @return string

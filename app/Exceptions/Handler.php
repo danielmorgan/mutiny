@@ -54,6 +54,11 @@ class Handler extends ExceptionHandler
             return redirect()->back()->withErrors($messageBag, 'flash');
         }
 
+        if ($exception instanceof FeatureNotSupportedException) {
+            $messageBag = new MessageBag(['feature' => 'This feature hasn\'t been implemented yet. Sorry!']);
+            return redirect()->back()->withErrors($messageBag, 'flash');
+        }
+
         return parent::render($request, $exception);
     }
 
