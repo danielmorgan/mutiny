@@ -36,6 +36,16 @@ class User extends Authenticatable
     public $locatedInside = 'ship';
 
     /**
+     * @var bool
+     */
+    public $userCanEnter = false;
+
+    /**
+     * @var bool
+     */
+    public $shipCanEnter = false;
+
+    /**
      * Get the route key for the model.
      *
      * @return string

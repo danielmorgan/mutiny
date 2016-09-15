@@ -4,6 +4,7 @@ namespace App\Rooms;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Notifications\ChannelManager;
 use LaravelCustomRelation\HasCustomRelations;
 use Nanigans\SingleTableInheritance\SingleTableInheritanceTrait;
 use App\Locatable;
@@ -29,13 +30,33 @@ class Room extends Model
     public $name = 'All Purpose Room';
 
     /**
+     * @var string
+     */
+    public $description = 'Yep, it\'s a room alright.';
+
+    /**
+     * @var string
+     */
+    public $image;
+
+    /**
+     * @var bool
+     */
+    public $userCanEnter = true;
+
+    /**
+     * @var bool
+     */
+    public $shipCanEnter = false;
+
+    /**
      * Send the given notification to everyone in the room.
      *
      * @param mixed $instance
      */
     public function notify($instance)
     {
-        app(\Illuminate\Notifications\ChannelManager::class)->send($this->occupants, $instance);
+        app(ChannelManager::class)->send($this->occupants, $instance);
     }
 
     /**
@@ -49,7 +70,7 @@ class Room extends Model
             return $user->id !== $exceptUser->id;
         });
 
-        app(\Illuminate\Notifications\ChannelManager::class)->send($targets, $instance);
+        app(ChannelManager::class)->send($targets, $instance);
     }
 
     /*

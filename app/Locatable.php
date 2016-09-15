@@ -59,10 +59,16 @@ trait Locatable
                     ['locatable_id', $locatable->$locatedInside->id],
                 ])->first();
             } else {
-                $parent = Location::where('parent_id', null)->first();
+                $parent = Location::find(1);
             }
 
             $locatable->location()->create([
+                'name' => $locatable->name,
+                'slug' => str_slug($locatable->name),
+                'description' => $locatable->description,
+                'image' => $locatable->image,
+                'userCanEnter' => $locatable->userCanEnter,
+                'shipCanEnter' => $locatable->shipCanEnter,
                 'locatable_id' => $locatable->id,
                 'locatable_type' => get_class($locatable),
                 'parent_id' => $parent->id,

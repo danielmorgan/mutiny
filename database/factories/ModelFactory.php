@@ -13,13 +13,7 @@
 
 $factory->define(App\Ships\Ship::class, function (Faker\Generator $faker) {
     return [
-        'name' => $faker->city,
-    ];
-});
-
-$factory->define(App\Rooms\Room::class, function (Faker\Generator $faker) {
-    return [
-        'type' => $faker->randomElement(['CombatInformationCentre', 'Communications', 'Navigation', 'Systems', 'Engineering']),
+        'name' => $faker->city
     ];
 });
 

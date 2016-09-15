@@ -52,7 +52,7 @@ Route::post('move/{location}', 'UserController@move')->name('move.user.location'
 
 // Model bindings
 Route::bind('ship', function($value) {
-    return \App\Ships\Ship::where('name', str_replace('-', ' ', $value))->first();
+    return \App\Ships\Ship::where('slug', $value)->first();
 });
 Route::bind('room', function($value) {
     return \App\Rooms\Room::where([

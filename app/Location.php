@@ -79,6 +79,18 @@ class Location extends Model
 
     /*
     |--------------------------------------------------------------------------
+    | Mutators
+    |--------------------------------------------------------------------------
+    */
+
+    public function setSlugAttribute()
+    {
+        $this->attributes['slug'] = str_slug($this->name);
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
     | Accessors
     |--------------------------------------------------------------------------
     */
@@ -97,20 +109,6 @@ class Location extends Model
         }
 
         return class_basename($this);
-    }
-
-    public function getImageAttribute()
-    {
-        if ($this->isLocatable()) {
-            $fileName = str_slug(class_basename($this->locatable_type));
-        } else {
-            $fileName = str_slug($this->name);
-        }
-
-        $filePath = "/img/locations/$fileName.jpg";
-        if (File::exists(public_path($filePath))) {
-            return $filePath;
-        }
     }
 
 

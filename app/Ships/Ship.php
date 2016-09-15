@@ -4,6 +4,7 @@ namespace App\Ships;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Notifications\ChannelManager;
 use App\Locatable;
 use App\User;
 use App\Rooms\Room;
@@ -25,6 +26,26 @@ class Ship extends Model
      * @var string|null
      */
     public $locatedInside = null;
+
+    /**
+     * @var string
+     */
+    public $description = 'I\'ts a bloody spaceship! What more could you possibly want?';
+
+    /**
+     * @var string
+     */
+    public $image = '/img/locations/ship.jpg';
+
+    /**
+     * @var bool
+     */
+    public $userCanEnter = true;
+
+    /**
+     * @var bool
+     */
+    public $shipCanEnter = false;
 
     /**
      * Get the route key for the model.
@@ -54,7 +75,7 @@ class Ship extends Model
      */
     public function notify($instance)
     {
-        app(\Illuminate\Notifications\ChannelManager::class)->send($this->crew, $instance);
+        app(ChannelManager::class)->send($this->crew, $instance);
     }
 
 
@@ -80,24 +101,6 @@ class Ship extends Model
         return $this->hasMany(Room::class);
     }
 
-
-    /*
-    |--------------------------------------------------------------------------
-    | Observers
-    |--------------------------------------------------------------------------
-    */
-
-    static public function boot()
-    {
-        static::created(function($ship) {
-            // Put the new ship the 'Universe' root Location
-            $ship->location()->create([
-                'locatable_id' => $ship->id,
-                'locatable_type' => Ship::class,
-                'parent_id' => 1,
-            ]);
-        });
-    }
 
     /**
      * @return string

@@ -12,10 +12,11 @@ class LocationsSeeder extends Seeder
     public function run()
     {
         (new App\Location([
-            'name' => 'Universe',
-            'locatable_id' => null,
-            'locatable_type' => null,
             'parent_id' => null,
+            'name' => 'Universe',
+            'description' => 'The expansive void stretches into an infinity of stars.',
+            'image' => '/img/locations/universe.jpg',
+            'shipCanEnter' => true,
         ]))->save();
     }
 }
