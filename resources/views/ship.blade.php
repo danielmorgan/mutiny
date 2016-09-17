@@ -27,7 +27,7 @@
                         <dt>Fuel</dt>
                         <dd>{{ number_format($ship->fuel) }}</dd>
                         <dt>Energy</dt>
-                        <dd>{{ number_format($ship->energy) }}</dd>
+                        <dd>{{ number_format($ship->energy) }} (<em>-{{ $ship->usePerTick('energy') }}/min</em>)</dd>
                     </dl>
 
                     <hr>

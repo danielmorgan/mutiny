@@ -47,28 +47,6 @@ class Ship extends Model
      */
     public $shipCanEnter = false;
 
-    /**
-     * Ship resource maximums.
-     *
-     * @var array
-     */
-    public static $resourceMax = [
-        'hull' => 250,
-        'armor' => 500,
-        'propellant' => 2000,
-        'fuel' => 100,
-        'energy' => 50000,
-    ];
-
-    /**
-     * How much of a resource will be used each tick.
-     *
-     * @var array
-     */
-    public static $resourceUse = [
-        'energy' => 10
-    ];
-
 
     /**
      * @var array
@@ -136,5 +114,39 @@ class Ship extends Model
     public function __toString()
     {
         return $this->name;
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Resources
+    |--------------------------------------------------------------------------
+    */
+
+    /**
+     * Ship resource maximums.
+     *
+     * @var array
+     */
+    public static $resourceMax = [
+        'hull' => 250,
+        'armor' => 500,
+        'propellant' => 2000,
+        'fuel' => 100,
+        'energy' => 50000,
+    ];
+
+    /**
+     * How much of a resource will be used each tick.
+     *
+     * @var array
+     */
+    public $resourceUse = [
+        'energy' => 10
+    ];
+
+    public function usePerTick($resource)
+    {
+        return $this->resourceUse[$resource];
     }
 }
