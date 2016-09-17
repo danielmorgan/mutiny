@@ -39,7 +39,7 @@ class TickShipResources extends Command
     {
         $ship = $this->arguments()['ship'];
 
-        $ship->resource->energy -= $ship->resourceUsage->energy;
+        $ship->resource->energy += $ship->resourceUsage->energy;
 
         $ship->resource->save();
 

@@ -20,7 +20,7 @@ class CreateResourceUsagesTable extends Migration
             $table->integer('armor')->default(0);
             $table->integer('propellant')->default(0);
             $table->integer('fuel')->default(0);
-            $table->integer('energy')->default(100);
+            $table->integer('energy')->default(-100);
 
             $table->foreign('ship_id')
                 ->references('id')

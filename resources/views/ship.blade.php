@@ -16,6 +16,13 @@
 
                     <hr>
 
+                    <h3>Debug Controls</h3>
+                    <form action="{{ route('ship.power-toggle') }}" method="POST">
+                        <button type="submit" class="btn btn-danger">Toggle Power</button>
+                    </form>
+
+                    <hr>
+
                     <h3>Resources</h3>
                     <dl class="dl-horizontal">
                         <dt>Hull</dt>
@@ -27,7 +34,7 @@
                         <dt>Fuel</dt>
                         <dd>{{ number_format($ship->resource->fuel) }}</dd>
                         <dt>Energy</dt>
-                        <dd>{{ number_format($ship->resource->energy) }} (<em>-{{ $ship->resourceUsage->energy }}/min</em>)</dd>
+                        <dd>{{ number_format($ship->resource->energy) }} (<em>{{ $ship->resourceUsage->energy }}/min</em>)</dd>
                     </dl>
 
                     <hr>

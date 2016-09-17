@@ -50,7 +50,11 @@ Route::post('wallet/transfer', 'WalletController@transfer');
 Route::post('move-cancel', 'UserController@cancelMove')->name('move.user.cancel');
 Route::post('move/{location}', 'UserController@move')->name('move.user.location');
 
-// Computer Actions
+// Resource Actions
+Route::post('ship/power-toggle', function() {
+    $power = Auth::user()->ship->togglePower();
+    return redirect()->back();
+})->name('ship.power-toggle');
 
 // Model bindings
 Route::bind('ship', function($value) {

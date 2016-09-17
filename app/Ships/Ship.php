@@ -144,4 +144,15 @@ class Ship extends Model
         'fuel' => 100,
         'energy' => 50000,
     ];
+
+    public function togglePower()
+    {
+        if ($this->resourceUsage->energy !== 0) {
+            $this->resourceUsage->energy = 0;
+        } else {
+            $this->resourceUsage->energy = -100;
+        }
+
+        $this->resourceUsage->save();
+    }
 }
