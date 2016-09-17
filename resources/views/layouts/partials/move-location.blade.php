@@ -6,7 +6,9 @@
     <div class="name list-group-item-heading"><strong>{{ $location->type }}:</strong> {{ $location }}</div>
 
     @if (Auth::user()->isInLocation($location))
-        <p class="list-group-item-text">(You are here)</p>
+        <p class="list-group-item-text">
+            <a href="{{ route('location') }}">(You are here)</a>
+        </p>
     @elseif (Auth::user()->isMovingToLocation($location))
         <form action="{{ route('move.user.cancel') }}" method="POST" class="cancel-move">
             <button type="submit" class="btn btn-sm btn-warning">

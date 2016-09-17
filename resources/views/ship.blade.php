@@ -18,7 +18,11 @@
 
                     <h3>Debug Controls</h3>
                     <form action="{{ route('ship.power-toggle') }}" method="POST">
-                        <button type="submit" class="btn btn-danger">Toggle Power</button>
+                        <button type="submit" class="btn btn-default">Toggle Power</button>
+                    </form>
+
+                    <form action="{{ route('ship.thruster-test') }}" method="POST">
+                        <button type="submit" class="btn btn-default">Test Thrusters</button>
                     </form>
 
                     <hr>

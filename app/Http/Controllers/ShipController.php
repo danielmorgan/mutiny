@@ -28,4 +28,32 @@ class ShipController extends Controller
 
         return view('ship')->with(compact('ship'));
     }
+
+    public function togglePower(Request $request)
+    {
+        if (Auth::user()->ship->resourceUsage->energy !== 0) {
+            Auth::user()->ship->resourceUsage->energy = 0;
+            $state = 'off';
+        } else {
+            Auth::user()->ship->resourceUsage->energy = -100;
+            $state = 'on';
+        }
+
+        Auth::user()->ship->resourceUsage->save();
+
+        $request->session()->flash('success', "Power has been turned <strong>$state</strong> across the entire ship.");
+
+        return redirect()->back();
+    }
+
+    public function testThrusters(Request $request)
+    {
+        Auth::user()->ship->resource->propellant -= 100;
+
+        Auth::user()->ship->resource->save();
+
+        $request->session()->flash('success', 'Reaction control thruster test fire sequence complete. 100 units of propellant depleted.');
+
+        return redirect()->back();
+    }
 }
