@@ -14,11 +14,6 @@ class Ship extends Model
     use Notifiable, Locatable;
 
     /**
-     * @var array
-     */
-    protected $fillable = ['name'];
-
-    /**
      * The default Location type for a new Locatable.
      * Must match a belongsTo relationship.
      * If null, the default Location will be the root node.
@@ -51,6 +46,34 @@ class Ship extends Model
      * @var bool
      */
     public $shipCanEnter = false;
+
+    /**
+     * Ship resource maximums.
+     *
+     * @var array
+     */
+    public static $resourceMax = [
+        'hull' => 250,
+        'armor' => 500,
+        'propellant' => 2000,
+        'fuel' => 100,
+        'energy' => 50000,
+    ];
+
+    /**
+     * How much of a resource will be used each tick.
+     *
+     * @var array
+     */
+    public static $resourceUse = [
+        'energy' => 10
+    ];
+
+
+    /**
+     * @var array
+     */
+    protected $fillable = ['name'];
 
     /**
      * Get the route key for the model.

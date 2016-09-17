@@ -11,6 +11,24 @@
                     <div class="location">
                         <p><strong>Current Location:</strong> {{ $ship->locatedIn->name }}</p>
                     </div>
+                    <p>{{ $ship->description }}</p>
+                    <img src="{{ $ship->image }}" class="img-responsive">
+
+                    <hr>
+
+                    <h3>Resources</h3>
+                    <dl class="dl-horizontal">
+                        <dt>Hull</dt>
+                        <dd>{{ number_format($ship->hull) }}</dd>
+                        <dt>Armor</dt>
+                        <dd>{{ number_format($ship->armor) }}</dd>
+                        <dt>Propellant</dt>
+                        <dd>{{ number_format($ship->propellant) }}</dd>
+                        <dt>Fuel</dt>
+                        <dd>{{ number_format($ship->fuel) }}</dd>
+                        <dt>Energy</dt>
+                        <dd>{{ number_format($ship->energy) }}</dd>
+                    </dl>
 
                     <hr>
 
