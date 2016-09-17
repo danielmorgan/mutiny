@@ -50,6 +50,8 @@ Route::post('wallet/transfer', 'WalletController@transfer');
 Route::post('move-cancel', 'UserController@cancelMove')->name('move.user.cancel');
 Route::post('move/{location}', 'UserController@move')->name('move.user.location');
 
+// Computer Actions
+
 // Model bindings
 Route::bind('ship', function($value) {
     return \App\Ships\Ship::where('slug', $value)->first();

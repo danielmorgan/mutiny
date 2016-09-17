@@ -27,7 +27,6 @@ class TickShipResources extends Command
      */
     public function __construct()
     {
-
         parent::__construct();
     }
 
@@ -40,9 +39,10 @@ class TickShipResources extends Command
     {
         $ship = $this->arguments()['ship'];
 
-        $ship->energy -= $ship->resourceUse['energy'];
-        $ship->save();
+        $ship->resource->energy -= $ship->resourceUsage->energy;
 
-        $this->info($ship . ' | Energy: ' . $ship->energy);
+        $ship->resource->save();
+
+        $this->info($ship . ' | Energy: ' . $ship->resource->energy);
     }
 }

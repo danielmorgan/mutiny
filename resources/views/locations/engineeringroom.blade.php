@@ -1,5 +1,9 @@
 <h3>Computers</h3>
-<div class="alert alert-warning">It looks like the IT guys haven't installed any System Interface Computers yet.</div>
+
+<div class="generator">
+    <h4>Generator</h4>
+    {{ $engineeringroom->generateEnergy() }}
+</div>
 
 <hr>
 

@@ -17,11 +17,6 @@ class CreateShipsTable extends Migration
         Schema::create('ships', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name')->unique();
-            $table->integer('hull')->default(Ship::$resourceMax['hull']);
-            $table->integer('armor')->default(Ship::$resourceMax['armor']);
-            $table->integer('propellant')->default(Ship::$resourceMax['propellant']);
-            $table->integer('fuel')->default(Ship::$resourceMax['fuel']);
-            $table->integer('energy')->default(Ship::$resourceMax['energy'] / 2);
             $table->timestamps();
         });
     }

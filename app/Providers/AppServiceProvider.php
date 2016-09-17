@@ -2,14 +2,16 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\ServiceProvider;
+use App\Ships\Ship;
+use App\Ships\ShipObserver;
 use App\User;
 use App\UserObserver;
 use Auth;
 use Blade;
-use Validator;
-use Illuminate\Support\ServiceProvider;
 use DB;
 use Log;
+use Validator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -29,6 +31,8 @@ class AppServiceProvider extends ServiceProvider
         Blade::directive('currency', function($expression) {
             return "<?php echo currency($expression); ?>";
         });
+
+        Ship::observe(ShipObserver::class);
     }
 
     /**

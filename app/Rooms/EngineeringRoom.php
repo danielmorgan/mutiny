@@ -9,4 +9,9 @@ class EngineeringRoom extends Room
     public $name = 'Engineering Bay';
     public $description = '@todo: Write description for this room.';
     public $image = '/img/locations/engineeringroom.jpg';
+
+    public function generateEnergy()
+    {
+        dump('generating energy');
+    }
 }

@@ -3,11 +3,11 @@
 namespace App\Ships;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Notifications\ChannelManager;
+use Illuminate\Notifications\Notifiable;
 use App\Locatable;
-use App\User;
 use App\Rooms\Room;
+use App\User;
 
 class Ship extends Model
 {
@@ -84,6 +84,14 @@ class Ship extends Model
         app(ChannelManager::class)->send($this->crew, $instance);
     }
 
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->name;
+    }
+
 
     /*
     |--------------------------------------------------------------------------
@@ -107,13 +115,14 @@ class Ship extends Model
         return $this->hasMany(Room::class);
     }
 
-
-    /**
-     * @return string
-     */
-    public function __toString()
+    public function resource()
     {
-        return $this->name;
+        return $this->hasOne(Resource::class, 'ship_id');
+    }
+
+    public function resourceUsage()
+    {
+        return $this->hasOne(ResourceUsage::class, 'ship_id');
     }
 
 
@@ -135,18 +144,4 @@ class Ship extends Model
         'fuel' => 100,
         'energy' => 50000,
     ];
-
-    /**
-     * How much of a resource will be used each tick.
-     *
-     * @var array
-     */
-    public $resourceUse = [
-        'energy' => 10
-    ];
-
-    public function usePerTick($resource)
-    {
-        return $this->resourceUse[$resource];
-    }
 }
