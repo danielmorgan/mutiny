@@ -19,15 +19,15 @@
                     <h3>Resources</h3>
                     <dl class="dl-horizontal">
                         <dt>Hull</dt>
-                        <dd>{{ number_format($ship->hull) }}</dd>
+                        <dd>{{ number_format($ship->resource->hull) }}</dd>
                         <dt>Armor</dt>
-                        <dd>{{ number_format($ship->armor) }}</dd>
+                        <dd>{{ number_format($ship->resource->armor) }}</dd>
                         <dt>Propellant</dt>
-                        <dd>{{ number_format($ship->propellant) }}</dd>
+                        <dd>{{ number_format($ship->resource->propellant) }}</dd>
                         <dt>Fuel</dt>
-                        <dd>{{ number_format($ship->fuel) }}</dd>
+                        <dd>{{ number_format($ship->resource->fuel) }}</dd>
                         <dt>Energy</dt>
-                        <dd>{{ number_format($ship->energy) }} (<em>-{{ $ship->usePerTick('energy') }}/min</em>)</dd>
+                        <dd>{{ number_format($ship->resource->energy) }} (<em>-{{ $ship->resourceUsage->energy }}/min</em>)</dd>
                     </dl>
 
                     <hr>

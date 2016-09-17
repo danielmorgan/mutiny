@@ -133,36 +133,6 @@ class User extends Authenticatable
 
     /*
     |--------------------------------------------------------------------------
-    | Observers
-    |--------------------------------------------------------------------------
-    */
-
-    public static function boot()
-    {
-        /**
-         * @todo Refactor. This should already happen on Locatable but the boot() function here is preventing that from running.
-         */
-        static::created(function($user) {
-            // Set the default balance
-            $user->balance = 6000;
-
-            // Place the user on a ship crew
-            $user->ship()->associate(Ship::first());
-
-            // Put the new user in the first Room of this ship
-            $user->location()->create([
-                'locatable_id' => $user->id,
-                'locatable_type' => User::class,
-                'parent_id' => $user->ship->rooms()->first()->location->id,
-            ]);
-
-            $user->save();
-        });
-    }
-
-
-    /*
-    |--------------------------------------------------------------------------
     | Domain specific methods
     |--------------------------------------------------------------------------
     */

@@ -2,8 +2,6 @@
 
 namespace App\Ships;
 
-use App\Ships\Resource;
-
 class ShipObserver
 {
     public function created(Ship $ship)

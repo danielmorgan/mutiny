@@ -17,11 +17,11 @@ class CreateResourcesTable extends Migration
         Schema::create('resources', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('ship_id')->unsigned()->index();
-            $table->integer('hull')->default(0);
-            $table->integer('armor')->default(0);
-            $table->integer('propellant')->default(0);
-            $table->integer('fuel')->default(0);
-            $table->integer('energy')->default(0);
+            $table->integer('hull')->unsigned()->default(0);
+            $table->integer('armor')->unsigned()->default(0);
+            $table->integer('propellant')->unsigned()->default(0);
+            $table->integer('fuel')->unsigned()->default(0);
+            $table->integer('energy')->unsigned()->default(0);
 
             $table->foreign('ship_id')
                 ->references('id')
