@@ -6,6 +6,7 @@ import swm from './sw-manager';
 import NotificationsSettings from './components/NotificationsSettings.vue';
 import NotificationsDropdown from './components/NotificationsDropdown.vue';
 import ActionProgressBar from './components/ActionProgressBar.vue';
+import Generator from './computers/Generator.vue';
 
 swm.registerServiceWorker();
 
@@ -15,6 +16,7 @@ const app = new Vue({
     components: {
         NotificationsSettings,
         NotificationsDropdown,
-        ActionProgressBar
+        ActionProgressBar,
+        Generator
     }
 });

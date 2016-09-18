@@ -1,8 +1,7 @@
 <h3>Computers</h3>
 
 <div class="generator">
-    <h4>Generator</h4>
-    {{ $engineeringroom->generateEnergy() }}
+    <generator></generator>
 </div>
 
 <hr>
