@@ -119,11 +119,14 @@
         },
 
         computed: {
+            fuelToEnergyConversionRate() {
+                return 42;
+            },
             energyOutputRate() {
-                return this.fuelInputRate * 42;
+                return this.fuelInputRate * this.fuelToEnergyConversionRate;
             },
             normalizedEnergyOutputRate() {
-                return this.fuelInputRate;
+                return (1 / this.fuelToEnergyConversionRate) * this.energyOutputRate;
             },
             normalizedTemperature() {
                 return (1 / 500) * this.temperature;
@@ -132,7 +135,10 @@
 
         methods: {
             save() {
-                console.log(this.energyOutputRate);
+                console.log('Fuel input', this.fuelInputRate);
+                console.log('Coolant input', this.coolantInputRate);
+                console.log('Energy output', this.energyOutputRate);
+                console.log('Temperature', this.temperature);
             }
         }
     }
