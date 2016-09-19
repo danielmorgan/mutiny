@@ -9,6 +9,7 @@ use LaravelCustomRelation\HasCustomRelations;
 use Nanigans\SingleTableInheritance\SingleTableInheritanceTrait;
 use App\Locatable;
 use App\Ships\Ship;
+use App\Systems\Generator;
 use App\User;
 use Auth;
 
@@ -150,6 +151,11 @@ class Room extends Model
     public function ship()
     {
         return $this->belongsTo(Ship::class);
+    }
+
+    public function systems()
+    {
+        return $this->hasMany(Generator::class, 'room_id');
     }
 
     /**

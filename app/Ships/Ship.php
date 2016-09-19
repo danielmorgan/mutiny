@@ -7,6 +7,7 @@ use Illuminate\Notifications\ChannelManager;
 use Illuminate\Notifications\Notifiable;
 use App\Locatable;
 use App\Rooms\Room;
+use App\Systems\Generator;
 use App\User;
 
 class Ship extends Model
@@ -120,9 +121,9 @@ class Ship extends Model
         return $this->hasOne(Resource::class, 'ship_id');
     }
 
-    public function resourceUsage()
+    public function systems()
     {
-        return $this->hasOne(ResourceUsage::class, 'ship_id');
+        return $this->hasManyThrough(Generator::class, Room::class);
     }
 
 
@@ -144,4 +145,16 @@ class Ship extends Model
         'fuel' => 100,
         'energy' => 50000,
     ];
+
+    public function resourceChange($resource)
+    {
+        return $this->systems->sum(function($system) use ($resource) {
+            $input = 0;
+            $output = 0;
+            if ($system["{$resource}_in"]) $input = $system["{$resource}_in"];
+            if ($system["{$resource}_out"]) $output = $system["{$resource}_out"];
+
+            return - $input + $output;
+        });
+    }
 }

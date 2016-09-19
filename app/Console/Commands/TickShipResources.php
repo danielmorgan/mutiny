@@ -21,6 +21,11 @@ class TickShipResources extends Command
     protected $description = 'Use up ship resources for one game tick.';
 
     /**
+     * @var array
+     */
+    public $resources = ['hull', 'armor', 'propellant', 'fuel', 'energy'];
+
+    /**
      * Create a new command instance.
      *
      * @return void
@@ -39,10 +44,11 @@ class TickShipResources extends Command
     {
         $ship = $this->arguments()['ship'];
 
-        $ship->resource->energy += $ship->resourceUsage->energy;
+        foreach ($this->resources as $resource) {
+            $ship->resource->$resource += $ship->resourceChange($resource);
+            $this->info($ship . ' | ' . $resource . ': ' . $ship->resource->$resource);
+        }
 
         $ship->resource->save();
-
-        $this->info($ship . ' | Energy: ' . $ship->resource->energy);
     }
 }

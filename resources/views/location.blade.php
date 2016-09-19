@@ -8,6 +8,9 @@
 
                 <div class="panel-body">
                     <h2>{{ $location }}</h2>
+
+                    {{ dump($location->systems) }}
+
                     <div class="parent-location">
                         <p>
                             <strong>Inside of:</strong>

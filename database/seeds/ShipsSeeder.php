@@ -24,6 +24,8 @@ class ShipsSeeder extends Seeder
                 new SystemsRoom,
                 new EngineeringRoom,
             ]);
+
+            $ship->rooms->last()->systems()->save(new \App\Systems\Generator);
         });
     }
 }

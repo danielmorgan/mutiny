@@ -8,6 +8,8 @@ use Auth;
 
 class Location extends Model
 {
+    public $timestamps = false;
+
     public $fillable = [
         'name', 'locatable_id', 'locatable_type', 'parent_id',
     ];

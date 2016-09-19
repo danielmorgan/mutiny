@@ -24,9 +24,8 @@ class CreateLocationsTable extends Migration
             $table->string('image')->nullable()->default(null);
             $table->boolean('userCanEnter')->default(false);
             $table->boolean('shipCanEnter')->default(false);
-            $table->timestamps();
 
-            $table->unique(['locatable_id', 'locatable_type', 'parent_id']);
+            $table->unique(['parent_id', 'locatable_type', 'locatable_id']);
         });
     }
 

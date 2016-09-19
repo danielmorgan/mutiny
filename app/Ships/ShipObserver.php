@@ -13,7 +13,5 @@ class ShipObserver
             'fuel' => Ship::$resourceMax['fuel'],
             'energy' => Ship::$resourceMax['energy'] / 2,
         ]);
-
-        $ship->resourceUsage()->create([]);
     }
 }
