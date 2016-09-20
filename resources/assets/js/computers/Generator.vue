@@ -63,7 +63,7 @@
                              role="progressbar"
                              aria-valuemin="0"
                              aria-valuemax="1"
-                             v-bind:aria-valuenow="temperature"
+                             v-bind:aria-valuenow="temp"
                              v-bind:style="{ width: (normalizedTemperature * 100) + '%' }"
                         >
                             {{ temp }}&deg;C
@@ -128,7 +128,7 @@
                 return this.energyOutputRate / 1000;
             },
             normalizedTemperature() {
-                return this.temperature / 1000;
+                return this.temp / 1000;
             }
         },
 

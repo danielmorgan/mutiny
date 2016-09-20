@@ -2,24 +2,24 @@
 
 namespace App\Console\Commands;
 
+use App\Systems\Generator;
 use Illuminate\Console\Command;
-use App\Ships\Ship;
 
-class Tick extends Command
+class TickSystems extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'game:tick';
+    protected $signature = 'game:tick:systems';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Run one game tick.';
+    protected $description = 'Calculate current outputs for all generators.';
 
     /**
      * Create a new command instance.
@@ -38,10 +38,8 @@ class Tick extends Command
      */
     public function handle()
     {
-        $this->call('game:tick:systems');
-
-        Ship::all()->each(function ($ship) {
-            $this->call('game:tick:ship-resources', ['ship' => $ship]);
+        Generator::all()->each(function($generator) {
+            $generator->updateOutputs();
         });
     }
 }

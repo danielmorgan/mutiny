@@ -14,6 +14,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         Commands\Tick::class,
+        Commands\TickSystems::class,
         Commands\TickShipResources::class,
     ];
 
