@@ -4,27 +4,29 @@
             <legend>Fission Generator</legend>
 
             <div class="form-group">
-                <range-slider :name="'fuelInputRate'"
-                              :min="0"
-                              :max="1"
-                              :step="0.01"
+                <range :name="'fuelInputRate'"
+                              :min="fuel_in_min"
+                              :max="fuel_in_max"
+                              :step="1"
                               :value.sync="fuelInputRate"
+                              @change="save"
                 >
                     <label for="fuelInputRate" slot="left">Fuel input:</label>
                     <p slot="right">{{ fuelInputRate }} kg/min</p>
-                </range-slider>
+                </range>
             </div>
 
             <div class="form-group">
-                <range-slider :name="'coolantInputRate'"
-                              :min="0"
-                              :max="1"
-                              :step="0.01"
+                <range :name="'coolantInputRate'"
+                              :min="coolant_in_min"
+                              :max="coolant_in_max"
+                              :step="1"
                               :value.sync="coolantInputRate"
+                              @change="save"
                 >
                     <label for="coolantInputRate" slot="left">Coolant input:</label>
                     <p slot="right">{{ coolantInputRate }} L/min</p>
-                </range-slider>
+                </range>
             </div>
 
             <div class="form-group">
@@ -47,7 +49,7 @@
                              v-bind:aria-valuenow="energyOutputRate"
                              v-bind:style="{ width: (normalizedEnergyOutputRate * 100) + '%' }"
                         >
-                            {{ energyOutputRate.toFixed(2) }} MW
+                            {{ energyOutputRate }} MW
                         </div>
                     </div>
                 </div>
@@ -64,33 +66,24 @@
                              v-bind:aria-valuenow="temperature"
                              v-bind:style="{ width: (normalizedTemperature * 100) + '%' }"
                         >
-                            {{ temperature.toFixed(1) }}&deg;C
+                            {{ temp }}&deg;C
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="form-group">
-                <div class="col-xs-12 text-center">
-                    <button type="submit" class="btn btn-large btn-primary"
-                        @click.prevent="save"
-                    >
-                        Save
-                    </button>
-                </div>
-            </div>
-
         </fieldset>
-
     </form>
 </template>
 
 
 <style lang="sass">
+    @import '../../sass/variables';
+
     fieldset {
         padding: 20px;
         border-radius: 4px;
-        border: 1px solid #ddd;
+        border: 2px solid $brand-info;
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 
         legend {
@@ -108,37 +101,60 @@
     import RangeSlider from '../components/RangeSlider.vue';
 
     export default {
-        components: { RangeSlider },
+        props: {
+            fuel_in: { type: Number, required: true },
+            fuel_in_min: { type: Number, required: true },
+            fuel_in_max: { type: Number, required: true },
+            coolant_in: { type: Number, required: true },
+            coolant_in_min: { type: Number, required: true },
+            coolant_in_max: { type: Number, required: true },
+            energy_out: { type: Number, required: true },
+            temperature: { type: Number, required: true }
+        },
+
+        components: { range: RangeSlider },
 
         data() {
             return {
-                fuelInputRate: 0,
-                coolantInputRate: 0,
-                temperature: 120
+                fuelInputRate: this.fuel_in,
+                coolantInputRate: this.coolant_in,
+                energyOutputRate: this.energy_out,
+                temp: this.temperature
             };
         },
 
         computed: {
-            fuelToEnergyConversionRate() {
-                return 42;
-            },
-            energyOutputRate() {
-                return this.fuelInputRate * this.fuelToEnergyConversionRate;
-            },
             normalizedEnergyOutputRate() {
-                return (1 / this.fuelToEnergyConversionRate) * this.energyOutputRate;
+                return this.energyOutputRate / 1000;
             },
             normalizedTemperature() {
-                return (1 / 500) * this.temperature;
+                return this.temperature / 1000;
             }
         },
 
+        ready() {
+            this.loop();
+        },
+
         methods: {
+            getStatus() {
+                this.$http.get('/system/generator/1/outputs')
+                    .then(({ data: { energy_out, temperature } }) => {
+                        this.energyOutputRate = energy_out;
+                        this.temp = temperature;
+                    });
+            },
+
             save() {
-                console.log('Fuel input', this.fuelInputRate);
-                console.log('Coolant input', this.coolantInputRate);
-                console.log('Energy output', this.energyOutputRate);
-                console.log('Temperature', this.temperature);
+                this.$http.post('/system/generator/1/inputs', {
+                    fuel_in: this.fuelInputRate,
+                    coolant_in: this.coolantInputRate
+                });
+            },
+
+            loop() {
+                this.getStatus();
+                setTimeout(this.loop.bind(this), 1000);
             }
         }
     }

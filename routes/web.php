@@ -53,6 +53,8 @@ Route::post('move/{location}', 'UserController@move')->name('move.user.location'
 // Resource Actions
 Route::post('ship/power-toggle', 'ShipController@togglePower')->name('ship.power-toggle');
 Route::post('ship/thruster-test', 'ShipController@testThrusters')->name('ship.thruster-test');
+Route::post('system/generator/{generator}/inputs', 'SystemController@setInputs')->name('system.generator.set-inputs');
+Route::get('system/generator/{generator}/outputs', 'SystemController@getOutputs')->name('system.generator.get-outputs');
 
 // Model bindings
 Route::bind('ship', function($value) {

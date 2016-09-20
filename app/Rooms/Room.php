@@ -153,11 +153,6 @@ class Room extends Model
         return $this->belongsTo(Ship::class);
     }
 
-    public function systems()
-    {
-        return $this->hasMany(Generator::class, 'room_id');
-    }
-
     /**
      * @return \LaravelCustomRelation\Relations\Custom;
      */

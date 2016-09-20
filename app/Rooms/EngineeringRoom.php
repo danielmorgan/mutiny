@@ -2,6 +2,8 @@
 
 namespace App\Rooms;
 
+use App\Systems\Generator;
+
 class EngineeringRoom extends Room
 {
     protected static $singleTableType = 'eng';
@@ -10,8 +12,8 @@ class EngineeringRoom extends Room
     public $description = '@todo: Write description for this room.';
     public $image = '/img/locations/engineeringroom.jpg';
 
-    public function generateEnergy()
+    public function generator()
     {
-        dump('generating energy');
+        return $this->hasOne(Generator::class, 'room_id');
     }
 }
