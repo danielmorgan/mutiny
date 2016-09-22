@@ -42,7 +42,7 @@
                 <label class="col-sm-2">Energy output:</label>
                 <div class="col-sm-10">
                     <div class="progress">
-                        <div class="progress-bar progress-bar-warning"
+                        <div class="progress-bar progress-bar-striped active progress-bar-warning"
                              role="progressbar"
                              aria-valuemin="0"
                              aria-valuemax="1"
@@ -59,7 +59,7 @@
                 <label class="col-sm-2">Temperature:</label>
                 <div class="col-sm-10">
                     <div class="progress">
-                        <div class="progress-bar progress-bar-danger"
+                        <div class="progress-bar progress-bar-striped active progress-bar-danger"
                              role="progressbar"
                              aria-valuemin="0"
                              aria-valuemax="1"
@@ -93,6 +93,11 @@
             font-weight: bold;
             padding: 0 10px;
         }
+    }
+
+    .progress-bar {
+        min-width: 50px;
+        transition: all 30s ease-in-out !important;
     }
 </style>
 

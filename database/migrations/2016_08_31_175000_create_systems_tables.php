@@ -20,6 +20,7 @@ class CreateSystemsTables extends Migration
             $table->integer('coolant_in')->default(0);
             $table->integer('energy_out')->default(0);
             $table->integer('temperature')->default(0);
+            $table->timestamps();
 
             $table->foreign('room_id')
                 ->references('id')
