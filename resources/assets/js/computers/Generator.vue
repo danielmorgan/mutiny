@@ -132,29 +132,18 @@
             }
         },
 
-        ready() {
-            this.loop();
-        },
-
         methods: {
-            getStatus() {
-                this.$http.get('/system/generator/1/outputs')
-                    .then(({ data: { energy_out, temperature } }) => {
-                        this.energyOutputRate = energy_out;
-                        this.temp = temperature;
-                    });
-            },
-
             save() {
-                this.$http.post('/system/generator/1/inputs', {
+                const payload = {
                     fuel_in: this.fuelInputRate,
                     coolant_in: this.coolantInputRate
-                });
-            },
+                };
 
-            loop() {
-                this.getStatus();
-                setTimeout(this.loop.bind(this), 1000);
+                this.$http.post('/system/generator/1/inputs', payload)
+                    .then(res => {
+                        this.energyOutputRate = res.data.energy_out;
+                        this.temp = res.data.temperature;
+                    });
             }
         }
     }

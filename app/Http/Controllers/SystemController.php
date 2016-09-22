@@ -19,8 +19,6 @@ class SystemController extends Controller
         $generator->coolant_in = $request->coolant_in;
         $generator->save();
 
-        $generator->updateOutputs();
-
-        return response()->json(['fuel_in' => $generator->fuel_in, 'coolant_in' => $generator->coolant_in]);
+        return response()->json($generator->updatedOutputs());
     }
 }

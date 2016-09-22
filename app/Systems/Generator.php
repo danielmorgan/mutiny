@@ -21,7 +21,7 @@ class Generator extends Model
         $this->belongsTo(Room::class);
     }
 
-    public function updateOutputs()
+    public function updatedOutputs()
     {
         $targetEnergyOutput = $this->fuel_in * $this->fuel_conversion_rate;
         $coolingAmount = $this->coolant_in * $this->coolant_conversion_rate;
@@ -29,6 +29,6 @@ class Generator extends Model
         $this->energy_out = $targetEnergyOutput;
         $this->temperature = $targetEnergyOutput - $coolingAmount;
 
-        $this->save();
+        return $this;
     }
 }

@@ -38,8 +38,8 @@ class TickSystems extends Command
      */
     public function handle()
     {
-        Generator::all()->each(function($generator) {
-            $generator->updateOutputs();
+        Generator::all()->each(function(Generator $generator) {
+            $generator->updatedOutputs()->save();
         });
     }
 }
