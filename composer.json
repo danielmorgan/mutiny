@@ -13,7 +13,8 @@
         "guzzlehttp/guzzle": "^6.2",
         "laravel/passport": "^0.2.4",
         "johnnyfreeman/laravel-custom-relation": "^0.0.3",
-        "nanigans/single-table-inheritance": "0.7.*"
+        "nanigans/single-table-inheritance": "0.7.*",
+        "barryvdh/laravel-debugbar": "^2.3"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
