@@ -169,6 +169,7 @@ return [
         Laracasts\Utilities\JavaScript\JavaScriptServiceProvider::class,
         Laravel\Passport\PassportServiceProvider::class,
         NotificationChannels\WebPush\WebPushServiceProvider::class,
+        Barryvdh\Debugbar\ServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -227,6 +228,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'PushNotification' => Davibennun\LaravelPushNotification\Facades\PushNotification::class,
+        'Debugbar' => Barryvdh\Debugbar\Facade::class,
 
     ],
 
