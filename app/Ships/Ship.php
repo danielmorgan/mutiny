@@ -142,7 +142,7 @@ class Ship extends Model
         'hull' => 250,
         'armor' => 500,
         'propellant' => 2000,
-        'fuel' => 100,
+        'fuel' => 5000,
         'energy' => 50000,
     ];
 
