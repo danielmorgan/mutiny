@@ -23,7 +23,7 @@ class TickShipResources extends Command
     /**
      * @var array
      */
-    public $resources = ['hull', 'armor', 'propellant', 'fuel', 'energy'];
+    public $resources = ['hull', 'armor', 'propellant', 'fuel', 'coolant', 'energy'];
 
     /**
      * Create a new command instance.

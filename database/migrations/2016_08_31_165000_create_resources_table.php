@@ -21,6 +21,7 @@ class CreateResourcesTable extends Migration
             $table->integer('armor')->unsigned()->default(0);
             $table->integer('propellant')->unsigned()->default(0);
             $table->integer('fuel')->unsigned()->default(0);
+            $table->integer('coolant')->unsigned()->default(0);
             $table->integer('energy')->unsigned()->default(0);
 
             $table->foreign('ship_id')

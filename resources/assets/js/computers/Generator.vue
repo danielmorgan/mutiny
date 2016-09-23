@@ -1,7 +1,7 @@
 <template>
     <form class="form-horizontal">
         <fieldset>
-            <legend>Fission Generator</legend>
+            <legend>Generator</legend>
 
             <div class="form-group">
                 <range :name="'fuelInputRate'"
@@ -42,12 +42,15 @@
                 <label class="col-sm-2">Energy output:</label>
                 <div class="col-sm-10">
                     <div class="progress">
-                        <div class="progress-bar progress-bar-striped active progress-bar-warning"
-                             role="progressbar"
+                        <div role="progressbar"
                              aria-valuemin="0"
                              aria-valuemax="1"
                              v-bind:aria-valuenow="energyOutputRate"
-                             v-bind:style="{ width: (normalizedEnergyOutputRate * 100) + '%' }"
+                             v-bind:class="['progress-bar', 'progress-bar-warning', { 'progress-bar-striped': energyOutputRate > 0, 'active': energyOutputRate > 0 }]"
+                             v-bind:style="{
+                                 width: (normalizedEnergyOutputRate * 100) + '%',
+                                 animation: 'reverse progress-bar-stripes ' + energyStripeSpeed + 's linear infinite'
+                             }"
                         >
                             {{ energyOutputRate }} MW
                         </div>
@@ -64,7 +67,11 @@
                              aria-valuemin="0"
                              aria-valuemax="1"
                              v-bind:aria-valuenow="temp"
-                             v-bind:style="{ width: (normalizedTemperature * 100) + '%' }"
+                             v-bind:class="['progress-bar', { 'progress-bar-striped': temp > 0, 'active': temp > 0 }]"
+                             v-bind:style="{
+                                width: (normalizedTemperature * 100) + '%',
+                                animation: 'reverse progress-bar-stripes ' + temperatureStripeSpeed + 's linear infinite',
+                             }"
                         >
                             {{ temp }}&deg;C
                         </div>
@@ -96,8 +103,9 @@
     }
 
     .progress-bar {
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
         min-width: 50px;
-        transition: all 30s ease-in-out !important;
+        transition: all 12s ease-out !important;
     }
 </style>
 
@@ -134,6 +142,12 @@
             },
             normalizedTemperature() {
                 return this.temp / 1000;
+            },
+            energyStripeSpeed() {
+                return 1 / (this.normalizedEnergyOutputRate * 3);
+            },
+            temperatureStripeSpeed() {
+                return 1 / (this.normalizedTemperature * 3);
             }
         },
 

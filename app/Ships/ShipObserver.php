@@ -11,6 +11,7 @@ class ShipObserver
             'armor' => Ship::$resourceMax['armor'],
             'propellant' => Ship::$resourceMax['propellant'],
             'fuel' => Ship::$resourceMax['fuel'],
+            'coolant' => Ship::$resourceMax['coolant'],
             'energy' => Ship::$resourceMax['energy'] / 2,
         ]);
     }
