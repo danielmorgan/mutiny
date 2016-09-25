@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Ships\Resource;
 use Illuminate\Console\Command;
 
 class TickShipResources extends Command
@@ -19,11 +20,6 @@ class TickShipResources extends Command
      * @var string
      */
     protected $description = 'Use up ship resources for one game tick.';
-
-    /**
-     * @var array
-     */
-    public $resources = ['hull', 'armor', 'propellant', 'fuel', 'coolant', 'energy'];
 
     /**
      * Create a new command instance.
@@ -44,7 +40,7 @@ class TickShipResources extends Command
     {
         $ship = $this->arguments()['ship'];
 
-        foreach ($this->resources as $resource) {
+        foreach (Resource::$types as $resource) {
             $ship->resource->$resource += $ship->resourceChange($resource);
             $this->info($ship . ' | ' . $resource . ': ' . $ship->resource->$resource);
         }
