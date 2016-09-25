@@ -8,5 +8,5 @@ class Resource extends Model
 {
     public $timestamps = false;
 
-    public static $types = ['hull', 'armor', 'propellant', 'fuel', 'energy'];
+    public static $types = ['hull', 'armor', 'propellant', 'fuel', 'coolant', 'energy'];
 }
