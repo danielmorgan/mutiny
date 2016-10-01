@@ -21,4 +21,11 @@ class SystemController extends Controller
 
         return response()->json($generator->updatedOutputs());
     }
+
+    public function getShipResources()
+    {
+        $resources = Auth::user()->ship->resource;
+
+        return response()->json($resources);
+    }
 }

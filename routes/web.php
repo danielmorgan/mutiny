@@ -51,6 +51,7 @@ Route::post('move-cancel', 'UserController@cancelMove')->name('move.user.cancel'
 Route::post('move/{location}', 'UserController@move')->name('move.user.location');
 
 // Resource Actions
+Route::get('system/resources', 'SystemController@getShipResources')->name('ship.resources');
 Route::post('ship/power-toggle', 'ShipController@togglePower')->name('ship.power-toggle');
 Route::post('ship/thruster-test', 'ShipController@testThrusters')->name('ship.thruster-test');
 Route::post('system/generator/{generator}/inputs', 'SystemController@setInputs')->name('system.generator.set-inputs');

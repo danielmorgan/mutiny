@@ -4,6 +4,16 @@
             <legend>Generator</legend>
 
             <div class="form-group">
+                <label class="col-sm-2">Fuel Stores:</label>
+                <div class="col-sm-10">{{ fuel }}kg</div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2">Coolant Stores:</label>
+                <div class="col-sm-10">{{ coolant }}L</div>
+            </div>
+
+            <div class="form-group">
                 <range :name="'fuelInputRate'"
                               :min="fuel_in_min"
                               :max="fuel_in_max"
@@ -30,15 +40,6 @@
             </div>
 
             <div class="form-group">
-                <label class="col-sm-2" for="route-to">Route to:</label>
-                <div class="col-sm-10">
-                    <select class="form-control" id="route-to" name="route-to">
-                        <option value="ship">Ship Batteries</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="form-group">
                 <label class="col-sm-2">Energy output:</label>
                 <div class="col-sm-10">
                     <div class="progress">
@@ -52,7 +53,7 @@
                                  animation: 'reverse progress-bar-stripes ' + energyStripeSpeed + 's linear infinite'
                              }"
                         >
-                            {{ energyOutputRate }} MW
+                            {{ energyOutputRate }} Mw
                         </div>
                     </div>
                 </div>
@@ -77,6 +78,20 @@
                         </div>
                     </div>
                 </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2" for="route-to">Route to:</label>
+                <div class="col-sm-10">
+                    <select class="form-control" id="route-to" name="route-to">
+                        <option value="ship">Ship Batteries</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2" for="route-to">Energy Stores:</label>
+                <div class="col-sm-10">{{ energy }}Mwh</div>
             </div>
 
         </fieldset>
@@ -132,7 +147,11 @@
                 fuelInputRate: this.fuel_in,
                 coolantInputRate: this.coolant_in,
                 energyOutputRate: this.energy_out,
-                temp: this.temperature
+                temp: this.temperature,
+                fuel: null,
+                coolant: null,
+                energy: null,
+                timeout: null
             };
         },
 
@@ -151,7 +170,22 @@
             }
         },
 
+        ready() {
+            this.loadResources();
+        },
+
         methods: {
+            loadResources() {
+                this.$http.get('/system/resources')
+                    .then(({ data }) => {
+                        this.fuel = data.fuel;
+                        this.coolant = data.coolant;
+                        this.energy = data.energy;
+                    });
+
+                this.timeout = setTimeout(this.loadResources.bind(this), 10000);
+            },
+
             save() {
                 const payload = {
                     fuel_in: this.fuelInputRate,
@@ -162,6 +196,8 @@
                     .then(res => {
                         this.energyOutputRate = res.data.energy_out;
                         this.temp = res.data.temperature;
+
+                        clearTimeout(this.timeout);
                     });
             }
         }
