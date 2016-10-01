@@ -80,6 +80,12 @@
                 </div>
             </div>
 
+            <div class="alert alert-danger"
+                 v-if="temp >= 1000"
+                >
+                Overheat! Reduce Generator temperature.
+            </div>
+
             <div class="form-group">
                 <label class="col-sm-2" for="route-to">Route to:</label>
                 <div class="col-sm-10">

@@ -22,7 +22,7 @@ class Generator extends Model
     // Conversion rates
     public $fuel_to_energy_conversion_rate = 100;
     public $fuel_to_heat_conversion_rate = 200;
-    public $coolant_to_heat_conversion_rate = -5;
+    public $coolant_to_heat_conversion_rate = -3;
 
     public function room() {
         $this->belongsTo(Room::class);
