@@ -20,13 +20,17 @@ class ShipController extends Controller
      * @param \App\Ships\Ship $ship
      * @return \Illuminate\View\View
      */
-    public function ship(Ship $ship)
+    public function ship(Ship $ship = null)
     {
         if (! $ship->exists) {
             $ship = Auth::user()->ship;
         }
 
         return view('ship')->with(compact('ship'));
+    }
+
+    public function getLocation() {
+        return Auth::user()->ship->location->parent;
     }
 
     public function togglePower(Request $request)

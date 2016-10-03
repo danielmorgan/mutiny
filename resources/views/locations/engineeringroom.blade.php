@@ -1,3 +1,7 @@
+@include('locations.partials.room-occupants', ['room' => $engineeringroom])
+
+<hr>
+
 <h3>Computers</h3>
 
 <generator :fuel_in="{{ $engineeringroom->generator->fuel_in }}"
@@ -8,7 +12,4 @@
            :coolant_in_max="{{ $engineeringroom->generator->coolant_in_max }}"
            :energy_out="{{ $engineeringroom->generator->energy_out }}"
            :temperature="{{ $engineeringroom->generator->temperature }}">
-
-<hr>
-
-@include('locations.partials.room-occupants', ['room' => $engineeringroom])
+</generator>

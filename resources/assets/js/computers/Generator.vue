@@ -1,6 +1,6 @@
 <template>
     <form class="form-horizontal">
-        <fieldset>
+        <fieldset class="computer">
             <legend>Generator</legend>
 
             <div class="form-group">
@@ -105,24 +105,7 @@
 </template>
 
 
-<style lang="sass">
-    @import '../../sass/variables';
-
-    fieldset {
-        padding: 20px;
-        border-radius: 4px;
-        border: 2px solid $brand-info;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-
-        legend {
-            width: auto;
-            margin: 0;
-            border: none;
-            font-weight: bold;
-            padding: 0 10px;
-        }
-    }
-
+<style lang="sass" scoped>
     .progress-bar {
         text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
         min-width: 50px;

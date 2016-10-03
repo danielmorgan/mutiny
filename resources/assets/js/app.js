@@ -7,6 +7,7 @@ import NotificationsSettings from './components/NotificationsSettings.vue';
 import NotificationsDropdown from './components/NotificationsDropdown.vue';
 import ActionProgressBar from './components/ActionProgressBar.vue';
 import Generator from './computers/Generator.vue';
+import ShipLocation from './computers/ShipLocation.vue';
 
 swm.registerServiceWorker();
 
@@ -17,6 +18,7 @@ const app = new Vue({
         NotificationsSettings,
         NotificationsDropdown,
         ActionProgressBar,
-        Generator
+        Generator,
+        ShipLocation
     }
 });

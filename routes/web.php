@@ -14,7 +14,7 @@
 Auth::routes();
 
 Route::get('/', 'UserController@location')->name('location');
-Route::get('ship/{ship?}', 'ShipController@ship')->name('ship');
+Route::get('ship', 'ShipController@ship')->name('ship');
 Route::get('profile/{user?}', 'UserController@profile')->name('profile');
 Route::get('wallet', 'WalletController@page')->name('wallet');
 Route::get('settings', 'UserController@settings')->name('settings');
@@ -54,8 +54,13 @@ Route::post('move/{location}', 'UserController@move')->name('move.user.location'
 Route::get('system/resources', 'SystemController@getShipResources')->name('ship.resources');
 Route::post('ship/power-toggle', 'ShipController@togglePower')->name('ship.power-toggle');
 Route::post('ship/thruster-test', 'ShipController@testThrusters')->name('ship.thruster-test');
+
+// Generator
 Route::post('system/generator/{generator}/inputs', 'SystemController@setInputs')->name('system.generator.set-inputs');
 Route::get('system/generator/{generator}/outputs', 'SystemController@getOutputs')->name('system.generator.get-outputs');
+
+// Ship Location
+Route::get('ship/location', 'ShipController@getLocation')->name('ship.get-location');
 
 // Model bindings
 Route::bind('ship', function($value) {

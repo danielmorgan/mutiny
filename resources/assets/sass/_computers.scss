@@ -1,0 +1,14 @@
+fieldset.computer {
+    padding: 20px;
+    border-radius: 4px;
+    border: 2px solid $brand-info;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+
+    legend {
+        width: auto;
+        margin: 0;
+        border: none;
+        font-weight: bold;
+        padding: 0 10px;
+    }
+}

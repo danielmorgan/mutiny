@@ -1,6 +1,7 @@
-<h3>Computers</h3>
-<div class="alert alert-warning">It looks like the IT guys haven't installed any System Interface Computers yet.</div>
+@include('locations.partials.room-occupants', ['room' => $navigationroom])
 
 <hr>
 
-@include('locations.partials.room-occupants', ['room' => $navigationroom])
+<h3>Computers</h3>
+
+<ship-location></ship-location>
