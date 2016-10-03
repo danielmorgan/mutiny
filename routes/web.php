@@ -60,7 +60,8 @@ Route::post('system/generator/{generator}/inputs', 'SystemController@setInputs')
 Route::get('system/generator/{generator}/outputs', 'SystemController@getOutputs')->name('system.generator.get-outputs');
 
 // Ship Location
-Route::get('ship/location', 'ShipController@getLocation')->name('ship.get-location');
+Route::get('ship/location', 'ShipController@getLocation')->name('ship.location');
+Route::get('ship/local-area', 'ShipController@getLocalArea')->name('ship.local-area');
 
 // Model bindings
 Route::bind('ship', function($value) {

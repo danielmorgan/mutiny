@@ -33,6 +33,10 @@ class ShipController extends Controller
         return Auth::user()->ship->location->parent;
     }
 
+    public function getLocalArea() {
+        return Auth::user()->ship->location->siblings;
+    }
+
     public function togglePower(Request $request)
     {
         if (Auth::user()->ship->resourceUsage->energy !== 0) {

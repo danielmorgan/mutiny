@@ -28,5 +28,13 @@ class LocationsSeeder extends Seeder
             'image' => '/img/locations/station.jpg',
             'shipCanEnter' => true,
         ]))->save();
+
+        (new App\Location([
+            'parent_id' => $universe->id,
+            'name' => 'Asteroid',
+            'description' => 'A large but otherwise unremarkable asteroid.' ,
+            'image' => '/img/locations/asteroid.jpg',
+            'shipCanEnter' => true,
+        ]))->save();
     }
 }

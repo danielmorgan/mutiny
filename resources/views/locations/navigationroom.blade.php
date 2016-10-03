@@ -4,4 +4,6 @@
 
 <h3>Computers</h3>
 
+<local-area></local-area>
+
 <ship-location></ship-location>
