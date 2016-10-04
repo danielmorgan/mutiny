@@ -34,7 +34,13 @@ class ShipController extends Controller
     }
 
     public function getLocalArea() {
-        return Auth::user()->ship->location->siblings;
+        $shipLocation = Auth::user()->ship->location;
+        $targets = $shipLocation->siblings;
+        $targetsFiltered = $targets->filter(function($location) use ($shipLocation) {
+            return $location->id !== $shipLocation->id;
+        });
+
+        return $targetsFiltered;
     }
 
     public function togglePower(Request $request)
