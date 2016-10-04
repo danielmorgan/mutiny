@@ -3,22 +3,31 @@
         <fieldset class="computer">
             <legend>Local Area</legend>
 
-            <div v-for="location in locations">
-                <dl class="dl-horizontal">
-                    <dt>ID:</dt>
-                    <dd>{{ location.id }}</dd>
-                    <dt>Name:</dt>
-                    <dd>{{ location.name }}</dd>
-                    <dt>Description:</dt>
-                    <dd>{{ location.description }}</dd>
-                    <dd>
-                        <button class="btn btn-info"
-                                @click.prevent="go(location)"
-                        >
-                            Go
-                        </button>
-                    </dd>
-                </dl>
+            <div class="table-responsive">
+                <table class="table table-bordered table-condensed table-striped">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Distance</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="location in locations">
+                            <th scope="row">{{ location.id }}</th>
+                            <td>{{ location.name }}</td>
+                            <td>500Km</td>
+                            <td class="actions text-center">
+                                <button class="btn btn-info"
+                                        @click.prevent="go(location)"
+                                >
+                                    Go to
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </fieldset>
     </div>
