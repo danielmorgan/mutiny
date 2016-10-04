@@ -36,5 +36,13 @@ class LocationsSeeder extends Seeder
             'image' => '/img/locations/asteroid.jpg',
             'shipCanEnter' => true,
         ]))->save();
+
+        (new App\Location([
+            'parent_id' => $universe->id,
+            'name' => 'Sol III',
+            'description' => 'A blue planet covered in some green bits.' ,
+            'image' => '/img/locations/soliii.jpg',
+            'shipCanEnter' => true,
+        ]))->save();
     }
 }
